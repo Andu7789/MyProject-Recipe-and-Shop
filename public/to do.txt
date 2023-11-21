@@ -1,0 +1,25 @@
+-------------- Done --------------
+
+* Add classes - done
+* split files into css and js - done
+* on final checkout - reset cart to zero - done
+* on final checkout - update orders Db with new numbers as per the order
+* check you cannot order more  than is in stock...
+* fix the issue with shopping button when you click it doesnt show the shopping
+* add fucntionality for the back to shopping button - removed the button didnt need it
+* fix shopping cart when you click on it 
+* decide if you are going to change shop to food
+    * if so, add search for recipe from each item functionality??? - would be good :-)
+* on checkout set cartitems to zero
+* recipe - onclcik open recipe in new window
+
+--------------- Still to do ---------------
+* on checkout hide productview
+* favourite recipe
+* video screen - show or hide cart?
+* format recipe wording under image
+* add postage
+* add email confirmation
+* need an account section to store the email address
+* design email template
+

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a29d9734c5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+
+
+    <ul class="nav nav-pills sticky-top navbar-light bg-light custom-nav-pills ms-1 me-3 mt-2 p-3 border border-secondary rounded">
+      <!-- Your existing navigation items -->
+      <li class="nav-item">
+        <a class="nav-link active" id="recipesMenu" href="#">Recipes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="shop" href="#">Shop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link videosMenu" id="videosMenu" href="#">Videos</a>
+      </li>
+      <!-- <li class="nav-item">
+    <a class="nav-link" id="newsLetter" href="#">News Letter</a>
+  </li>-->
+      <li class="nav-item">
+        <a class="nav-link" id="MemoryDestruct" href="#">Memory Destruct!!!</a>
+      </li>
+
+      <form class="d-flex ms-auto me-3">
+        <button class="btn btn-secondary me-3 rounded" type="submit" id="accountButton">Account</button>
+        <i class="fa-solid fa-cart-shopping fa-2xl mt-3 carthover" id="cartIcon" onclick="checkForNumberofItemsInOrder()"></i>
+        <span id="cartItemCount">0</span>
+
+      </form>
+    </ul>
+
+    <div class="container-fluid ">
+      <div class="row">
+        <div class="col-9">
+          <!-- Recipe container-->
+          <div class="container mb-5 mt-2 pb-1 ps-5 pe-5 bg-dark text-dark border border-secondary rounded " id="recipeMainContainer">
+            <div class="container mt-3">
+              <div class="row">
+                <div class="col">
+                </div>
+                <!-- Search and reset container-->
+                <div class="input-group mt-3 col">
+                  <input type="text" class="form-control border border-secondary border-1 rounded me-2" id="seacrhBar"
+                    placeholder="Discover 1000's of recipes" aria-label="Discover 1000's of recipes" aria-describedby="button-addon2">
+                  <button class="btn btn-secondary rounded" type="button" id="searchButton">Search</button>
+                  <button class="btn btn-secondary ms-2 rounded" type="button" id="resetButton">Reset</button>
+                </div>
+                <div class="col">
+                </div>
+              </div>
+            </div>
+            <!-- Dropdown section for recipes-->
+            <div class="container border border-secondary mt-4 border-1 rounded text-center p-2 bg-white text-dark">
+              <div class="row">
+                <div class="col-1 text-center pt-1 ps-4">
+                  Filter By:
+                </div>
+                <div class="col-3">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCuisine" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'American', 'dropdownCuisine')">American</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Asian', 'dropdownCuisine')">Asian</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'British', 'dropdownCuisine')">British</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Chinese', 'dropdownCuisine')">Chinese</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Indian', 'dropdownCuisine')">Indian</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Italian', 'dropdownCuisine')">Italian</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMealType" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Breakfast', 'dropdownMealType')">Breakfast</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Dinner', 'dropdownMealType')">Dinner</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Lunch', 'dropdownMealType')">Lunch</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Dessert', 'dropdownMealType')">Dessert</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownDishType" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Starter', 'dropdownDishType')">Starter</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Main Course', 'dropdownDishType')">Main
+                          Course</a></li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Desserts', 'dropdownDishType')">Desserts</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Salad', 'dropdownDishType')">Salad</a>
+                      </li>
+                      <li><a class="dropdown-item" onclick="selectItem(event, 'Soup', 'dropdownDishType')">Soup</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- recipe card container-->
+            <div class="container border border-secondary border-1 bg-light mb-5 mt-5 rounded cardsContainer" id="cardsContainer">
+            </div>
+          </div>
+          <!-- Main shopping container-->
+          <div class="container mb-5 mt-2 pb-1 ps-5 pe-5 bg-dark text-dark border border-secondary rounded hidden" id="shoppingcontainer">
+            <!-- Product Cards container-->
+            <div class="container  pt-3 mb-5 pb-1 ps-5 pe-5 bg-light text-dark border border-secondary rounded mt-5 hidden" id="cardsContainerShop">
+            </div>
+          </div>
+          <div class="container text-center border border-dark my-2 rounded py-3 px-5 hidden" id="productViewContainer">
+
+            <div class="row">
+
+              <div class="col-2">
+                <img src="Food\Whole chicken.png" alt="image" id="productViewImg">
+              </div>
+
+              <div class="col">
+                <div class="row">
+                  <div class="col">
+                    <h3 id="productViewTitle">Whole Chicken</h3>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 d-flex align-items-center justify-content-center">
+                    <p id="productViewDescription">text</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 py-2">
+                    <div class="d-flex align-items-center justify-content-center ">
+                      <h5 class="me-2" id="productViewInsufficientStock">test
+                      </h5>
+                      <h5 class="me-2" id="productViewNumberInCart">test
+                      </h5>
+                      <h4 class="price me-2" id="productViewPrice">£5</h4>
+                      <input type="number" class="me-2" id="productViewQty" min="1">
+                      <button type="button" class="btn btn-secondary" id="productViewAddButton">Add to
+                        Cart</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+
+                  <div class="col-12 d-flex flex-column align-items-center  py-2">
+                    <!-- Content for the new column -->
+                    <h2 class="">Recipe Search</h2>
+
+                    <div class="d-flex">
+                      <!-- Country Dropdown -->
+                      <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle me-1" type="button" id="dropdownCuisine2" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          Country
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'American', 'dropdownCuisine2')">American</a>
+                          </li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Asian', 'dropdownCuisine2')">Asian</a>
+                          </li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'British', 'dropdownCuisine2')">British</a>
+                          </li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Chinese', 'dropdownCuisine2')">Chinese</a>
+                          </li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Indian', 'dropdownCuisine2')">Indian</a>
+                          </li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Italian', 'dropdownCuisine2')">Italian</a>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <!-- Meal Type Dropdown -->
+                      <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle me-1" type="button" id="dropdownMealType2" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          Meal Type
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Breakfast', 'dropdownMealType2')">Breakfast</a>
+                          </li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Dinner', 'dropdownMealType2')">Dinner</a>
+                          </li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Lunch', 'dropdownMealType2')">Lunch</a>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle me-1" type="button" id="dropdownDishType2" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          Dish Type
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Starter', 'dropdownDishType2')">Starter</a>
+                          </li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Main Course', 'dropdownDishType2')">Main
+                              Course</a></li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Desserts', 'dropdownDishType2')">Desserts</a>
+                          </li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Salad', 'dropdownDishType2')">Salad</a>
+                          </li>
+                          <li><a class="dropdown-item" onclick="selectItem(event, 'Soup', 'dropdownDishType2')">Soup</a>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <button class="btn btn-secondary rounded me-1" type="button" id="searchButton2"
+                        onclick="fetchRecipesProductView()">Search</button>
+                      <button class="btn btn-secondary rounded " type="button" id="closeButton1" onclick="fetchRecipesProductView()">Close</button>
+                    </div>
+                    <div class="col-7 my-3">
+                      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-theme="dark">
+                        <div class="carousel-indicators ">
+                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active " aria-current="true"
+                            aria-label="Slide 1"></button>
+                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <img src="" class="d-block w-50 mx-auto rounded" alt="..." id="carouselImg1">
+                            <div class="carousel-caption d-none d-md-block text-dark" id="carousel1-caption">
+                              <p id="carousel">Some representative placeholder
+                                content for the first slide.</p>
+                            </div>
+                          </div>
+                          <div class="carousel-item">
+                            <img src="" class="d-block w-50 mx-auto rounded" alt="..." id="carouselImg2">
+                            <div class="carouse2-caption d-none d-md-block text-dark" id="carousel2-caption">
+                              <p>Some representative placeholder content for the
+                                second slide.</p>
+                            </div>
+                          </div>
+                          <div class="carousel-item">
+                            <img src="" class="d-block w-50 mx-auto rounded" alt="..." id="carouselImg3">
+                            <div class=" d-none d-md-block text-dark" id="carousel3-caption">
+                              <p>Some representative placeholder content for the
+                                third slide.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Close Button -->
+                    <div class="row mt-auto align-items-center justify-content-center hidden mt-2" id="closeButton">
+                      <button type="button" class="btn btn-secondary w-200">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3 fixed-col">
+          <!-- Shopping cart container-->
+          <div class="container border border-secondary border-1 bg-light mb-5 mt-2 w-100 rounded sticky-sidebar" id="cartContainer">
+            <div style="font-size: 24px; margin-bottom: 15px;">
+              <h2 class="mt-2"><b>Shopping Cart</b></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Vidoes container-->
+    <div class="container container-videos hidden border border-secondary bg-dark p-5 rounded mt-2" id="videoscontainer">
+      <div class="row row-cols-1 row-cols-md-2 g-4 rounded">
+        <div class="col">
+          <div class="card border border-secondary">
+            <img src="https://img.taste.com.au/3Sc_EN9s/w643-h428-cfill-q90/taste/2018/05/how-to-boil-an-egg-140215-2.jpg" class="card-img-top"
+              alt="...">
+            <div class="card-body">
+              <h5 class="card-title">How to boil an egg</h5>
+              <button class="btn btn-secondary rounded btnboil" id="btnboil">Watch Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card border border-secondary">
+            <img src="https://www.egginfo.co.uk/sites/default/files/styles/large_main_image/public/2022/07/how-to-poach-egg-1300.jpg?itok=NfYxJZyM"
+              class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">How to poach an egg</h5>
+              <button class="btn btn-secondary rounded" id="btnpoach">Watch
+                Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container video1 hidden" id="video1">
+      <div class="position-absolute top-50 start-50 translate-middle" style="width: 570px; height: 325px; border: 5px grey solid ">
+        <iframe class="" width="560" height="315" src="https://www.youtube.com/embed/NltcHMilrU8" frameborder="0" allowfullscreen></iframe>
+        <button class="btn btn-secondary rounded mt-2 " id="btnbac1">Back to
+          vidoes</button>
+      </div>
+    </div>
+    <div class="container video2 hidden" id="video2">
+      <div class="position-absolute top-50 start-50 translate-middle" style="width: 570px; height: 325px; border: 5px grey solid">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/yifZtA3uF-E" frameborder="0" allowfullscreen></iframe>
+        <button class="btn btn-secondary rounded mt-2 " id="btnbac2">Back to
+          vidoes</button>
+      </div>
+    </div>
+    <!-- NewsLetter container
+<div class="container">
+<section class="vh-100 bg-image rounded mt-5 mb-5 hidden" id="newsLetterContainer"
+  style="background-image: url('https://img.freepik.com/premium-photo/kitchen-cooking-background_107389-2344.jpg?w=1380');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100 ">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5 bg-light">
+              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+              <form>
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example1cg">Your Name</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example3cg">Your Email</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example4cg">Password</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                </div>
+
+                <div class="form-check d-flex justify-content-center mb-5">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                  <label class="form-check-label" for="form2Example3g">
+                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                  </label>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <button type="button"
+                    class="btn btn-secondary btn-block btn-lg gradient-custom-4 text-body" id="newsLetterbutton">Register</button>
+                </div>
+
+                <p class="text-center text-muted mt-5 mb-0">Already have an account? <a href="#!"
+                    class="fw-bold text-body"><u>Login here</u></a></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+Newsletter signed up message container
+<div class="alert alert-secondary alert-dismissible fade show text-center hidden mt-5" role="alert" id="alertbox">
+  <strong>All done.</strong> You are now signed up to our monthly newsletter
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+  </button>
+</div>-->
+
+
+    <!-- Checkout container-->
+    <div class="container mb-5 pb-1 ps-5 pe-5 bg-dark text-dark border border-secondary rounded mt-5 hidden" id="checkoutContainer">
+      <div class="container  border border-secondary bg-light p-4 rounded mt-4 mb-5 w-75">
+        <div class="col-12 container" id="checkoutContainerTop"></div>
+        <div class="row">
+          <div class="col-6 checkoutContainer-left" id="checkoutContainer-left">
+          </div>
+          <div class="col-6 checkoutContainer-right" id="checkoutContainer-righ"></div>
+        </div>
+        <div class="row">
+          <div class="col-6 "></div>
+          <div class="col-6" id="checkoutContainerBottom"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------------------------------------  -->
+
+    <!-- Choose new delivery address container-->
+    <div class="container float-end border border-secondary rounded w-25  ms-3 me-3 mt-3 p-3 hidden " id="chooseNewAddressContainer">
+      <h4>Your Addresses</h>
+    </div>
+    <!-- Account section main container-->
+    <div class="container float-end border border-secondary rounded w-35  ms-3 me-3 mt-3 p-3 hidden" id="accountContainer">
+      <button class="btn btn-secondary me-2 rounded ms-3" id="previousOrdersButton">Previous Orders</button>
+      <button class="btn btn-secondary me-2 rounded ms-3" id="yourAddressessButton">Your Addresses</button>
+      <button class="btn btn-secondary me-2 rounded ms-3" id="StockControlButton">Stock Control</button>
+      <div class="col-12 container" id="accountContainer2"></div>
+    </div>
+    <!-- Add new address container-->
+    <div class="container w-25 p-3 mt-3 border border-dark-subtle border-2 rounded hidden" id="addAddressFormContainer">
+      <form>
+        <div class="row">
+          <h3>Add new adress</h3>
+          <div class="form-outline">
+            <label class="form-label mt-2 fw-bold" for="line_1">Address First
+              Line</label>
+            <input type="text" id="line_1" class="form-control" />
+          </div>
+
+          <div class="form-outline">
+            <label class="form-label mt-2 fw-bold" for="line_2">Address Second
+              Line</label>
+            <input type="text" id="line_2" class="form-control" />
+          </div>
+
+          <div class="form-outline">
+            <label class="form-label mt-2 fw-bold" for="line_3">Address Third
+              Line</label>
+            <input type="text" id="line_3" class="form-control" />
+          </div>
+
+          <div class="form-outline">
+            <label class="form-label mt-2 fw-bold" for="post_town">Town or
+              City</label>
+            <input type="text" id="post_town" class="form-control" />
+          </div>
+
+          <div class="form-outline">
+            <label class="form-label mt-2 fw-bold" for="postcode">Postcode</label>
+            <input type="text" id="postcode" class="form-control" />
+          </div>
+
+          <div class="form-outline">
+            <label class="form-label mt-2 mb-2 fw-bold" for="phonenumber">Phone
+              Number</label>
+            <input type="tel" id="phonenumber" class="form-control" />
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-secondary btn-block my-4" id="addAddressButton">Add
+              Address</button>
+            <button type="submit" class="btn btn-secondary btn-block my-4 m-3" onclick=CancelBtnAddAddress()>Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Delivery Slot container-->
+    <div class="container mb-5 pb-1 ps-5 pe-5 bg-dark text-dark border border-secondary rounded mt-5 hidden" id="chooseDeliverySlotContainer">
+      <div class="container  border border-secondary bg-light p-4 rounded mt-4 mb-5 w-75">
+        <div class="col-12 " id="chooseDeliverySlotContainerTop"></div>
+        
+        <div class="row">
+          <div class="col-12 container" id="chooseDeliverySlotContainerBottom">
+            <button type="submit" class="btn btn-secondary btn-block my-4 ml-auto" id="DeliverySloButton" onclick="deliveryConfirmSlot()">Confirm Slot</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </body>
+  <script src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://kit.fontawesome.com/a29d9734c5.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ideal-postcodes/address-finder-bundled/dist/address-finder.js"></script>
+  <script>// script to run the address lookup
+    IdealPostcodes.AddressFinder.setup({
+      apiKey: "ak_test",
+      outputFields: {
+        line_1: "#line_1",
+        line_2: "#line_2",
+        line_3: "#line_3",
+        post_town: "#post_town",
+        postcode: "#postcode"
+      }
+    });
+  </script>
+
+</html>

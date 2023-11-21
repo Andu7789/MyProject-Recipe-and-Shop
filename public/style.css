@@ -1,0 +1,107 @@
+#cardsContainer {
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto 1fr;
+  display: grid;
+}
+
+#cardsContainerShop {
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto 1fr;
+  display: grid;
+}
+
+.card-link {
+  text-decoration: none;
+  color: black;
+  font-size: medium;
+}
+.custom-nav-pills .nav-link.active {
+  background-color: black;
+  color: white;
+}
+.custom-nav-pills .nav-link.dropdown-toggle {
+  color: black;
+}
+.nav-item .nav-link {
+  color: black;
+}
+.nav-item .nav-link2 {
+  color: black;
+}
+.hidden {
+  display: none;
+}
+
+.deletex {
+  cursor: pointer;
+  color: red;
+}
+
+#MemoryDestruct:hover {
+  background-color: red;
+}
+a:hover {
+  cursor: pointer;
+}
+
+.default-card {
+  background-color: #f2f2f2; /* Grey background color */
+}
+
+.w-35 {
+  width: 35% !important; /* Use !important to ensure this style takes precedence */
+}
+
+.w-30 {
+  width: 30% !important; /* Use !important to ensure this style takes precedence */
+}
+
+.w-40 {
+  width: 40% !important; /* Use !important to ensure this style takes precedence */
+}
+
+.w-200 {
+  width: 150px;
+}
+
+.carthover .imghover {
+  cursor: pointer;
+}
+
+.imghover {
+  cursor: pointer;
+}
+
+p {
+  text-align: left;
+}
+
+.sticky-sidebar {
+  position: fixed;
+  max-width: 20%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  cursor: pointer; /* Add cursor style to indicate clickable */
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+td.selected {
+  background-color: #a0c8f0; /* Change the background color for selected cells */
+}
+
+td.booked {
+  background-color: #8af080; /* Change the background color for booked cells */
+}
