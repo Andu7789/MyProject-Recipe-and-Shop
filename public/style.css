@@ -60,6 +60,10 @@ a:hover {
   width: 40% !important; /* Use !important to ensure this style takes precedence */
 }
 
+.w-4850 {
+  width: 85% !important; /* Use !important to ensure this style takes precedence */
+}
+
 .w-200 {
   width: 150px;
 }
@@ -104,4 +108,7 @@ td.selected {
 
 td.booked {
   background-color: #8af080; /* Change the background color for booked cells */
+}
+td.unavailable {
+  background-color: #c1d7d7; /* Change the background color for booked cells */
 }

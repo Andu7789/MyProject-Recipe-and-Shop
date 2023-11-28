@@ -1,0 +1,7 @@
+ <span>${item.title}</span>
+      </div>
+      <div>
+        <span>Qty: ${item.quantity}</span>
+      </div>
+      <div class="text-right">
+        <span><b>Total: £${item.totalPrice.toFixed(2)}</b></span>

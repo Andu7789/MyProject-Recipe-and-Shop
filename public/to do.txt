@@ -12,14 +12,27 @@
     * if so, add search for recipe from each item functionality??? - would be good :-)
 * on checkout set cartitems to zero
 * recipe - onclcik open recipe in new window
-
---------------- Still to do ---------------
-* on checkout hide productview
-* favourite recipe
-* video screen - show or hide cart?
 * format recipe wording under image
 * add postage
+* on checkout hide productview
 * add email confirmation
-* need an account section to store the email address
 * design email template
+* undefined postcodes - error
+* if you are on checkout screen and click the cart it seems to update the address with the same address but messes up the postcode!!
+* checlout - if you have been there once and then leave and come back, delivery slot and address return to default and no delivery slot
+* add 'all' button
+* radio buttons need a fix for when not selected
+* when decreasing to zeor only delete that item
+--------------- Still to do ---------------
+* move discount and delivery up under address
+* favourite recipe
+* video screen - show or hide cart?
+* need an account section to store the email address
+* new address - if you cancel it hides things!!  - seems to be intermittent...
+* order number 12, looks to be duplicating items
+
+
+
+
+
 

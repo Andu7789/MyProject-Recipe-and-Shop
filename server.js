@@ -19,6 +19,99 @@ app.get('/api-keys', (req, res) => {
   res.json({ apiKey, appId });
 });
 
+const nodemailer = require('nodemailer');
+require('dotenv').config()
+let htmlContent = ""
+
+let finalPriceofOrederServerSide
+let deliverySlotInfoServerSide
+let deliverySlotDayServerSide
+let deliverySlotTimeServerSide
+let deliveryPriceServerSide
+let deliveryDateServerSide
+let savedAddressServerSide = []
+
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      type: 'OAuth2',
+      user: process.env.user,
+      pass: process.env.pass,
+      clientId: process.env.clientId,
+      clientSecret: process.env.clientSecret,
+      refreshToken: process.env.refreshToken,
+    }
+  });
+
+const sendEmail = (data) =>{
+
+const attachments = []
+let htmlContent = `
+<div style="margin-bottom: 10px;">Hello Andy, 
+    This is your order, scheduled to be delivered ${deliverySlotDayServerSide} ${deliveryDateServerSide} between ${deliverySlotTimeServerSide}
+</div>`;
+
+  data.forEach((item, index) => {
+    attachments.push({
+      filename: `image_${item.title.replace(/\s/g, '_')}.png`, // Adjust filename as needed
+      content: item.image,
+      encoding: 'base64',
+      cid: `uniqueImageId${index+1}`, // Content-ID for the image
+  });
+  })
+     // HTML content with embedded image
+     data.forEach((item,index) => {
+
+      htmlContent += `
+      <div style="width: 500px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="flex: 1; display: flex; align-items: center;">
+          <img src="cid:uniqueImageId${index + 1}" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; margin-right: 10px; ;padding: 5px">
+      </div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center;border-radius: 8px ;width: 200px;padding: 20px">
+          ${item.title}
+      </div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center;border-radius: 8px;width: 100px; padding: 20px">
+          Qty: ${item.quantity}
+      </div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: flex-end;border-radius: 8px; width: 100px; padding: 20px">
+          Price £${item.totalPrice.toFixed(2)}
+      </div>
+  </div>`
+       
+      
+     })
+     htmlContent += `
+      <div style="width: 500px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+          <span><b>Total Price of your order is £${finalPriceofOrederServerSide.toFixed(2)}, this includes your delivery charge of £${deliveryPriceServerSide.toFixed(2)}</b></span>
+      </div>`;
+
+      htmlContent += `<div style="width: 500px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+    <span><b>Delivery Address:</b></span>`;
+
+    savedAddressServerSide.forEach((addressLine) => {
+      htmlContent += `<div><span>${addressLine}</span></div>`;
+
+    })
+
+
+htmlContent += `</div>`;
+
+  // Example usage:
+  const mailOptions = {
+    from: 'andrew.britain@gmail.com', // Sender address
+    to: 'andrew.britain@gmail.com', // Receiver address
+    subject: 'Email with Embedded Image',
+    html: htmlContent,
+    attachments: attachments,
+};
+
+transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        return console.log(error);
+    }
+    console.log('Email sent: ' + info.response);
+});
+}
 // make a new database called database.db if it doesnt already exist
 const databaseStock = new Datastore("databaseStock.db");
 databaseStock.loadDatabase();
@@ -88,35 +181,50 @@ const imagePath15 = "Img/Food/Stawberries.png"; // Replace this with the actual 
 const imageBuffer15 = fs.readFileSync(imagePath15);
 const base64Image15 = imageBuffer15.toString("base64");
 
+const imagePath16 = "Img/Food/Leeks.png"; // Replace this with the actual path to your image file
+const imageBuffer16 = fs.readFileSync(imagePath16);
+const base64Image16 = imageBuffer16.toString("base64");
+
+const imagePath17 = "Img/Food/Carrots.png"; // Replace this with the actual path to your image file
+const imageBuffer17 = fs.readFileSync(imagePath17);
+const base64Image17 = imageBuffer17.toString("base64");
+
+const imagePath18 = "Img/Food/Cauliflower.png"; // Replace this with the actual path to your image file
+const imageBuffer18 = fs.readFileSync(imagePath18);
+const base64Image18 = imageBuffer18.toString("base64");
 
 
-var doc = [
-  { ID: 1, title: "Beef Burgers", price: 3.99, image: base64Image, stock: 0, Description: `Succulent beef, simply seasoned with sea salt and black pepper. Gluten free.
-  Tender and succulent beef seasoned with salt and black pepper1`, orderQty: 0},
-  { ID: 2, title: "Beef Fillet", price: 10, image: base64Image1, stock: 20, Description: `Beef fillet steak.
-  Every Tesco steak is 21 day matured for extra flavour chosen for melt in the mouth tenderness`, orderQty: 0},
-  { ID: 3, title: "Beef Mince", price: 5, image: base64Image2, stock: 20, Description: `Lean beef steak mince 5% fat.
+
+let doc = [
+  { ID: 1, title: "Beef Burgers", price: 3.99, image: base64Image, stock: 20, Description: `Succulent beef, simply seasoned with sea salt and black pepper. Gluten free.
+  Tender and succulent beef seasoned with salt and black pepper1`, orderQty: 0, type: "meat"},
+  { ID: 2, title: "Beef Fillet", price: 10, image: base64Image1, stock: 0, Description: `Beef fillet steak. 
+  Every Tesco steak is 21 day matured for extra flavour chosen for melt in the mouth tenderness`, orderQty: 0, type: "meat"},
+  { ID: 3, title: "Beef Mince", price: 5, image: base64Image2, stock:20, Description: `Lean beef steak mince 5% fat.
   Typical percentage fat content under 5%. Typical percentage collagen/ meat protein ratio under 12%. From Trusted Farms. We work in partnership with trusted farmers to ensure high welfare standards from farm to fork, to deliver great quality beef.
-  Leaner selected cuts, finely ground for tenderness`, orderQty: 0},
-  { ID: 4, title: "Chicken Breast", price: 6.95, image: base64Image3, stock: 20, Description: `Fresh Class A skinless chicken breast fillets.  Quality and welfare are at the heart of what we do.
-  Our Welfare Approved Fed on a wholegrain diet for a succulent texture`, orderQty: 0},
+  Leaner selected cuts, finely ground for tenderness`, orderQty: 0, type: "meat"},
+  { ID: 4, title: "Chicken Breast", price: 6.95, image: base64Image3, stock: 20, Description: `Fresh Class A skinless chicken breast fillets. Quality and welfare are at the heart of what we do.
+  Our Welfare Approved Fed on a wholegrain diet for a succulent texture`, orderQty: 0, type: "meat"},
   { ID: 5, title: "Peeled Prawns", price: 8, image: base64Image4, stock: 20, Description: `Cooked and peeled king prawns (Litopenaeus vannamei).
   Responsibly sourcing our seafood is important to us, which is why our fish experts work with responsibly managed farms and fisheries to continually improve their high standards of quality, welfare and sustainability.
-  Ready to Eat Responsibly Sourced`, orderQty: 0},
+  Ready to Eat Responsibly Sourced`, orderQty: 0, type: "fish"}, 
   { ID: 6, title: "Salmon", price: 7.49, image: base64Image5, stock: 20, Description: `Boneless skin-on salmon (Salmo salar) side.
-  Farmed in waters off the coast of Norway or Scotland. A versatile fish prepared with the skin on for ease of cooking and to give a fuller flavour. Responsibly sourcing our seafood is important to us which is why our fish experts work with responsibly managed farms and fisheries to continually improve their high standards of quality, welfare and sustainability.`, orderQty: 0},
-  { ID: 7, title: "Sausages", price: 3.29, image: base64Image6, stock: 20, Description: `Pork sausages with seasoning.
-  Our sausages are made for us by a family run business who've taken pride in making sausages for more than 200 years. They are all made with 100% British pork which is hand trimmed by expertly trained butchers. The sausages are then seasoned and other carefully selected ingredients are added to enhance the rich, succulent flavour.`, orderQty: 0},
+  Farmed in waters off the coast of Norway or Scotland. A versatile fish prepared with the skin on for ease of cooking and to give a fuller flavour. Responsibly sourcing our seafood is important to us which is why our fish experts work with responsibly managed farms and fisheries to continually improve their high standards of quality, welfare and sustainability.`, orderQty: 0, type: "fish"},
+  { ID: 7, title: "Sausages", price: 3.29, image: base64Image6, stock: 0, Description: `Pork sausages with seasoning.
+  Our sausages are made for us by a family run business who've taken pride in making sausages for more than 200 years. They are all made with 100% British pork which is hand trimmed by expertly trained butchers. The sausages are then seasoned and other carefully selected ingredients are added to enhance the rich, succulent flavour.`, orderQty: 0, type: "meat"},
   { ID: 8, title: "Whole Chicken", price: 5.55, image: base64Image7, stock: 0, Description: `Fresh Class A whole chicken without giblets.
-  From Trusted Farms Our range of whole chickens are perfect for a succulent roast dinner, and midweek meals made from tasty leftovers. Use lean chicken breasts in a stir fry or salad and cook up tasty thighs and drumsticks in casseroles, on the barbecue, or in a curry.`, orderQty: 0},
-  { ID: 9, title: "Bananas", price: 0.15, image: base64Image8, stock: 20, Description: `Responsibly Grown. Hand picked and gently ripened with a sweet flavour.`, orderQty: 0},
-  { ID: 10, title: "Lemons", price: 0.45, image: base64Image9, stock: 20, Description: `Hand picked Grown for their sharp, zingy taste, ideal for cooking or drinks.`, orderQty: 0},
-  { ID: 11, title: "Limes", price: 0.42, image: base64Image10, stock: 20, Description: `Hand picked Grown for their sharp, zingy taste, ideal for cooking or drinks.`, orderQty: 0},
-  { ID: 12, title: "Oranges", price: 0.37, image: base64Image11, stock: 20, Description: `Sweet & Juicy`, orderQty: 0},
-  { ID: 13, title: "Pineapple", price: 1.29, image: base64Image12, stock: 20, Description: `Harvested by hand Grown in tropical climates for their golden colour and sweet flavour`, orderQty: 0},
-  { ID: 14, title: "Red Apples", price: 0.34, image: base64Image13, stock: 20, Description: `Responsibly Grown. Hand picked and gently ripened with a sweet flavour.`, orderQty: 0},
-  { ID: 15, title: "Green Apples", price: 0.37, image: base64Image14, stock: 20, Description: `Responsibly Grown. Hand picked and gently ripened with a sweet flavour.`, orderQty: 0},
-  { ID: 16, title: "Strawberries", price: 2.29, image: base64Image15, stock: 20, Description: `Delicately hand picked. Carefully selected when ripe for their sweet, juicy flavour.`, orderQty: 0},
+  From Trusted Farms Our range of whole chickens are perfect for a succulent roast dinner, and midweek meals made from tasty leftovers. Use lean chicken breasts in a stir fry or salad and cook up tasty thighs and drumsticks in casseroles, on the barbecue, or in a curry.`, orderQty: 0, type: "meat"},   
+  { ID: 9, title: "Bananas", price: 0.15, image: base64Image8, stock: 20, Description: `Responsibly Grown. Hand picked and gently ripened with a sweet flavour.`, orderQty: 0, type: "fruit"},
+  { ID: 10, title: "Lemons", price: 0.45, image: base64Image9, stock: 20, Description: `Hand picked Grown for their sharp, zingy taste, ideal for cooking or drinks.`, orderQty: 0, type: "fruit"},
+  { ID: 11, title: "Limes", price: 0.42, image: base64Image10, stock: 0, Description: `Hand picked Grown for their sharp, zingy taste, ideal for cooking or drinks.`, orderQty: 0, type: "fruit"}, 
+  { ID: 12, title: "Oranges", price: 0.37, image: base64Image11, stock: 20, Description: `Sweet & Juicy`, orderQty: 0, type: "fruit"},
+  { ID: 13, title: "Pineapple", price: 1.29, image: base64Image12, stock: 0, Description: `Harvested by hand Grown in tropical climates for their golden colour and sweet flavour`, orderQty: 0, type: "fruit"},
+  { ID: 14, title: "Red Apples", price: 0.34, image: base64Image13, stock: 20, Description: `Responsibly Grown. Hand picked and gently ripened with a sweet flavour.`, orderQty: 0, type: "fruit"},
+  { ID: 15, title: "Green Apples", price: 0.37, image: base64Image14, stock: 20, Description: `Responsibly Grown. Hand picked and gently ripened with a sweet flavour.`, orderQty: 0, type: "fruit"}, 
+  { ID: 16, title: "Strawberries", price: 2.29, image: base64Image15, stock: 20, Description: `Delicately hand picked. Carefully selected when ripe for their sweet, juicy flavour.`, orderQty: 0, type: "fruit"},
+  { ID: 17, title: "Leeks", price: 0.67, image: base64Image16, stock: 20, Description: `Locally grown`, orderQty: 0, type: "vegetable"},
+  { ID: 18, title: "Carrots", price: 0.32, image: base64Image17, stock: 20, Description: `Locally grown`, orderQty: 0, type: "vegetable"},
+  { ID: 19, title: "Cauliflower", price: 0.89, image: base64Image18, stock: 20, Description: `Locally grown`, orderQty: 0, type: "vegetable"}
 ];
 db1.remove({}, { multi: true }, function (err, newDocs) {
   if (err) {
@@ -153,21 +261,21 @@ function getNextDay(date, days) {
   return nextDate;
 }
 
-// Your existing schedule data
-var today = new Date(); // Get the current date
-var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-var schedule = [
+let today = new Date(); // Get the current date
+let daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+let schedule = [
   {
     day: daysOfWeek[today.getDay()],
     date: formatDate(today), // Format the date as DD/MM
     slots: [
-      { id: 'slot0', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1 },
-      { id: 'slot1', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot2', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot3', time: '2.00 PM - 4:00 PM', status: 'not booked', price: 2 },
-      { id: 'slot4', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.5 },
-      { id: 'slot5', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4 },
+      { id: 'slot0', time: '8:00 AM - 10:00 AM', status: 'unavailable', price: 1.00 },
+      { id: 'slot1', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot2', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot3', time: '2.00 PM - 4:00 PM', status: 'unavailable', price: 2.00 },
+      { id: 'slot4', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.50 },
+      { id: 'slot5', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4.00 },
       // Add more slots as needed
     ]
   },
@@ -176,72 +284,72 @@ var schedule = [
     day: daysOfWeek[(today.getDay() + 1) % 7],
     date: formatDate(getNextDay(today, 1)),
     slots: [
-    { id: 'slot6', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1 },
-      { id: 'slot7', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot8', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot9', time: '2.00 PM - 4:00 PM', status: 'not booked', price: 2 },
-      { id: 'slot10', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.5 },
-      { id: 'slot11', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4 },
+    { id: 'slot6', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1.00 },
+      { id: 'slot7', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot8', time: '12:00 PM - 2:00 PM', status: 'unavailable', price: 1.50 },
+      { id: 'slot9', time: '2.00 PM - 4:00 PM', status: 'unavailable', price: 2.00 },
+      { id: 'slot10', time: '4:00 PM - 6:00 PM', status: 'unavailable', price: 3.50 },
+      { id: 'slot11', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4.00 },
     ]
   },
   {
     day: daysOfWeek[(today.getDay() + 2) % 7],
     date: formatDate(getNextDay(today, 2)),
     slots: [
-    { id: 'slot12', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1 },
-      { id: 'slot13', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot14', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot15', time: '2.00 PM - 4:00 PM', status: 'not booked', price: 2 },
-      { id: 'slot16', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.5 },
-      { id: 'slot17', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4 },
+    { id: 'slot12', time: '8:00 AM - 10:00 AM', status: 'unavailable', price: 1.00 },
+      { id: 'slot13', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot14', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot15', time: '2.00 PM - 4:00 PM', status: 'not booked', price: 2.00 },
+      { id: 'slot16', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.50 },
+      { id: 'slot17', time: '6.00 PM - 8:00 PM', status: 'unavailable', price: 4.00 },
     ]
   },
   {
     day: daysOfWeek[(today.getDay() + 3) % 7],
     date: formatDate(getNextDay(today, 3)),
     slots: [
-    { id: 'slot18', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1 },
-      { id: 'slot19', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot20', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot21', time: '2.00 PM - 4:00 PM', status: 'not booked', price: 2 },
-      { id: 'slot22', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.5 },
-      { id: 'slot23', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4 },
+    { id: 'slot18', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1.00 },
+      { id: 'slot19', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot20', time: '12:00 PM - 2:00 PM', status: 'unavailable', price: 1.50 },
+      { id: 'slot21', time: '2.00 PM - 4:00 PM', status: 'unavailable', price: 2.00 },
+      { id: 'slot22', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.50 },
+      { id: 'slot23', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4.00 },
     ]
   },
   {
     day: daysOfWeek[(today.getDay() + 4) % 7],
     date: formatDate(getNextDay(today, 4)),
     slots: [
-    { id: 'slot24', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1 },
-      { id: 'slot25', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot26', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot27', time: '2.00 PM - 4:00 PM', status: 'not booked', price: 2 },
-      { id: 'slot28', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.5 },
-      { id: 'slot29', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4 },
+    { id: 'slot24', time: '8:00 AM - 10:00 AM', status: 'unavailable', price: 1.00 },
+      { id: 'slot25', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot26', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot27', time: '2.00 PM - 4:00 PM', status: 'not booked', price: 2.00 },
+      { id: 'slot28', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.50 },
+      { id: 'slot29', time: '6.00 PM - 8:00 PM', status: 'unavailable', price: 4.00 },
     ]
   },
   {
     day: daysOfWeek[(today.getDay() + 5) % 7],
     date: formatDate(getNextDay(today, 5)),
     slots: [
-    { id: 'slot30', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1 },
-      { id: 'slot31', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot32', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot33', time: '2.00 PM - 4:00 PM', status: 'not booked', price: 2 },
-      { id: 'slot34', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.5 },
-      { id: 'slot35', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4 },
+    { id: 'slot30', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1.00 },
+      { id: 'slot31', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot32', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot33', time: '2.00 PM - 4:00 PM', status: 'not booked', price: 2.00 },
+      { id: 'slot34', time: '4:00 PM - 6:00 PM', status: 'unavailable', price: 3.50 },
+      { id: 'slot35', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4.00 },
     ]
   },
   {
     day: daysOfWeek[(today.getDay() + 6) % 7],
     date: formatDate(getNextDay(today, 6)),
     slots: [
-    { id: 'slot36', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1 },
-      { id: 'slot37', time: '10:00 AM - 12:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot38', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.5 },
-      { id: 'slot39', time: '2.00 PM - 4:00 PM', status: 'not booked', price: 2 },
-      { id: 'slot40', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.5 },
-      { id: 'slot41', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4 },
+    { id: 'slot36', time: '8:00 AM - 10:00 AM', status: 'not booked', price: 1.00 },
+      { id: 'slot37', time: '10:00 AM - 12:00 PM', status: 'unavailable', price: 1.50 },
+      { id: 'slot38', time: '12:00 PM - 2:00 PM', status: 'not booked', price: 1.50 },
+      { id: 'slot39', time: '2.00 PM - 4:00 PM', status: 'unavailable', price: 2.00 },
+      { id: 'slot40', time: '4:00 PM - 6:00 PM', status: 'not booked', price: 3.50 },
+      { id: 'slot41', time: '6.00 PM - 8:00 PM', status: 'not booked', price: 4.00 },
     ]
   },
   
@@ -260,6 +368,27 @@ db2.insert(schedule, function (err, newDocs) {
     console.error('Error creating the database:', err);
   } else {
     console.log('Schedule - Database creation completed:');
+  }
+
+});
+
+const databasedicountCodes = new Datastore("databasedicountCodes.db");
+databasedicountCodes.loadDatabase();
+db3 = databasedicountCodes;
+
+let discCode = [
+  { ID: 1, code: "RecipeRealm10", discPercent: 10},
+  { ID: 1, code: "RecipeRealm20", discPercent: 20},
+  { ID: 1, code: "RecipeRealm30", discPercent: 30},
+  { ID: 1, code: "Paul100", discPercent: 100},
+
+]
+
+db3.insert(discCode, function (err, discCode) {
+  if (err) {
+    console.error('Error creating the database:', err);
+  } else {
+    console.log('discCode - Database creation completed:');
   }
 
 });
@@ -286,26 +415,7 @@ function convertToDateObject(dateString) {
   return new Date(`${month}/${day}/${year}`);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.get("/api/getItemsFromDB", (req, res) => {
+app.get("/api/getItemsFromDBFirstBuild", (req, res) => {
   db1.find({}).sort({ title: 1 }).exec((err, items) => {
     if (err) {
       console.error('Error fetching documents:', err);
@@ -317,16 +427,34 @@ app.get("/api/getItemsFromDB", (req, res) => {
   });
 });
 
+
+app.post('/api/getItemsFromDB', (req, res) => {
+  const type = req.body.type;
+  console.log({type});
+
+  db1.find({type: type}, (err, docs) => {
+    if(err) {
+      console.error('Error fetching documents: ', err);
+      return res.status(500).json({error: 'Internal Server Error'});
+    }
+
+    if(!docs || docs.length === 0) {
+      return res.status(404).json({error: 'No documents found'});  
+    }
+
+    console.log('Items filtered by type: ', type);
+    res.json(docs);
+  });
+});
+
 app.post('/api/POSTUpdateDBStockNumbers', (request, response) => { 
   const data = request.body
-  console.log(data);
   data.forEach((item) => {
     db1.update({ title: item.title}, { $inc: { stock: -item.quantity } }, {}, (err, numAffected, upsert) => {
       if (err) {
         console.error('Error updating record:', err);
       } else {
         console.log('Record updated successfully');
-        console.log('Number of documents matched:', numAffected);
       }
     });
   })
@@ -349,7 +477,6 @@ app.post('/api/POSTUpdateDBOrderQtyWhenDeleted', (request, response) => {
         response.status(500).json({ status: 'error', message: 'Internal Server Error' });
       } else {
         console.log('Record updated successfully');
-        console.log('Number of documents matched:', numAffected);
         response.json({
           status: 'success',
         });
@@ -380,13 +507,12 @@ app.post('/api/POSTUpdateCurrentOrderQTY', (request, response) => {
     { ID: ID },
     { $set: { orderQty: numofItems } },
     {},
-    (err, numAffected, upsert) => {
+    (err) => {
       if (err) {
         console.error('Error updating record:', err);
         response.status(500).json({ status: 'error', message: 'Internal Server Error' });
       } else {
         console.log('Record updated successfully');
-        console.log('Number of documents matched:', numAffected);
         response.json({
           status: 'success',
         });
@@ -404,7 +530,6 @@ app.post('/api/updateOrderQtyToZero', (req, res) => {
       console.error('Error updating documents:', err);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
-      console.log('Number of documents updated:', numAffected);
       res.json({ status: 'success', numAffected: numAffected });
     }
   });
@@ -426,7 +551,79 @@ app.post('/api/GETTitleID', (request, response) => {
   });
 });
 
-  
+app.post('/api/POSTSendCustomerEmail', (request, response) => { 
+  const data = request.body
+  //console.log(data);
+  sendEmail(data)
+  response.json({
+      status: "success",
+    
+  })
+})
+
+app.post('/api/POSTfinalPriceofOrder', (request, response) => {
+  const data = request.body.finalPrice; 
+  const deliverySlotInfo = request.body.deliverySlotInfo
+  const deliverySlotDay = request.body.deliverySlotDay
+  const deliverySlotTime = request.body.deliverySlotTime
+  const deliveryPrice = request.body.deliveryPrice
+  const deliveryDate  = request.body.deliveryDate
+  const savedAddress = request.body.savedAddress
+
+  finalPriceofOrederServerSide = data
+  deliverySlotInfoServerSide = deliverySlotInfo
+  deliverySlotDayServerSide = deliverySlotDay
+  deliverySlotTimeServerSide = deliverySlotTime
+  deliveryPriceServerSide = deliveryPrice
+  deliveryDateServerSide = deliveryDate
+  savedAddressServerSide = savedAddress
+  console.log(savedAddressServerSide);
+
+  response.json({
+      status: "success",
+  });
+});
+
+app.post('/api/POSTheckDiscountCodeAPI', (request, response) => { 
+  const discountCode = request.body.discountCode
+  console.log(discountCode);
+
+  db3.findOne({ code: discountCode }, function (err, discountCode) {
+    if (err) {
+      console.error('Error fetching documents:', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      if (!discountCode){
+console.log("null");
+response.json(null);
+      } else {
+        console.log('Found code', discountCode.discPercent);
+        response.json(discountCode.discPercent);
+      }
+      
+      
+
+    }
+  });
+})
+
+app.post('/api/POSTFindSearchItems', (request, response) => {
+  const title = request.body.title;
+
+  console.log("Received title to find:", title);
+
+  const regex = new RegExp(title, "i");
+  db1.find({ title: { $regex: regex } }, function (err, docs) {
+    if (err) {
+      console.error('Error fetching documents:', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      console.log('Found item', docs);
+      response.json(docs);
+    }
+  });
+});
+  //RecipeRealm30
 
 
 

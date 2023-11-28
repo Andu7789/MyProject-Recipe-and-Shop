@@ -58,6 +58,10 @@ let checkoutContainerBottomID = document.getElementById(
   "checkoutContainerBottom"
 );
 
+let checkoutContainerBottom2ID = document.getElementById(
+  "checkoutContainerBottom2"
+);
+
 //Account container - Main
 let accountContainerID = document.getElementById("accountContainer");
 //Account container - information (wording)
@@ -99,6 +103,11 @@ productViewInsufficientStockID = document.getElementById(
   "productViewInsufficientStock"
 );
 productViewNumberInCartID = document.getElementById("productViewNumberInCart");
+
+//Search and reset container (shopping)
+let seacrhBarShoppingID = document.getElementById("seacrhBarShopping")
+let resetButtonShoppingID = document.getElementById("resetButtonShopping");
+let searchButtonShoppingID = document.getElementById("searchButtonShopping")
 
 let dropdownCuisine2ID = document.getElementById("dropdownCuisine2");
 let dropdownMealType2ID = document.getElementById("dropdownMealType2");
@@ -167,10 +176,21 @@ let inCartElement;
 let storeForProductID;
 let deliveryDay;
 let deliverySlotTime;
-let deliveryPrice = 0
-let deliveryDate
-
+let deliveryPrice = 0;
+let deliveryDate;
+let tableCount = 0;
+let finalPriceofOrder = 0;
+let deliverySlotInformation = "";
+let savedAddress = [];
+let finalCheckOutButton;
+let counter3 = 0;
+let counterBuildAddress = 1;
+let = discountPercantageValue = 0;
 let selectedSlotId = null;
+let dicountAmount = 0;
+let counterDiscountCode = 1;
+let searchType = "";
+let titleForProductSearch = ""
 
 let cartIcon = document.getElementById("cartIcon");
 let cartItemCount = document.getElementById("cartItemCount");
@@ -251,6 +271,10 @@ resetButtonID.addEventListener("click", function () {
   seacrhBarID.value = "";
 });
 
+resetButtonShoppingID.addEventListener("click", function () {
+  seacrhBarShoppingID.value = "";
+});
+
 /*newsLetterID.addEventListener("click", function(){
     recipeMainContainerID.classList.add("hidden")
     videoscontainerID.classList.add("hidden") 
@@ -277,14 +301,22 @@ closeButtonID.addEventListener("click", function () {
 
 const closeButtonViewSettings = () => {
   displayShopSettings();
-  generateShoppingUI();
+  
+  if(!searchType && !titleForProductSearch){
+    generateShoppingUIFirstBuild()
+  } else if (!titleForProductSearch)  {
+      generateShoppingUI(searchType);
+  } else {
+    searchShopItems
+  }
+
   productViewContainerID.classList.add("hidden");
   closeButton1ID.classList.remove("hidden");
 };
 
 shopID.addEventListener("click", function () {
   displayShopSettings();
-  generateShoppingUI();
+  generateShoppingUIFirstBuild();
 });
 
 const createCheckoutDisplaySettings = () => {
@@ -293,6 +325,7 @@ const createCheckoutDisplaySettings = () => {
   shoppingcontainerID.classList.add("hidden");
   productViewContainerID.classList.add("hidden");
   recipeMainContainerID.classList.add("hidden");
+  accountContainer.classList.add("hidden");
   shopID.classList.remove("active");
   recipesMenuID.classList.remove("active");
 };
@@ -337,6 +370,7 @@ accountButtontID.addEventListener("click", function () {
   accountContainer2ID.classList.add("hidden");
   productViewContainerID.classList.add("hidden");
   cartContainerID.classList.add("hidden");
+  checkoutContainer.classList.add("hidden");
   shopID.classList.remove("active");
   recipesMenuID.classList.remove("active");
   videosMenuID.classList.remove("active");
@@ -389,6 +423,15 @@ seacrhBarID.addEventListener("keydown", function (event) {
     getRecipes();
   }
 });
+
+//used for when a user hits 'enter key' whilst the cursor is in the shop search bar
+seacrhBarShoppingID.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    searchShopItems()
+  }
+});
+
+
 const fetchRecipesProductView = () => {
   check();
   getRecipes2();
@@ -397,7 +440,7 @@ const fetchRecipesProductView = () => {
 searchButtonID.addEventListener("click", function () {
   check();
   getRecipes();
-  generateShoppingUI();
+  //generateShoppingUI();
 });
 window.onload = () => {
   requestURL = `https://api.edamam.com/api/recipes/v2?type=public&q=beef&app_id=166089c0&app_key=${apikey}`;
@@ -432,8 +475,7 @@ const getRecipes2 = async () => {
   }
   let data2 = await response2.json();
   //generateUI(data.hits); //call the fucntion with the API data
-  console.log(data2.hits);
-  console.log(399, data2.hits[0].recipe.image);
+
   carouselImg1.src = data2.hits[0].recipe.image;
   carouselImg2.src = data2.hits[1].recipe.image;
   carouselImg3.src = data2.hits[2].recipe.image;
@@ -477,15 +519,8 @@ const generateUI = (articles) => {
   }
 };
 
-//const getShoppingItems = async () =>{
-// }
-// fetch('https://dummyjson.com/products?limit=10')
-// .then(res => res.json())
-//  .then(data => {
-//generateShoppingUI(); //call the function and send it the API data
-//});
-
-const generateShoppingUI = () => {
+//Build the shopping cards with the items type selected by the user
+const generateShoppingUI = (type) => {
   if (localStorage.getItem("strObj") == null) {
     //check to see if this is the 1st time of using the site - so the LocalStorage is empty
     orderClass.orderNumber = 1;
@@ -494,135 +529,23 @@ const generateShoppingUI = () => {
     const objFromStorageOrderNUmber = JSON.parse(strObjFromStorageOrderNumber);
     orderClass.orderNumber = objFromStorageOrderNUmber;
   }
-  //console.log(products);
+  titleForProductSearch = ""
+  searchType = type;
+  const requestData = {
+    type: type,
+  };
 
-  /*for(let item of products){ //build the shopping cards from the API
-      let card = document.createElement("div");
-      card.innerHTML = `<div class="card mt-5 ms-4" style="width: 16rem;">
-      <img src="${item.images[0]}" class="card-img-top">    
-      <ul class="list-group list-group-flush">
-      <li class="list-group-item text-capitalize"> <b>${item.title}</b></li>
-      <li class="list-group-item "> <b>Price </b> £${item.price}</li>
-      <div class=" d-md-flex justify-content-md-end me-2 mb-2">
-      <input type="number" class="form-control m-2" value="1" min = 1 placeholder="1" aria- id="inputbox${item.id}">
-      <button class="btn btn-secondary rounded mt-2" onclick="AddToCart(event, 'inputbox${item.id}', ${item.price}, '${item.title}', ${orderNumber})">Add</button>
-      
-      </ul>
-      </div>`;
-      cardsContainerShopID.appendChild(card); //Add the card to the container
-
-}}*/
-
-  fetch("/api/getItemsFromDB")
+  
+  fetch("/api/getItemsFromDB", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
     .then((response) => response.json())
     .then((data) => {
-      cardsContainerShopID.innerHTML = "";
-      data.forEach((product) => {
-        const productDiv = document.createElement("div");
-
-        productDiv.style.border = "1px solid #ccc";
-        productDiv.style.borderRadius = "10px";
-        productDiv.style.padding = "10px"; // Add padding for better spacing
-        productDiv.style.margin = "0 10px 10px 0";
-        productDiv.style.textAlign = "center";
-        productDiv.style.width = "220px";
-
-        const imageElement = document.createElement("img");
-        imageElement.src = `data:image/png;base64,${product.image}`;
-        imageElement.alt = product.title;
-        imageElement.style.borderRadius = "10px";
-        imageElement.style.width = "150px";
-        imageElement.style.height = "150px";
-        imageElement.style.marginBottom = "10px";
-        imageElement.classList.add("imghover");
-        if (product.stock === 0) {
-          imageElement.onclick = (event) => {
-            generateProductView(event, product.ID, 0);
-          };
-        } else {
-          imageElement.onclick = (event) => {
-            generateProductView(event, product.ID, `inputbox${product.ID}`);
-          };
-        }
-        productDiv.appendChild(imageElement);
-
-        const titleElement = document.createElement("h4");
-        titleElement.textContent = product.title;
-        titleElement.classList.add("imghover");
-        titleElement.onclick = (event) => {
-          generateProductView(event, product.ID, `inputbox${product.ID}`);
-        };
-        productDiv.appendChild(titleElement);
-
-        const priceElement = document.createElement("p");
-        priceElement.style.textAlign = "center";
-        priceElement.textContent = `Price: £${product.price}`;
-        productDiv.appendChild(priceElement);
-
-        const stockElement = document.createElement("p");
-        productDiv.appendChild(stockElement);
-
-        inCartElement = document.createElement("p");
-        productDiv.appendChild(inCartElement);
-
-        productDiv.style.background = "white";
-        stockElement.style.textAlign = "center";
-        if (product.stock === 0) {
-          stockElement.textContent = `Out of Stock`;
-          stockElement.style.color = "Red";
-          stockElement.style.fontWeight = "bold"; // Make the text bold
-          stockElement.style.fontSize = "26px";
-          productDiv.style.background = "white";
-        } else {
-          stockElement.textContent = `Stock: ${product.stock}`;
-          inCartElement.style.textAlign = "center";
-          inCartElement.textContent = `In cart: ${product.orderQty}`;
-          // Adding input box for each item
-          const inputElement = document.createElement("input");
-          inputElement.type = "number";
-          inputElement.classList.add("m-2");
-          inputElement.id = `inputbox${product.ID}`;
-          inputElement.min = 1; // Set the minimum value to 1
-          inputElement.placeholder = "1";
-          inputElement.value = 1; // Set the minimum value to 1
-          if (product.orderQty > 1) {
-            inputElement.value = product.orderQty;
-          }
-          inputElement.pattern = "\\d*"; // Allow only numeric input
-          inputElement.style.width = "100px";
-          inputElement.style.height = "40px";
-          inputElement.style.borderRadius = "10px";
-          inputElement.style.textAlign = "center";
-          productDiv.appendChild(inputElement);
-
-          // Adding button for each item
-          const addButton = document.createElement("button");
-          addButton.textContent = "Add to Cart";
-          addButton.style.height = "40px";
-          addButton.classList.add("btn", "btn-secondary", "rounded");
-          addButton.onclick = (event) => {
-            if (product.stock < parseInt(inputElement.value, 10)) {
-              stockElement.textContent = `Not enough Stock`;
-              stockElement.style.color = "red";
-              stockElement.style.fontWeight = "bold"; // Make the text bold
-            } else {
-              stockElement.textContent = `Stock: ${product.stock}`;
-              stockElement.style.color = "black";
-              stockElement.style.fontWeight = "normal";
-              AddToCart(
-                event,
-                `inputbox${product.ID}`,
-                product.price,
-                product.title,
-                product.ID
-              );
-            }
-          };
-          productDiv.appendChild(addButton);
-        }
-
-        cardsContainerShopID.appendChild(productDiv);
-      });
+      buildShopCards(data)
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -630,21 +553,39 @@ const generateShoppingUI = () => {
 };
 generateShoppingUI(); //call the function and send it the API data
 
+//Buiilds the shopping cards with all the items
+const generateShoppingUIFirstBuild = () => {
+  if (localStorage.getItem("strObj") == null) {
+    //check to see if this is the 1st time of using the site - so the LocalStorage is empty
+    orderClass.orderNumber = 1;
+  } else {
+    const strObjFromStorageOrderNumber = localStorage.getItem("strObjOrderNum"); //get the orderNumber from LocalStorage
+    const objFromStorageOrderNUmber = JSON.parse(strObjFromStorageOrderNumber);
+    orderClass.orderNumber = objFromStorageOrderNUmber;
+  }
+
+ 
+  fetch("/api/getItemsFromDBFirstBuild", )
+    .then((response) => response.json())
+    .then((data) => {
+      buildShopCards(data)
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
 const generateProductView = async (event, productId, inputbox) => {
   // Your function logic goes here
   //event.preventDefault();
   carouselExampleCaptions;
   storeForProductID = productId;
 
-  console.log(productId, inputbox);
   createProductViewDisplaySettings();
   const jsonProductInfo = await getProductInfoFrommDatabase(productId);
   const product = jsonProductInfo[0];
   const inputboxID = document.getElementById(inputbox);
-  console.log(617, "prod", product);
   if (inputboxID === null) {
-    console.log("test");
-
     numOfItems = 0;
     productViewQtyID.classList.add("hidden");
     productViewAddButtonID.classList.add("hidden");
@@ -654,7 +595,6 @@ const generateProductView = async (event, productId, inputbox) => {
     productViewPriceID.style.fontWeight = "bold";
   } else {
     numOfItems = parseInt(inputboxID.value, 10);
-    console.log(570, numOfItems);
     productViewQtyID.value = numOfItems;
     productViewQtyID.pattern = "\\d*"; // Allow only numeric input
     productViewQtyID.style.width = "100px";
@@ -670,9 +610,17 @@ const generateProductView = async (event, productId, inputbox) => {
     productViewInsufficientStockID.textContent = `Stock: ${product.stock}`;
     productViewInsufficientStockID.style.color = "black";
     productViewInsufficientStockID.style.fontWeight = "normal";
+    productViewInsufficientStockID.style.fontSize = "16px";
 
-    productViewNumberInCartID.style.textAlign = "center"; ////////////////////////////////***************************************************** */
+    productViewNumberInCartID.style.textAlign = "center";
     productViewNumberInCartID.textContent = `In cart: ${product.orderQty}`;
+    productViewNumberInCartID.style.fontSize = "16px";
+    productViewNumberInCartID.style.backgroundColor = "white";
+
+    if (product.orderQty > 0) {
+      productViewNumberInCartID.style.fontWeight = "bold";
+      productViewNumberInCartID.style.backgroundColor = "#e0ebeb";
+    }
 
     productViewAddButtonID.onclick = (event) => {
       if (product.stock < parseInt(productViewQtyID.value, 10)) {
@@ -688,7 +636,8 @@ const generateProductView = async (event, productId, inputbox) => {
           "productViewQty",
           product.price,
           product.title,
-          product.ID
+          product.ID,
+          product.image
         );
       }
     };
@@ -698,14 +647,11 @@ const generateProductView = async (event, productId, inputbox) => {
   productViewImgID.src = `data:image/png;base64,${product.image}`;
 
   productViewDescriptionID.innerHTML = product.Description;
-  console.log(product.Description);
   productViewQtyID.value = numOfItems;
-  console.log(jsonProdcutInfo);
 
   // Now you can use jsonProductInfo in the rest of your function logic
 };
 //getProductInfoFrommDatabase(productId)
-//console.log("jsonProdcutInfo",jsonProdcutInfo);
 
 async function getProductInfoFrommDatabase(productId) {
   const options = {
@@ -721,8 +667,8 @@ async function getProductInfoFrommDatabase(productId) {
   return jsonProdcutInfo;
 }
 
-const AddToCart = (event, inputbox, price, title, ID) => {
-  //when a user clicks on the 'add' button for an item, the screen scrolls down to the cart area
+const AddToCart = (event, inputbox, price, title, ID, image) => {
+  //when a user clicks on the 'add' button for an item, the screen scrolls to the cart area
   event.preventDefault();
   document.getElementById("cartContainer").focus();
   document.getElementById("cartContainer").scrollIntoView({
@@ -730,18 +676,24 @@ const AddToCart = (event, inputbox, price, title, ID) => {
     block: "center",
   });
 
-  //cartContainerID.classList.remove("hidden");
 
   const inputboxID = document.getElementById(inputbox); //get the ID of the input box in line with the 'add' button they pressed
   let numOfItems = parseInt(inputboxID.value, 10);
   inCartElement.textContent = `In cart: ${numOfItems}`;
   productViewNumberInCartID.textContent = `In cart: ${numOfItems}`;
 
+  //change the background of the "in Cart" depending on the value
+  if (numOfItems > 0) {
+    productViewNumberInCartID.style.backgroundColor = "#e0ebeb";
+  } else {
+    productViewNumberInCartID.style.backgroundColor = "white";
+  }
+
   let itemTotalPrice = numOfItems * price;
 
   const existingProductIndex = cartClass.cartItems.findIndex(
     (item) => item.title === title
-  ); //check to see if the item is already in the shooping cart
+  ); //check to see if the item is already in the shopping cart
 
   if (existingProductIndex !== -1) {
     //if the item IS in the cart already then update the cart num of items and the total price
@@ -757,30 +709,178 @@ const AddToCart = (event, inputbox, price, title, ID) => {
       quantity: numOfItems,
       totalPrice: itemTotalPrice,
       orderNumber: orderClass.orderNumber,
+      image: image,
     };
 
-    /*class product {
-    constructor(title, price, quantity, totalPrice, orderNumber){
-      this.title = title,
-      this.price = price,
-      this.quantity = numOfItems,
-      this.totalPrice = itemTotalPrice,
-      this.orderNumber = orderNumber
-    }
-  }*/
     cartClass.cartItems.push(product);
   }
+
   cartClass.totalPrice += itemTotalPrice;
-  UpdateCurrentOrderQTY(numOfItems, ID);
+  UpdateCurrentOrderQTYAPI(numOfItems, ID);
+  //When a user has items in the cart and then reduces the number to zero 0 remove that item from the cart
+  if (numOfItems === 0){
+    const indexToRemove = cartClass.cartItems.findIndex(item => item.title === title);
+
+    if (indexToRemove !== -1) {
+        // Remove the item at the found index
+        cartClass.cartItems.splice(indexToRemove, 1);
+    } else {
+    }
+  }
   updateCartUI();
-  generateShoppingUI();
+  //check to see which version of the shopping cards to show.  If user has clicked the shop tab then serachtype will be blank so show all items
+  if(!searchType && !titleForProductSearch){
+    generateShoppingUIFirstBuild()
+  } else if (!titleForProductSearch)  {
+      generateShoppingUI(searchType);
+  } else {
+    searchShopItems
+  }
+
 };
+
+const buildShopCards = (data) => {
+  
+  cardsContainerShopID.innerHTML = "";
+  data.forEach((product) => {
+    const productDiv = document.createElement("div");
+
+    productDiv.style.border = "1px solid #ccc";
+    productDiv.style.borderRadius = "10px";
+    productDiv.style.padding = "10px"; // Add padding for better spacing
+    productDiv.style.margin = "0 10px 10px 0";
+    productDiv.style.textAlign = "center";
+    productDiv.style.width = "220px";
+
+    const imageElement = document.createElement("img");
+    imageElement.src = `data:image/png;base64,${product.image}`;
+    imageElement.alt = product.title;
+    imageElement.style.borderRadius = "10px";
+    imageElement.style.width = "150px";
+    imageElement.style.height = "150px";
+    imageElement.style.marginBottom = "10px";
+    imageElement.classList.add("imghover");
+    if (product.stock === 0) {
+      imageElement.onclick = (event) => {
+        generateProductView(event, product.ID, 0);
+      };
+    } else {
+      imageElement.onclick = (event) => {
+        generateProductView(event, product.ID, `inputbox${product.ID}`);
+      };
+    }
+    productDiv.appendChild(imageElement);
+
+    const titleElement = document.createElement("h4");
+    titleElement.textContent = product.title;
+    titleElement.classList.add("imghover");
+    titleElement.onclick = (event) => {
+      generateProductView(event, product.ID, `inputbox${product.ID}`);
+    };
+    productDiv.appendChild(titleElement);
+
+    const priceElement = document.createElement("p");
+    priceElement.style.textAlign = "center";
+    priceElement.textContent = `Price: £${product.price}`;
+    productDiv.appendChild(priceElement);
+
+    const stockElement = document.createElement("p");
+    productDiv.appendChild(stockElement);
+
+    inCartElement = document.createElement("p");
+    productDiv.appendChild(inCartElement);
+
+    productDiv.style.background = "white";
+    stockElement.style.textAlign = "center";
+    if (product.stock === 0) {
+      stockElement.textContent = `Out of Stock`;
+      stockElement.style.color = "Red";
+      stockElement.style.fontWeight = "bold"; // Make the text bold
+      stockElement.style.fontSize = "26px";
+      productDiv.style.background = "white";
+    } else {
+      stockElement.textContent = `Stock: ${product.stock}`;
+      inCartElement.style.textAlign = "center";
+      if (product.orderQty > 0) {
+        inCartElement.style.fontWeight = "bold";
+        inCartElement.style.backgroundColor = "#e0ebeb";
+      }
+      inCartElement.textContent = `In cart: ${product.orderQty}`;
+      // Adding input box for each item
+      const inputElement = document.createElement("input");
+      inputElement.type = "number";
+      inputElement.classList.add("m-2");
+      inputElement.id = `inputbox${product.ID}`;
+      inputElement.min = 0; // Set the minimum value to 1
+      inputElement.max = 30;
+      inputElement.placeholder = "1";
+      inputElement.value = 1; // Set the minimum value to 1
+      if (product.orderQty > 1) {
+        inputElement.value = product.orderQty;
+      }
+      inputElement.pattern = "\\d*"; // Allow only numeric input
+      inputElement.style.width = "100px";
+      inputElement.style.height = "40px";
+      inputElement.style.borderRadius = "10px";
+      inputElement.style.textAlign = "center";
+      productDiv.appendChild(inputElement);
+
+      // Adding button for each item
+      const addButton = document.createElement("button");
+      addButton.textContent = "Add to Cart";
+      addButton.style.height = "40px";
+      addButton.classList.add("btn", "btn-secondary", "rounded");
+      addButton.onclick = (event) => {
+        if (product.stock < parseInt(inputElement.value, 10)) {
+          stockElement.textContent = `Not enough Stock`;
+          stockElement.style.color = "red";
+          stockElement.style.fontWeight = "bold"; // Make the text bold
+        } else {
+          stockElement.textContent = `Stock: ${product.stock}`;
+          stockElement.style.color = "black";
+          stockElement.style.fontWeight = "normal";
+          AddToCart(
+            event,
+            `inputbox${product.ID}`,
+            product.price,
+            product.title,
+            product.ID,
+            product.image
+          );
+        }
+      };
+      productDiv.appendChild(addButton);
+    }
+
+    cardsContainerShopID.appendChild(productDiv);
+  });
+
+}
+const searchShopItems = () =>{
+ 
+  titleForProductSearch = seacrhBarShoppingID.value
+  const requestBody = { title: titleForProductSearch };
+
+  fetch("/api/POSTFindSearchItems", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      buildShopCards(data)
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
+}
 
 const updateCartUI = () => {
   cartContainerID.innerHTML = "";
   cartClass.cartTotalPrice = 0;
-  cartClass.totalItemsInCart = 0;
-
   const heading = document.createElement("div");
   heading.innerHTML = `<div style="font-size: 24px; margin-bottom: 15px;">
                           <h2 class="mt-2"><b>Shopping Cart</b></h2>
@@ -793,8 +893,10 @@ const updateCartUI = () => {
           <div class="cart-item">
               <span>${item.title}</span>
               <span>Qty: ${item.quantity}</span>
-              <span><b>Total Price: £${item.totalPrice}</b></span>
-              <b class="deletex" onclick="removeFromCart(${index}, '${item.title}')">X</b>
+              <span><b>Total Price: £${item.totalPrice.toFixed(2)}</b></span>
+              <b class="deletex" onclick="removeFromCart(${index}, '${
+      item.title
+    }')">X</b>
 
           </div>`;
     cartContainerID.appendChild(cartItemElement);
@@ -805,7 +907,9 @@ const updateCartUI = () => {
   });
   //Add the 'checkout' button
   const totalElement = document.createElement("div");
-  totalElement.innerHTML = `<div <h4 class="mt-2"><b>Sub Total: £${cartClass.cartTotalPrice}</b></h4>
+  totalElement.innerHTML = `<div <h4 class="mt-2"><b>Sub Total: £${cartClass.cartTotalPrice.toFixed(
+    2
+  )}</b></h4>
                             </div>
                             <div <button class="btn my-3 btn-default btn-sm btn-secondary rounded " onclick=createCheckout()  id="btnCheckout">Checkout</button>
                               </div>`;
@@ -815,6 +919,8 @@ const updateCartUI = () => {
 //detele the item fron the cart ARRAY when a user has clicked on 'x'
 const removeFromCart = (index, title) => {
   const removedQuantity = cartClass.cartItems[index].quantity;
+  console.warn(cartClass.cartItems);
+  console.log(cartClass.cartItems[index].quantity);
   cartClass.cartItems.splice(index, 1);
   cartClass.cartTotalPrice = cartClass.cartItems.reduce(
     (total, item) => total + item.totalPrice,
@@ -824,12 +930,19 @@ const removeFromCart = (index, title) => {
   cartItemCount.textContent = cartClass.totalItemsInCart; //udpates the number shown on the shopping cart
 
   // Update stock control and UI
-  UpdateStockControl2(title);
+  setStockControlToZeroAPI(title);
   updateCartUI();
-  generateShoppingUI();
+  
+  if(!searchType && !titleForProductSearch){
+    generateShoppingUIFirstBuild()
+  } else if (!titleForProductSearch)  {
+      generateShoppingUI(searchType);
+  } else {
+    searchShopItems
+  }
 
   if (!productViewContainerID.classList.contains("hidden")) {
-    testAPI(title);
+    getTtitleAPI(title);
   }
 };
 //clear out all items in LocalStorage
@@ -855,10 +968,11 @@ function createCheckout() {
   cartClass.cartTotalPrice = 0;
   createCheckoutDisplaySettings();
   let itemsText = "";
-  cartClass.cartItems.length < 2 ? (itemsText = "item") : (itemsText = "items");
+
   cartClass.cartItems.forEach((qty) => {
     totalItems += qty.quantity;
   });
+  totalItems < 2 ? (itemsText = "item") : (itemsText = "items");
 
   const totalIteminCart = document.createElement("div");
   totalIteminCart.innerHTML = `<div class="d-flex justify-content-between align-items-center mb-4">
@@ -873,6 +987,11 @@ function createCheckout() {
 <div class="card mb-3">
   <div class="card-body">
     <div class="d-flex justify-content-between">
+    <div class="cart-item">
+        <img src="data:image/png;base64,${
+          item.image
+        }" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; margin-right: 10px;">
+      </div>
       <div class="cart-item">
         <span>${item.title}</span>
       </div>
@@ -880,7 +999,7 @@ function createCheckout() {
         <span>Qty: ${item.quantity}</span>
       </div>
       <div class="text-right">
-        <span><b>Total Price: £${item.totalPrice}</b></span>
+        <span><b>Total: £${item.totalPrice.toFixed(2)}</b></span>
       </div>
     </div>
   </div>
@@ -890,13 +1009,26 @@ function createCheckout() {
     addOrder(ordersArray, item); //add the item to the existing orders array
     cartClass.cartTotalPrice += item.totalPrice;
   });
-  /*const backToShoppingButton = document.createElement("div");
-  backToShoppingButton.innerHTML = `<button type="button" class="btn btn-secondary btn-block btn-lg mt-3 ml-auto" id="backToShoppingButton1">
-                                    <div class="d-flex justify-content-between ">
-                                      <div>Back to shop</div>
-                                    </div>
-                                    </button>`;
-  checkoutContainerLeftID.appendChild(backToShoppingButton);*/
+  const cartItemElementTotal = document.createElement("div");
+  cartItemElementTotal.innerHTML = `
+<div class="card mb-3">
+<div class="card-body">
+  <div class="d-flex justify-content-between">
+    <div class="cart-item">
+      <span></span>
+    </div>
+    <div>
+      <span></span>
+    </div>
+    <div class="text-right">
+      <span><b>Total Price: £${cartClass.cartTotalPrice.toFixed(2)}</b></span>
+    </div>
+  </div>
+</div>
+</div>`;
+
+  checkoutContainerLeftID.appendChild(cartItemElementTotal);
+
   buildDefualtAddress(cartClass);
 }
 accountButtontID.addEventListener("click", function () {
@@ -905,11 +1037,22 @@ accountButtontID.addEventListener("click", function () {
 });
 
 const buildDefualtAddress = (cartClass) => {
-  checkoutContainerBottomID.innerHTML = "";
-  //Build the right hand side of the container
-  let defaultAddress = getDefaultAddress(); //get the current DEFAULT address
-  const deliveryAddressDefault = document.createElement("div");
-  deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded-3">
+  deliverySlotInformation =
+    deliveryDay +
+    " " +
+    deliveryDate +
+    " " +
+    deliverySlotTime +
+    " - £" +
+    deliveryPrice.toFixed(2);
+  finalPriceofOrder = cartClass.cartTotalPrice + deliveryPrice;
+
+  //Decides if its the 1st time the checkout has been built then it uses the Default address.  If a user then chooses a new address AND goes away from  the screen and come back, it will then show the newly selected address and not redispaly the default address
+  if (counterBuildAddress === 1) {
+    checkoutContainerBottomID.innerHTML = "";
+    let defaultAddress = getDefaultAddress(); //get the current DEFAULT address
+    const deliveryAddressDefault = document.createElement("div");
+    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded-3">
                                       <div class="card-body">
                                       <div class="d-flex justify-content-between align-items-center ">
                                           <b>Delivery Address</b>
@@ -921,151 +1064,294 @@ const buildDefualtAddress = (cartClass) => {
                                             <p class="mb-1">${defaultAddress.post_town}</p>
                                           </div>
                                           <div class="d-flex justify-content-between">
-                                            <p class="mb-1">${defaultAddress.Postcode}</p>
+                                            <p class="mb-1">${defaultAddress.postcode}</p>
                                           </div>
                                           <div class="d-flex justify-content-between">
                                             <p class="mb-1">${defaultAddress.PhoneNo}</p>
                                           </div>
                                         </div>
                                         </div>`;
-  checkoutContainerrightID.appendChild(deliveryAddressDefault);
+    checkoutContainerrightID.appendChild(deliveryAddressDefault);
+    savedAddress = [];
+    savedAddress.push(
+      defaultAddress.line_1,
+      defaultAddress.post_town,
+      defaultAddress.postcode,
+      defaultAddress.PhoneNo
+    );
+    counterBuildAddress++;
+    buildDeliverySlot();
+    buildCheckoutButton();
+    buildDiscountCode();
+  } else {
+    console.warn({ savedAddress });
+    const deliveryAddressDefault = document.createElement("div");
+    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded-3">
+                                      <div class="card-body">
+                                      <div class="d-flex justify-content-between align-items-center ">
+                                          <b>Delivery Address</b>
+                                          <button type="button" class="btn btn-secondary btn-block btn-sm mt-3" onclick=chooseNewAddress() id="chooseNewAddress">change</button></div>
+                                          <div class="d-flex justify-content-between">
+                                            <p class="mb-1">${savedAddress[0]}</p>
+                                          </div>
+                                          <div class="d-flex justify-content-between">
+                                            <p class="mb-1">${savedAddress[1]}</p>
+                                          </div>
+                                          <div class="d-flex justify-content-between">
+                                            <p class="mb-1">${savedAddress[2]}</p>
+                                          </div>
+                                          <div class="d-flex justify-content-between">
+                                            <p class="mb-1">${savedAddress[3]}</p>
+                                          </div>
+                                        </div>
+                                        </div>`;
 
+    checkoutContainerrightID.appendChild(deliveryAddressDefault);
+    if (discountPercantageValue) {
+      dicountAmount =
+        (cartClass.cartTotalPrice + deliveryPrice) *
+        (discountPercantageValue / 100);
+      finalPriceofOrder = finalPriceofOrder - dicountAmount;
+      finalCheckOutButton.innerHTML = `<button type="button" class="btn btn-secondary btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
+                                    <div class="d-flex justify-content-between ">
+                                      <div>£${finalPriceofOrder.toFixed(
+                                        2
+                                      )}  -</div>
+                                      <div>  --  Checkout <i class="fas fa-long-arrow-alt-right ps-5"></i></div>
+                                    </div>
+                                    </button>`;
+      discountCodeMessageID.innerHTML = `Great news, your code entitles you to ${discountPercantageValue}% off your order, saving you £${dicountAmount.toFixed(
+        2
+      )}`;
+    }
+  }
+};
+
+const buildDiscountCode = () => {
+  const discountparts = document.createElement("div");
+  discountparts.innerHTML = `
+<div class="card text-dark rounded-3 mt-2">
+                                    <div class="card-body">
+                                    <div class="mb-1"><b>Do you have a discount code?</b></div>
+                                    <div class="d-flex justify-content-between align-items-center ">
+                                    <input type="text" class="form-control border border-secondary border-1 rounded me-2" style="width: 250px;" id="discountCodeInput" pattern="[a-zA-Z0-9]+" maxlength="15">
+                                    <button class="btn btn-secondary rounded btn-sm" type="button" id="discountCodeInputButton" onclick =CheckDiscountCode() >Apply</button>
+                                    </div>
+                                    <div class="my-1" id="discountCodeMessage"><b></b></div>   
+                                    </div>`;
+                                    checkoutContainerBottom.appendChild(discountparts);
+};
+
+const CheckDiscountCode = () => {
+  discountCodeInputID = document.getElementById("discountCodeInput").value;
+  checkDiscountCodeAPI(discountCodeInputID);
+};
+
+const calculateDiscount = (discountPercentage) => {
+  discountCodeMessageID = document.getElementById("discountCodeMessage");
+
+  if (discountPercentage && counterDiscountCode === 1) {
+    discountPercantageValue = discountPercentage;
+    dicountAmount =
+      (cartClass.cartTotalPrice + deliveryPrice) *
+      (discountPercantageValue / 100);
+    finalPriceofOrder = finalPriceofOrder - dicountAmount;
+
+    discountCodeMessageID.innerHTML = `Great news, your code entitles you to ${discountPercantageValue}% off your order, saving you £${dicountAmount.toFixed(
+      2
+    )}`;
+    discountCodeMessageID.style.color = "green";
+    discountCodeMessageID.style.fontWeight = "bold";
+    counterDiscountCode++;
+  } else {
+    discountCodeMessageID.innerHTML = `Sorry but you can only use 1 code per shop`;
+    discountCodeMessageID.style.color = "red";
+    discountCodeMessageID.style.fontWeight = "bold";
+  }
+  if (!discountPercentage) {
+    discountCodeMessageID.innerHTML = `Sorry, that code is not valid`;
+    discountCodeMessageID.style.color = "red";
+    discountCodeMessageID.style.fontWeight = "bold";
+  }
+  finalCheckOutButton.innerHTML = `<button type="button" class="btn btn-secondary btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
+                                    <div class="d-flex justify-content-between ">
+                                      <div>£${finalPriceofOrder.toFixed(
+                                        2
+                                      )}  -</div>
+                                      <div>  --  Checkout <i class="fas fa-long-arrow-alt-right ps-5"></i></div>
+                                    </div>
+                                    </button>`;
+};
+
+const buildDeliverySlot = () => {
   const chooseDeliverySlotButton = document.createElement("div");
   chooseDeliverySlotButton.innerHTML = `<button type="button" class="btn btn-secondary btn-block btn-sm mt-3 ml-auto" onclick=chooseDeliverySlot() id="chooseDilverySlotButton">
   <div class="d-flex justify-content-between ">
     <div>Choose Delivery Slot</div>
   </div>
   </button>
-  <div class="mt-2" id="deliveryTimeText"> Current Delivery Slot: </div>`
-  checkoutContainerrightID.appendChild(chooseDeliverySlotButton);
+  <div class="mt-2" id="deliveryTimeText"> Current Delivery Slot: </div>`;
+  checkoutContainerBottomID.appendChild(chooseDeliverySlotButton);
+};
 
-  const finalCheckOutButton = document.createElement("div");
-  finalCheckOutButton.innerHTML = `<button type="button" class="btn btn-secondary btn-block btn-md mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
+const buildCheckoutButton = () => {
+  checkoutContainerBottom2ID.innerHTML = "";
+  finalCheckOutButton = document.createElement("div");
+  finalCheckOutButton.innerHTML = `<button type="button" class="btn btn-secondary btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
                                     <div class="d-flex justify-content-between ">
-                                      <div>£${cartClass.cartTotalPrice+deliveryPrice}  -</div>
+                                      <div>£${finalPriceofOrder.toFixed(
+                                        2
+                                      )}  -</div>
                                       <div>  --  Checkout <i class="fas fa-long-arrow-alt-right ps-5"></i></div>
                                     </div>
                                     </button>`;
-  checkoutContainerBottomID.appendChild(finalCheckOutButton);
-  const deliveryTimeText = document.getElementById('deliveryTimeText');
+  checkoutContainerBottom2ID.appendChild(finalCheckOutButton);
+  const deliveryTimeText = document.getElementById("deliveryTimeText");
 
   deliveryTimeText.style.fontWeight = "bold";
-
-  if (!deliverySlotTime){
-  deliveryTimeText.innerHTML += "You have not selected a slot yet"
-  }else{
-    deliveryTimeText.innerHTML += deliveryDay +" " + deliveryDate +" " +  deliverySlotTime + " - £" + deliveryPrice
-  }
-
+  deliveryTimeText.innerHTML += "No slot selected";
 };
 
 const chooseDeliverySlot = () => {
   chooseDeliverySlotContainerID.classList.remove("hidden");
-  const apiURL = "/api/getDeliverySlotsFromDB";
+  checkoutContainerID.classList.add("hidden");
 
-  fetch(apiURL)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((schedule) => {
-      console.log("Retrieved data from the server:", schedule);
+  if (tableCount === 0) {
+    chooseDeliverySlotContainerTopID.innerHTML = "";
+    chooseDeliverySlotContainerID.classList.remove("hidden");
+    checkoutContainerID.classList.add("hidden");
 
-      // Create the table
-      let table = document.createElement("table");
+    const apiURL = "/api/getDeliverySlotsFromDB";
 
-      // Create the header row with days of the week and dates
-      let headerRow = table.insertRow(0);
-      headerRow.insertCell(0); // Empty cell for the corner
-      for (let i = 0; i < schedule.length; i++) {
-        let cell = headerRow.insertCell(i + 1);
-        cell.innerHTML = schedule[i].day + "<br>" + schedule[i].date;
-        cell.style.textAlign = "center";
-        cell.style.fontWeight = "bold";
-        cell.style.fontSize = "16px";
-      }
-
-      // Create the data rows
-      for (let j = 0; j < schedule[0].slots.length; j++) {
-        let row = table.insertRow(j + 1);
-        let headerCell = row.insertCell(0);
-        headerCell.innerHTML = schedule[0].slots[j].time;
-        headerCell.style.textAlign = "center";
-        headerCell.style.fontWeight = "bold";
-        headerCell.style.fontSize = "16px";
-
-        for (let k = 0; k < schedule.length; k++) {
-          let cell = row.insertCell(k + 1);
-          let slot = schedule[k].slots[j];
-
-          cell.onclick = (function (currentCell, slot, day, date) {
-            return function () {
-              // Check if the clicked slot is different from the selected one
-              if (selectedSlotId !== null && selectedSlotId !== slot.id) {
-                return;
-              }
-
-              // Toggle between "not booked" and "booked"
-              slot.status =
-                slot.status === "not booked" ? "booked" : "not booked";
-
-              // Deselect the previously selected cell, if any
-              if (selectedSlotId !== null) {
-                var selectedCell = document.getElementById(selectedSlotId);
-                if (selectedCell) {
-                  selectedCell.classList.remove("selected");
-                }
-              }
-
-              // Change the look of the clicked cell
-              currentCell.classList.toggle(
-                "selected",
-                slot.status === "booked"
-              );
-              currentCell.classList.toggle("booked", slot.status === "booked");
-
-              // Update the text content of the cell
-              if (slot.status === "booked") {
-                currentCell.innerHTML = slot.status;
-              } else {
-                currentCell.innerHTML =
-                  slot.status + "<br>Price: £" + slot.price;
-              }
-
-              // Update the selected cell reference
-              selectedSlotId = slot.status === "booked" ? slot.id : null;
-
-              // Log the day and time of the selected slot
-              console.log("Selected Slot:", day, slot.time, slot.id, date);
-
-              deliveryDay = day;
-              deliveryDate = date
-              deliverySlotTime = slot.time;
-              deliveryPrice = slot.price
-            };
-          })(cell, slot, schedule[k].day,schedule[k].date);
-
-          // Set initial styling based on the initial status
-          cell.classList.toggle("selected", slot.status === "booked");
-          cell.classList.toggle("booked", slot.status === "booked");
-          cell.innerHTML = slot.status + "<br>Price: £" + slot.price;
+    fetch(apiURL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-      }
-      // Append the table to the body
-      chooseDeliverySlotContainerTopID.appendChild(table);
-    })
-    .catch((error) => {
-      console.error("Error fetching data from the server:", error);
-    });
+        return response.json();
+      })
+      .then((schedule) => {
+        // Create the table
+        let table = document.createElement("table");
+
+        // Create the header row with days of the week and dates
+        let headerRow = table.insertRow(0);
+        headerRow.insertCell(0); // Empty cell for the corner
+        for (let i = 0; i < schedule.length; i++) {
+          let cell = headerRow.insertCell(i + 1);
+          cell.innerHTML = schedule[i].day + "<br>" + schedule[i].date;
+          cell.style.textAlign = "center";
+          cell.style.fontWeight = "bold";
+          cell.style.fontSize = "16px";
+        }
+
+        // Create the data rows
+        for (let j = 0; j < schedule[0].slots.length; j++) {
+          let row = table.insertRow(j + 1);
+          let headerCell = row.insertCell(0);
+          headerCell.innerHTML = schedule[0].slots[j].time;
+          headerCell.style.textAlign = "center";
+          headerCell.style.fontWeight = "bold";
+          headerCell.style.fontSize = "16px";
+
+          for (let k = 0; k < schedule.length; k++) {
+            let cell = row.insertCell(k + 1);
+            let slot = schedule[k].slots[j];
+            cell.style.textAlign = "center";
+
+            cell.onclick = (function (currentCell, slot, day, date) {
+              return function () {
+                // Check if the clicked slot is different from the selected one
+                if (selectedSlotId !== null && selectedSlotId !== slot.id) {
+                  return;
+                }
+
+                // If the slot is "unavailable," do not allow selection
+                if (slot.status === "unavailable") {
+                  return;
+                }
+
+                // Toggle between "not booked" and "booked"
+                slot.status =
+                  slot.status === "not booked" ? "booked" : "not booked";
+
+                // Deselect the previously selected cell, if any
+                if (selectedSlotId !== null) {
+                  var selectedCell = document.getElementById(selectedSlotId);
+                  if (selectedCell) {
+                    selectedCell.classList.remove("selected");
+                  }
+                }
+
+                // Change the look of the clicked cell
+                currentCell.classList.toggle(
+                  "selected",
+                  slot.status === "booked"
+                );
+                currentCell.classList.toggle(
+                  "booked",
+                  slot.status === "booked"
+                );
+
+                // Update the text content of the cell
+                if (slot.status === "booked" || slot.status === "unavailable") {
+                  currentCell.innerHTML = slot.status;
+                } else {
+                  currentCell.innerHTML =
+                    slot.status + "<br>Price: £" + slot.price.toFixed(2);
+                }
+
+                // Update the selected cell reference
+                selectedSlotId = slot.status === "booked" ? slot.id : null;
+
+                selectedSlotId = selectedSlotId;
+                deliveryDay = day;
+                deliveryDate = date;
+                deliverySlotTime = slot.time;
+                deliveryPrice = slot.price;
+              };
+            })(cell, slot, schedule[k].day, schedule[k].date);
+
+            // Set initial styling based on the initial status
+            cell.classList.toggle("selected", slot.status === "booked");
+            cell.classList.toggle("booked", slot.status === "booked");
+            cell.classList.toggle("unavailable", slot.status === "unavailable");
+            if (cell.classList.contains("unavailable")) {
+              cell.innerHTML = slot.status;
+            } else {
+              cell.innerHTML =
+                slot.status + "<br>Price: £" + slot.price.toFixed(2);
+            }
+          }
+        }
+
+        chooseDeliverySlotContainerTopID.appendChild(table);
+      })
+      .catch((error) => {});
+  }
+  tableCount++;
 };
 
 const deliveryConfirmSlot = () => {
-
-  console.log(1051,deliveryDay,deliverySlotTime,deliveryPrice, deliveryDate );
-  createCheckout() 
-}
+  deliverySlotInformation =
+    deliveryDay +
+    " " +
+    deliveryDate +
+    " " +
+    deliverySlotTime +
+    " - £" +
+    deliveryPrice.toFixed(2);
+  finalPriceofOrder = cartClass.cartTotalPrice + deliveryPrice;
+  buildCheckoutButton();
+  deliveryTimeText.innerHTML = "";
+  chooseDeliverySlotContainer.classList.add("hidden");
+  if (!deliverySlotTime) {
+    deliveryTimeText.innerHTML += "No slot selected";
+  } else {
+    deliveryTimeText.innerHTML += deliverySlotInformation;
+  }
+  checkoutContainerID.classList.remove("hidden");
+};
 
 const chooseNewAddress = () => {
   checkoutContainerID.classList.add("hidden");
@@ -1074,16 +1360,17 @@ const chooseNewAddress = () => {
   //let selectedAddressIndex = null; // Declare selectedAddressIndex here
   checkoutContainerrightID.innerHTML = "";
   chooseNewAddressContainerID.innerHTML = "";
+  selectedAddressIndex = 0 // if a user doesnt click on an address then the one strored first in the array will be displayed
   //Build up the addresses from MY address Book and add a radio button
   addresses.forEach((address, index) => {
     const createRadioBtnAddresses = document.createElement("div");
     createRadioBtnAddresses.innerHTML = `<div class="form-check border border-secondary rounded ps-5 py-3">
-                                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault${index}">
+                                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault${index}" ${index === 0 ? 'checked' : ''}>
                                          <label class="form-check-label" for="flexRadioDefault${index}">
                                            <div class="cart-item">
                                               <span>${address.line_1}</span>
                                               <span>, ${address.post_town}</span>
-                                              <span>, ${address.Postcode}</span>
+                                              <span>, ${address.postcode}</span>
                                            </div>
                                          </label>
                                        </div>`;
@@ -1092,7 +1379,6 @@ const chooseNewAddress = () => {
       .addEventListener("click", function () {
         // Store the selected index in the variable
         selectedAddressIndex = index;
-        console.log(selectedAddressIndex);
         //useSelectedAddress(selectedAddressIndex)
       });
     chooseNewAddressContainerID.appendChild(createRadioBtnAddresses);
@@ -1112,7 +1398,7 @@ const chooseNewAddress = () => {
                                   </div>`;
   chooseNewAddressContainerID.appendChild(chooseNewAddressBtn);
 };
-
+console.log(selectedAddressIndex);
 //function to call the add address window
 const addNewAddress2 = () => {
   addAddressFormConatinerID.classList.remove("hidden");
@@ -1135,6 +1421,7 @@ const CancelBtnUseThisAddress = () => {
 const useSelectedAddress = (index) => {
   chooseNewAddressContainerID.classList.add("hidden");
   checkoutContainerID.classList.remove("hidden");
+  console.log(index);
 
   if (index !== null) {
     let addresses = JSON.parse(localStorage.getItem("addresses")) || [];
@@ -1144,7 +1431,7 @@ const useSelectedAddress = (index) => {
                                         <div class="card-body">
                                           <div class="d-flex justify-content-between align-items-center mb-1">
                                             <b>Delivery Address</b>
-                                            <button type="button" class="btn btn-secondary btn-block btn-sm mt-3" onclick=chooseNewAddress() id="chooseNewAddress">change</button></div>
+                                            <button type="button" class="btn btn-secondary btn-block btn-sm mt-3" onclick=chooseNewAddress() id="chooseNewAddress">Change</button></div>
                                           <div class="d-flex justify-content-between">
                                             <p class="mb-1">${selectedAddress.line_1}</p>
                                           </div>
@@ -1152,17 +1439,27 @@ const useSelectedAddress = (index) => {
                                             <p class="mb-1">${selectedAddress.post_town}</p>
                                           </div>
                                           <div class="d-flex justify-content-between">
-                                            <p class="mb-1">${selectedAddress.Postcode}</p>
+                                            <p class="mb-1">${selectedAddress.postcode}</p>
                                           </div>
                                           <div class="d-flex justify-content-between">
                                           <p class="mb-1">${selectedAddress.PhoneNo}</p>
                                           </div>
                                         </div>
                                       </div>`;
+    savedAddress = [];
+    savedAddress.push(
+      selectedAddress.line_1,
+      selectedAddress.post_town,
+      selectedAddress.Postcode,
+      selectedAddress.PhoneNo
+      
+    );
+   
     checkoutContainerrightID.appendChild(deliveryAddressDefault);
   } else {
     console.log("No address selected.");
   }
+  console.log(savedAddress)
 };
 //Function to add orders to the nested array
 const addOrder = (orderArray, order) => {
@@ -1180,10 +1477,12 @@ const addOrder = (orderArray, order) => {
 };
 //update the order array with the latest order when youy click the checkout button
 const createOrder = () => {
+  sendEmailVariablesAPI();
+  callEmailFunctionAPI();
   //set cart counter to zero
   cartItemCount.innerHTML = 0;
-  UpdateStockControl();
-  updateOrderQtyToZero();
+  UpdateStockControlAPI();
+  updateOrderQtyToZeroAPI();
   cartClass.cartItems = [];
   cartContainerID.classList.remove("hidden");
 
@@ -1234,8 +1533,12 @@ previousOrdersButtonID.addEventListener("click", () => {
       cartItemElement.innerHTML = `<div class="cart-item ms-4">
 
                                           <span>${order.title}</span>
-                                          <span>Quantity: ${order.quantity}</span>
-                                          <span>Total Price: £${order.totalPrice}</span> 
+                                          <span>Quantity: ${
+                                            order.quantity
+                                          }</span>
+                                          <span>Total Price: £${order.totalPrice.toFixed(
+                                            2
+                                          )}</span> 
                                       </div>`;
       orderGroupElement.appendChild(cartItemElement);
     }
@@ -1264,9 +1567,7 @@ const getaddresses = async () => {
     try {
       let res = await fetch(url);
       return await res.json();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   } else {
     //if not the 1st time, use the objects in local storage
     let addresses = JSON.parse(localStorage.getItem("addresses"));
@@ -1274,6 +1575,7 @@ const getaddresses = async () => {
   }
 };
 getaddresses();
+
 //does what it says on the tin (in the title!)
 const fetchAndStoreAddresses = async () => {
   let addresses = await getaddresses();
@@ -1294,7 +1596,6 @@ const setDefaultAddress = (index) => {
 const RemoveAddress = (index) => {
   let addresses = JSON.parse(localStorage.getItem("addresses"));
 
-  console.log("index", addresses[index].Default);
   //checks to see if a user is trying to delete the default address and prevents them
   if (addresses[index].Default === "TRUE") {
     alert(
@@ -1318,10 +1619,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Call createAddressCards function to initially populate the UI with addresses
   createAddressCards();
 });
-//CURRENTLY NOT USED BUT THE ARRAY OF ADDRESSES COULD COME IN HANDY - *******************************************************************
+//***************************************
 
 const createAddressCards = async () => {
   let addresses = JSON.parse(localStorage.getItem("addresses")) || [];
+
   // Sort addresses array based on Default property (TRUE comes first) - put the default one at the top
   addresses.sort((a, b) => (b.Default === "TRUE") - (a.Default === "TRUE"));
   //after sorting the array, put it back in localstorage so localstorage has the most up to date order, then call it again (this sorted out the issue where the default was not working because what was on  teh screen was not the same as in local storage)
@@ -1347,7 +1649,7 @@ const createAddressCards = async () => {
                 <strong>Town/City:</strong> ${address.post_town}
             </div>
             <div class="mb-3">
-                <strong>Postcode:</strong> ${address.Postcode}
+                <strong>Postcode:</strong> ${address.postcode}
             </div>
             <div class="mb-3">
                 <strong>Phone Number:</strong> ${address.PhoneNo}
@@ -1430,7 +1732,7 @@ addAddressButtonID.addEventListener("click", () => {
     let newaddress = {
       line_1: line_1,
       post_town: post_town,
-      Postcode: postcode,
+      postcode: postcode,
       PhoneNo: phonenumber,
       Default: "",
     };
@@ -1438,7 +1740,6 @@ addAddressButtonID.addEventListener("click", () => {
     localStorage.setItem("addresses", JSON.stringify(addresses));
     createAddressCards();
     addAddressFormContainer.classList.add("hidden");
-    console.log("counter2", counter2);
     if (counter2 === 1) {
       counter2 = 0;
       chooseNewAddress();
@@ -1449,8 +1750,17 @@ addAddressButtonID.addEventListener("click", () => {
 const CancelBtnAddAddress = () => {
   addAddressFormConatinerID.classList.add("hidden");
 };
+
+//used for when clicking on the shopping cart - if there are items in the cart then go to the checkout
+const checkForNumberofItemsInOrder = () => {
+  if (cartClass.totalItemsInCart > 0) {
+    createCheckout();
+  } else {
+    return;
+  }
+};
 //used when the order is completed, to update the stock levels
-const UpdateStockControl = () => {
+const UpdateStockControlAPI = () => {
   fetch("/api/POSTUpdateDBStockNumbers", {
     method: "POST",
     headers: {
@@ -1467,8 +1777,7 @@ const UpdateStockControl = () => {
     });
 };
 //used to set the qty back to zero when its deleted from the cart
-const UpdateStockControl2 = (title) => {
-  console.log(1245, title);
+const setStockControlToZeroAPI = (title) => {
   const requestBody = { title: title };
 
   fetch("/api/POSTUpdateDBOrderQtyWhenDeleted", {
@@ -1487,17 +1796,8 @@ const UpdateStockControl2 = (title) => {
     });
 };
 
-//used for when clicking on the shopping cart - if there are items in the cart then go to the checkout
-const checkForNumberofItemsInOrder = () => {
-  if (cartClass.totalItemsInCart > 0) {
-    createCheckout();
-  } else {
-    return;
-  }
-};
 //Used to track how many are in the cart
-const UpdateCurrentOrderQTY = (numberItems, ID) => {
-  console.log(numberItems, ID);
+const UpdateCurrentOrderQTYAPI = (numberItems, ID) => {
   const requestData = {
     ID: ID,
     numOfItems: numberItems,
@@ -1511,15 +1811,13 @@ const UpdateCurrentOrderQTY = (numberItems, ID) => {
     body: JSON.stringify(requestData),
   })
     .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    })
+    .then((data) => {})
     .catch((error) => {
       console.error("Error:", error);
     });
 };
 
-const updateOrderQtyToZero = () => {
+const updateOrderQtyToZeroAPI = () => {
   fetch("/api/updateOrderQtyToZero", {
     method: "POST",
     headers: {
@@ -1537,7 +1835,7 @@ const updateOrderQtyToZero = () => {
     });
 };
 
-const testAPI = (title) => {
+const getTtitleAPI = (title) => {
   const requestData = {
     title: title,
   };
@@ -1551,13 +1849,11 @@ const testAPI = (title) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Data received from server:", data);
-
       // Assuming data is an array and you want the ID from the first document
       if (Array.isArray(data) && data.length > 0) {
         const titleID = data[0].ID;
         const titleIDInputBox = "inputbox" + titleID;
-        console.log("storeForProductID", storeForProductID);
+
         //this is so that if you are on the prodcutview page and you delete an item from the cart which is NOT the same as the one you are displaying then do not call the function as that would then dispaly the productview for the item you just deleted
         if (storeForProductID === titleID) {
           generateProductView(event, titleID, titleIDInputBox);
@@ -1565,6 +1861,71 @@ const testAPI = (title) => {
       } else {
         console.log("No documents found or invalid data structure");
       }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
+const callEmailFunctionAPI = () => {
+  fetch("/api/POSTSendCustomerEmail", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(cartClass.cartItems),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+//Used to send the final price to  the server so this can then be used in the email to the customer
+const sendEmailVariablesAPI = () => {
+  const requestData = {
+    finalPrice: finalPriceofOrder,
+    deliverySlotInfo: deliverySlotInformation,
+    deliverySlotDay: deliveryDay,
+    deliverySlotTime: deliverySlotTime,
+    deliveryPrice: deliveryPrice,
+    deliveryDate: deliveryDate,
+    savedAddress: savedAddress,
+  };
+
+  fetch("/api/POSTfinalPriceofOrder", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
+const checkDiscountCodeAPI = (discountCode) => {
+  const requestData = {
+    discountCode: discountCode,
+  };
+  fetch("/api/POSTheckDiscountCodeAPI", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      calculateDiscount(data);
+      console.log(data);
     })
     .catch((error) => {
       console.error("Error:", error);

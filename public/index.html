@@ -33,7 +33,6 @@
       <li class="nav-item">
         <a class="nav-link" id="MemoryDestruct" href="#">Memory Destruct!!!</a>
       </li>
-
       <form class="d-flex ms-auto me-3">
         <button class="btn btn-secondary me-3 rounded" type="submit" id="accountButton">Account</button>
         <i class="fa-solid fa-cart-shopping fa-2xl mt-3 carthover" id="cartIcon" onclick="checkForNumberofItemsInOrder()"></i>
@@ -136,6 +135,56 @@
           </div>
           <!-- Main shopping container-->
           <div class="container mb-5 mt-2 pb-1 ps-5 pe-5 bg-dark text-dark border border-secondary rounded hidden" id="shoppingcontainer">
+            <div class="container mt-3">
+              <div class="row">
+                <div class="col">
+                </div>
+                <!-- Search and reset container (shopping)-->
+                <div class="input-group mt-3 col">
+                  <input type="text" class="form-control border border-secondary border-1 rounded me-2" id="seacrhBarShopping"
+                    placeholder="" aria-label="Discover 1000's of recipes" aria-describedby="button-addon2">
+                  <button class="btn btn-secondary rounded" type="button" id="searchButtonShopping" onclick="searchShopItems()">Search</button>
+                  <button class="btn btn-secondary ms-2 rounded" type="button" id="resetButtonShopping">Reset</button>
+                </div>
+                <div class="col">
+                </div>
+              </div>
+            </div>
+            <div class="container border border-secondary mt-4 border-1 rounded text-center p-2 bg-white text-dark">
+              <div class="row">
+                <div class="col-1 text-center pt-1 ps-4">
+                  Filter By:
+                </div>
+                <div class="col">
+                  <div class="">
+                    <button class="btn btn-secondary" type="button" id="fruitButton" style="width: 120px;" onclick="generateShoppingUI('fruit')">Fruit</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="">
+                    <button class="btn btn-secondary" type="button" id="vegatablesButton" style="width: 120px;" onclick="generateShoppingUI('vegetable')">Vegetables</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="">
+                    <button class="btn btn-secondary" type="button" id="meatButton" style="width: 120px" onclick="generateShoppingUI('meat')">Meat</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="">
+                    <button class="btn btn-secondary" type="button" id="FishButton" style="width: 120px" onclick="generateShoppingUI('fish')">Fish</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="">
+                    <button class="btn btn-secondary" type="button" id="allButton" style="width: 120px" onclick="generateShoppingUIFirstBuild()">All</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
             <!-- Product Cards container-->
             <div class="container  pt-3 mb-5 pb-1 ps-5 pe-5 bg-light text-dark border border-secondary rounded mt-5 hidden" id="cardsContainerShop">
             </div>
@@ -169,7 +218,7 @@
                       <h5 class="me-2" id="productViewNumberInCart">test
                       </h5>
                       <h4 class="price me-2" id="productViewPrice">£5</h4>
-                      <input type="number" class="me-2" id="productViewQty" min="1">
+                      <input type="number" class="me-2" id="productViewQty" min="0" max="30">
                       <button type="button" class="btn btn-secondary" id="productViewAddButton">Add to
                         Cart</button>
                     </div>
@@ -246,28 +295,28 @@
                     </div>
                     <div class="col-7 my-3">
                       <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-theme="dark">
-                        <div class="carousel-indicators ">
+                        <div class="carousel-indicators " data-bs-interval="2000">
                           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active " aria-current="true"
                             aria-label="Slide 1"></button>
                           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
                           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner">
-                          <div class="carousel-item active">
+                          <div class="carousel-item active " data-bs-interval="2000">
                             <img src="" class="d-block w-50 mx-auto rounded" alt="..." id="carouselImg1">
                             <div class="carousel-caption d-none d-md-block text-dark" id="carousel1-caption">
                               <p id="carousel">Some representative placeholder
                                 content for the first slide.</p>
                             </div>
                           </div>
-                          <div class="carousel-item">
+                          <div class="carousel-item" data-bs-interval="2000">
                             <img src="" class="d-block w-50 mx-auto rounded" alt="..." id="carouselImg2">
                             <div class="carouse2-caption d-none d-md-block text-dark" id="carousel2-caption">
                               <p>Some representative placeholder content for the
                                 second slide.</p>
                             </div>
                           </div>
-                          <div class="carousel-item">
+                          <div class="carousel-item" data-bs-interval="2000">
                             <img src="" class="d-block w-50 mx-auto rounded" alt="..." id="carouselImg3">
                             <div class=" d-none d-md-block text-dark" id="carousel3-caption">
                               <p>Some representative placeholder content for the
@@ -417,8 +466,8 @@ Newsletter signed up message container
 
 
     <!-- Checkout container-->
-    <div class="container mb-5 pb-1 ps-5 pe-5 bg-dark text-dark border border-secondary rounded mt-5 hidden" id="checkoutContainer">
-      <div class="container  border border-secondary bg-light p-4 rounded mt-4 mb-5 w-75">
+    <div class="container  bg-dark text-dark border border-secondary rounded  mt-2 hidden" id="checkoutContainer">
+      <div class="container border border-secondary bg-light rounded w-85 p-3 my-3">
         <div class="col-12 container" id="checkoutContainerTop"></div>
         <div class="row">
           <div class="col-6 checkoutContainer-left" id="checkoutContainer-left">
@@ -428,6 +477,10 @@ Newsletter signed up message container
         <div class="row">
           <div class="col-6 "></div>
           <div class="col-6" id="checkoutContainerBottom"></div>
+        </div>
+        <div class="row">
+          <div class="col-6 "></div>
+          <div class="col-6" id="checkoutContainerBottom2"></div>
         </div>
       </div>
     </div>
@@ -449,7 +502,7 @@ Newsletter signed up message container
     <div class="container w-25 p-3 mt-3 border border-dark-subtle border-2 rounded hidden" id="addAddressFormContainer">
       <form>
         <div class="row">
-          <h3>Add new adress</h3>
+          <h3>Add new adresss</h3>
           <div class="form-outline">
             <label class="form-label mt-2 fw-bold" for="line_1">Address First
               Line</label>
@@ -495,8 +548,8 @@ Newsletter signed up message container
     </div>
 
     <!-- Delivery Slot container-->
-    <div class="container mb-5 pb-1 ps-5 pe-5 bg-dark text-dark border border-secondary rounded mt-5 hidden" id="chooseDeliverySlotContainer">
-      <div class="container  border border-secondary bg-light p-4 rounded mt-4 mb-5 w-75">
+    <div class="container mb-5 bg-dark text-dark border border-secondary rounded mt-2 hidden" id="chooseDeliverySlotContainer">
+      <div class="container border border-secondary bg-light rounded  w-85 p-3 my-3">
         <div class="col-12 " id="chooseDeliverySlotContainerTop"></div>
         
         <div class="row">
@@ -506,8 +559,6 @@ Newsletter signed up message container
         </div>
       </div>
     </div>
-
-
 
   </body>
   <script src="main.js"></script>
