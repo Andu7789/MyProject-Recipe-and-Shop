@@ -85,29 +85,30 @@ let postcodeID = document.getElementById("postcode");
 let phonenumberID = document.getElementById("phonenumber");
 
 //ProdcutView container
-productViewImgID = document.getElementById("productViewImg");
-productViewTitleID = document.getElementById("productViewTitle");
-productViewPriceID = document.getElementById("productViewPrice");
-productViewQtyID = document.getElementById("productViewQty");
-productViewAddButtonID = document.getElementById("productViewAddButton");
-productViewDescriptionID = document.getElementById("productViewDescription");
-carouselImg1ID = document.getElementById("carouselImg1");
-carouselDesc1ID = document.getElementById("carouselDesc1");
-carouselImg2ID = document.getElementById("carouselImg2");
-carouselImg3ID = document.getElementById("carouselImg3");
-carouselDesc3ID = document.getElementById("carouselDesc3");
-carousel1captionID = document.getElementById("carousel1-caption");
-carousel2captionID = document.getElementById("carousel2-caption");
-carousel3captionID = document.getElementById("carousel3-caption");
-productViewInsufficientStockID = document.getElementById(
+let productViewImgID = document.getElementById("productViewImg");
+let productViewTitleID = document.getElementById("productViewTitle");
+let productViewPriceID = document.getElementById("productViewPrice");
+let productViewQtyID = document.getElementById("productViewQty");
+let productViewAddButtonID = document.getElementById("productViewAddButton");
+let productViewDescriptionID = document.getElementById("productViewDescription");
+let carouselImg1ID = document.getElementById("carouselImg1");
+let carouselDesc1ID = document.getElementById("carouselDesc1");
+let carouselImg2ID = document.getElementById("carouselImg2");
+let carouselImg3ID = document.getElementById("carouselImg3");
+let carouselDesc3ID = document.getElementById("carouselDesc3");
+let carousel1captionID = document.getElementById("carousel1-caption");
+let carousel2captionID = document.getElementById("carousel2-caption");
+let carousel3captionID = document.getElementById("carousel3-caption");
+let productViewInsufficientStockID = document.getElementById(
   "productViewInsufficientStock"
 );
-productViewNumberInCartID = document.getElementById("productViewNumberInCart");
+let productViewNumberInCartID = document.getElementById("productViewNumberInCart");
 
 //Search and reset container (shopping)
 let seacrhBarShoppingID = document.getElementById("seacrhBarShopping")
 let resetButtonShoppingID = document.getElementById("resetButtonShopping");
 let searchButtonShoppingID = document.getElementById("searchButtonShopping")
+let dropdownFilterTypeID = document.getElementById("dropdownFilterType")
 
 let dropdownCuisine2ID = document.getElementById("dropdownCuisine2");
 let dropdownMealType2ID = document.getElementById("dropdownMealType2");
@@ -128,13 +129,13 @@ let chooseNewAddressContainerID = document.getElementById(
 let productViewContainerID = document.getElementById("productViewContainer");
 
 //delivery slot container
-chooseDeliverySlotContainerID = document.getElementById(
+let chooseDeliverySlotContainerID = document.getElementById(
   "chooseDeliverySlotContainer"
 );
-chooseDeliverySlotContainerTopID = document.getElementById(
+let chooseDeliverySlotContainerTopID = document.getElementById(
   "chooseDeliverySlotContainerTop"
 );
-chooseDeliverySlotContainerBottomID = document.getElementById(
+let chooseDeliverySlotContainerBottomID = document.getElementById(
   "chooseDeliverySlotContainerBottom"
 );
 
@@ -158,13 +159,6 @@ class order {
 }
 let cartClass = new cart();
 let orderClass = new order();
-
-//let cartClass.cartItems = [];
-//let totalItemsInCart = 0
-//let totalPrice = 0;
-//let cartTotalPrice = 0
-//let customerOrder = [];
-//let orderNumber = 1;
 
 let addressStreetNameArray = [];
 let selectedAddressIndex = "";
@@ -210,7 +204,27 @@ const selectItem = (event, value, buttonID) => {
   event.preventDefault();
   var button = document.getElementById(buttonID);
   button.innerHTML = value;
+console.log(value);
+  if (value === 'Price - High to Low' || value === 'Price - Low to High') {
+
+    value === 'Price - Low to High' ? (filterChoice = 1) : (filterChoice = -1);
+
+console.log( {searchType},    {titleForProductSearch}
+);
+    if(!searchType && !titleForProductSearch){
+      //generateShoppingUIFirstBuild()
+      console.log(123);
+      filterShoppingCardsAllAPI(filterChoice)
+    } else if (!titleForProductSearch)  {
+      console.log(567);
+      filterShoppingCardsAPI(filterChoice)
+    } else {
+      console.log(345);
+      filterShoppingCardsSearchAPI(filterChoice)
+    } 
+  }
 };
+
 recipesMenuID.addEventListener("click", function () {
   recipesMenuID.classList.add("active");
   videosMenuID.classList.remove("active");
@@ -415,6 +429,9 @@ function check() {
   if (dishTypeValue2 === "Dish Type") {
     dishTypeValue2 = "Main Course";
   }
+  dropdownFilterTypeValue = dropdownFilterTypeID.innerHTML;
+console.log({dropdownFilterTypeValue});
+
 }
 //used for when a user hits 'enter key' whilst the cursor is in the recipe search bar
 seacrhBarID.addEventListener("keydown", function (event) {
@@ -530,6 +547,7 @@ const generateShoppingUI = (type) => {
     orderClass.orderNumber = objFromStorageOrderNUmber;
   }
   titleForProductSearch = ""
+  dropdownFilterTypeID.innerHTML = "Filter"
   searchType = type;
   const requestData = {
     type: type,
@@ -563,7 +581,8 @@ const generateShoppingUIFirstBuild = () => {
     const objFromStorageOrderNUmber = JSON.parse(strObjFromStorageOrderNumber);
     orderClass.orderNumber = objFromStorageOrderNUmber;
   }
-
+  dropdownFilterTypeID.innerHTML = "Filter"
+  searchType = ""
  
   fetch("/api/getItemsFromDBFirstBuild", )
     .then((response) => response.json())
@@ -728,13 +747,13 @@ const AddToCart = (event, inputbox, price, title, ID, image) => {
     }
   }
   updateCartUI();
-  //check to see which version of the shopping cards to show.  If user has clicked the shop tab then serachtype will be blank so show all items
-  if(!searchType && !titleForProductSearch){
+  //check to see which version of the shopping cards to show.  If user has clicked the shop tab then searchtype will be blank so show all items
+  if(!searchType && !titleForProductSearch){ 
     generateShoppingUIFirstBuild()
-  } else if (!titleForProductSearch)  {
+  } else if (!titleForProductSearch)  { //if user has NOT used the search bar then display the items corresponding to the item type
       generateShoppingUI(searchType);
   } else {
-    searchShopItems
+    searchShopItems //display items requested via the search bar
   }
 
 };
@@ -854,7 +873,19 @@ const buildShopCards = (data) => {
 
     cardsContainerShopID.appendChild(productDiv);
   });
-
+if (data.length === 0){
+  const productDiv = document.createElement("div");
+  productDiv.style.border = "1px solid #ccc";
+    productDiv.style.borderRadius = "10px";
+    productDiv.style.padding = "10px"; // Add padding for better spacing
+    productDiv.style.margin = "0 10px 10px 0";
+    productDiv.style.textAlign = "center";
+    productDiv.style.width = "500px";
+    productDiv.textContent = "No items match your search"
+    productDiv.style.fontWeight = "bold"
+    productDiv.style.color = "red";
+    cardsContainerShopID.appendChild(productDiv);
+}
 }
 const searchShopItems = () =>{
  
@@ -1931,3 +1962,71 @@ const checkDiscountCodeAPI = (discountCode) => {
       console.error("Error:", error);
     });
 };
+
+const filterShoppingCardsAPI = (filtervalue) => {
+
+  const requestData = {
+    type: searchType,
+    filtervalue: filtervalue
+  };
+  
+  fetch("/api/getItemsFromDBAndFilter", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      buildShopCards(data)
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+const filterShoppingCardsAllAPI = (filtervalue) => {
+
+  const requestData = {
+    filtervalue: filtervalue
+  };
+  console.log({filtervalue});
+  fetch("/api/getAllItemsFromDBAndFilter", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      buildShopCards(data)
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    })
+}
+
+const filterShoppingCardsSearchAPI = (filtervalue) => {
+
+  const requestData = {
+    title: titleForProductSearch,
+    filtervalue: filtervalue
+  };
+  console.log({titleForProductSearch});
+  fetch("/api/getSearchItemsFromDBAndFilter", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      buildShopCards(data)
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}

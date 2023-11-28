@@ -23,7 +23,10 @@
 * add 'all' button
 * radio buttons need a fix for when not selected
 * when decreasing to zeor only delete that item
+* no items match your search message
+* add option to filter by price (high to low)
 --------------- Still to do ---------------
+* cartitems text is wrong
 * move discount and delivery up under address
 * favourite recipe
 * video screen - show or hide cart?

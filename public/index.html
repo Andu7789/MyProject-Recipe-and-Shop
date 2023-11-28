@@ -142,7 +142,7 @@
                 <!-- Search and reset container (shopping)-->
                 <div class="input-group mt-3 col">
                   <input type="text" class="form-control border border-secondary border-1 rounded me-2" id="seacrhBarShopping"
-                    placeholder="" aria-label="Discover 1000's of recipes" aria-describedby="button-addon2">
+                    placeholder="Search for items" aria-label="Discover 1000's of recipes" aria-describedby="button-addon2">
                   <button class="btn btn-secondary rounded" type="button" id="searchButtonShopping" onclick="searchShopItems()">Search</button>
                   <button class="btn btn-secondary ms-2 rounded" type="button" id="resetButtonShopping">Reset</button>
                 </div>
@@ -152,32 +152,41 @@
             </div>
             <div class="container border border-secondary mt-4 border-1 rounded text-center p-2 bg-white text-dark">
               <div class="row">
-                <div class="col-1 text-center pt-1 ps-4">
-                  Filter By:
-                </div>
                 <div class="col">
                   <div class="">
-                    <button class="btn btn-secondary" type="button" id="fruitButton" style="width: 120px;" onclick="generateShoppingUI('fruit')">Fruit</button>
+                    <button class="btn btn-secondary" type="button" id="fruitButton" style="width: 100px;" onclick="generateShoppingUI('fruit')">Fruit</button>
                   </div>
                 </div>
                 <div class="col">
                   <div class="">
-                    <button class="btn btn-secondary" type="button" id="vegatablesButton" style="width: 120px;" onclick="generateShoppingUI('vegetable')">Vegetables</button>
+                    <button class="btn btn-secondary" type="button" id="vegatablesButton" style="width: 100px;" onclick="generateShoppingUI('vegetable')">Vegetables</button>
                   </div>
                 </div>
                 <div class="col">
                   <div class="">
-                    <button class="btn btn-secondary" type="button" id="meatButton" style="width: 120px" onclick="generateShoppingUI('meat')">Meat</button>
+                    <button class="btn btn-secondary" type="button" id="meatButton" style="width: 100px" onclick="generateShoppingUI('meat')">Meat</button>
                   </div>
                 </div>
                 <div class="col">
                   <div class="">
-                    <button class="btn btn-secondary" type="button" id="FishButton" style="width: 120px" onclick="generateShoppingUI('fish')">Fish</button>
+                    <button class="btn btn-secondary" type="button" id="FishButton" style="width: 100px" onclick="generateShoppingUI('fish')">Fish</button>
                   </div>
                 </div>
                 <div class="col">
                   <div class="">
-                    <button class="btn btn-secondary" type="button" id="allButton" style="width: 120px" onclick="generateShoppingUIFirstBuild()">All</button>
+                    <button class="btn btn-secondary" type="button" id="allButton" style="width: 100px" onclick="generateShoppingUIFirstBuild()">All</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="dropdown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownFilterType" data-bs-toggle="dropdown"
+                      aria-expanded="false">Filter</button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" onclick="selectItem(event, 'Price - High to Low', 'dropdownFilterType')">Price - High to Low</a>
+                        </li>
+                        <li><a class="dropdown-item" onclick="selectItem(event, 'Price - Low to High', 'dropdownFilterType')">Price - Low to High</a>
+                        </li>
+                      </ul>
                   </div>
                 </div>
               </div>

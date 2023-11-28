@@ -193,6 +193,42 @@ const imagePath18 = "Img/Food/Cauliflower.png"; // Replace this with the actual 
 const imageBuffer18 = fs.readFileSync(imagePath18);
 const base64Image18 = imageBuffer18.toString("base64");
 
+const imagePath19 = "Img/Food/Sea Bream.png"; // Replace this with the actual path to your image file
+const imageBuffer19 = fs.readFileSync(imagePath19);
+const base64Image19 = imageBuffer19.toString("base64");
+
+const imagePath20 = "Img/Food/Cod Fillets.png"; // Replace this with the actual path to your image file
+const imageBuffer20= fs.readFileSync(imagePath20);
+const base64Image20 = imageBuffer20.toString("base64");
+
+const imagePath21 = "Img/Food/Whole Cod.png"; // Replace this with the actual path to your image file
+const imageBuffer21= fs.readFileSync(imagePath21);
+const base64Image21 = imageBuffer21.toString("base64");
+
+const imagePath22 = "Img/Food/Smoked Haddock.png"; // Replace this with the actual path to your image file
+const imageBuffer22= fs.readFileSync(imagePath22);
+const base64Image22 = imageBuffer22.toString("base64");
+
+const imagePath23 = "Img/Food/Cabbage.png"; // Replace this with the actual path to your image file
+const imageBuffer23= fs.readFileSync(imagePath23);
+const base64Image23 = imageBuffer23.toString("base64");
+
+const imagePath24 = "Img/Food/New Potatoes.png"; // Replace this with the actual path to your image file
+const imageBuffer24= fs.readFileSync(imagePath24);
+const base64Image24 = imageBuffer24.toString("base64");
+
+const imagePath25 = "Img/Food/Beefsteak tomato.png"; // Replace this with the actual path to your image file
+const imageBuffer25= fs.readFileSync(imagePath25);
+const base64Image25 = imageBuffer25.toString("base64");
+
+const imagePath26 = "Img/Food/Red Cabbage.png"; // Replace this with the actual path to your image file
+const imageBuffer26= fs.readFileSync(imagePath26);
+const base64Image26 = imageBuffer26.toString("base64");
+
+const imagePath27 = "Img/Food/Red Onion.png"; // Replace this with the actual path to your image file
+const imageBuffer27= fs.readFileSync(imagePath27);
+const base64Image27 = imageBuffer27.toString("base64");
+
 
 
 let doc = [
@@ -217,15 +253,26 @@ let doc = [
   { ID: 9, title: "Bananas", price: 0.15, image: base64Image8, stock: 20, Description: `Responsibly Grown. Hand picked and gently ripened with a sweet flavour.`, orderQty: 0, type: "fruit"},
   { ID: 10, title: "Lemons", price: 0.45, image: base64Image9, stock: 20, Description: `Hand picked Grown for their sharp, zingy taste, ideal for cooking or drinks.`, orderQty: 0, type: "fruit"},
   { ID: 11, title: "Limes", price: 0.42, image: base64Image10, stock: 0, Description: `Hand picked Grown for their sharp, zingy taste, ideal for cooking or drinks.`, orderQty: 0, type: "fruit"}, 
-  { ID: 12, title: "Oranges", price: 0.37, image: base64Image11, stock: 20, Description: `Sweet & Juicy`, orderQty: 0, type: "fruit"},
+  { ID: 12, title: "Oranges", price: 0.37, image: base64Image11, stock: 20, Description: `Sweet & Juicy and ready to eat`, orderQty: 0, type: "fruit"},
   { ID: 13, title: "Pineapple", price: 1.29, image: base64Image12, stock: 0, Description: `Harvested by hand Grown in tropical climates for their golden colour and sweet flavour`, orderQty: 0, type: "fruit"},
   { ID: 14, title: "Red Apples", price: 0.34, image: base64Image13, stock: 20, Description: `Responsibly Grown. Hand picked and gently ripened with a sweet flavour.`, orderQty: 0, type: "fruit"},
   { ID: 15, title: "Green Apples", price: 0.37, image: base64Image14, stock: 20, Description: `Responsibly Grown. Hand picked and gently ripened with a sweet flavour.`, orderQty: 0, type: "fruit"}, 
   { ID: 16, title: "Strawberries", price: 2.29, image: base64Image15, stock: 20, Description: `Delicately hand picked. Carefully selected when ripe for their sweet, juicy flavour.`, orderQty: 0, type: "fruit"},
-  { ID: 17, title: "Leeks", price: 0.67, image: base64Image16, stock: 20, Description: `Locally grown`, orderQty: 0, type: "vegetable"},
-  { ID: 18, title: "Carrots", price: 0.32, image: base64Image17, stock: 20, Description: `Locally grown`, orderQty: 0, type: "vegetable"},
-  { ID: 19, title: "Cauliflower", price: 0.89, image: base64Image18, stock: 20, Description: `Locally grown`, orderQty: 0, type: "vegetable"}
+  { ID: 17, title: "Leeks", price: 0.67, image: base64Image16, stock: 20, Description: `Locally grown at farmer Andy's`, orderQty: 0, type: "vegetable"},
+  { ID: 18, title: "Carrots", price: 0.32, image: base64Image17, stock: 20, Description: `Locally grown at farmer Andy's`, orderQty: 0, type: "vegetable"},
+  { ID: 19, title: "Cauliflower", price: 0.89, image: base64Image18, stock: 20, Description: `Locally grown`, orderQty: 0, type: "vegetable"},
+  { ID: 20, title: "Sea Bream", price: 8.89, image: base64Image19, stock: 17, Description: `These sea bream fillets have a clean, delicate flavour and dense, juicy flesh. Pan-fried,…they are delicious enjoyed with new potatoes, or steam with ginger and spring onions and. serve with stir-fried pak choi.`, orderQty: 0, type: "fish"},
+  { ID: 21, title: "Cod Fillets", price: 5.50, image: base64Image20, stock: 14, Description: `2 Defrosted skinless and boneless cod fillets.
+  Line caught fish from well managed and responsible fisheries`, orderQty: 0, type: "fish"},
+  { ID: 22, title: "Whole Cod", price: 12.99, image: base64Image21, stock: 8, Description: `This prime whole cod is chunky and succulent with a delicate flavour. It's boneless, skinless and easy to oven-bake`, orderQty: 0, type: "fish"},
+  { ID: 23, title: "Smoked Haddock", price: 7.99, image: base64Image22, stock: 15, Description: `Defrosted, dyed, smoked skinless and boneless haddock fillets.  Line caught fish from well managed and responsible fisheries`, orderQty: 0, type: "fish"},
+  { ID: 24, title: "Green Cabbage", price: 0.49, image: base64Image23, stock: 7, Description: `Mild in flavour and slightly earthy. Our organic pointed cabbage comes from dedicated farmers who work hand-in-hand with nature. They grow vegetables that are as good for the planet as your plate. Delicious in slaws, roasted or sauteed.`, orderQty: 0, type: "vegetable"},
+  { ID: 25, title: "New Potatoes", price: 0.12, image: base64Image24, stock: 7, Description: `Perfect cold or hot Delicious in a salad or roasted.`, orderQty: 0, type: "vegetable"},
+  { ID: 26, title: "Beefsteak tomato", price: 0.87, image: base64Image25, stock: 12, Description: `Intensely red beef tomato has a balanced acidity with a hint of sweetness and slight aroma, being tender yet crisp. Best when sliced or chopped in salads and sandwiches to give added richness.`, orderQty: 0, type: "vegetable"},
+  { ID: 27, title: "Red Cabbage", price: 0.81, image: base64Image26, stock: 4, Description: `Sweet and colourful. Our organic cabbage comes from dedicated farmers who work hand-in-hand with nature. They grow vegetables that are as good for the planet as your plate. Braise red cabbage or shred thinly into slaws...`, orderQty: 0, type: "vegetable"},
+  { ID: 28, title: "Red Onion", price: 0.34, image: base64Image27, stock: 7, Description: `SSweet and firm. ……Our organic onions come from dedicated farmers who work hand-in-hand with nature to grow vegetables that are as good for the planet as your plate. `, orderQty: 0, type: "vegetable"}
 ];
+
 db1.remove({}, { multi: true }, function (err, newDocs) {
   if (err) {
     console.error('Error clearing the database:', err);
@@ -427,7 +474,6 @@ app.get("/api/getItemsFromDBFirstBuild", (req, res) => {
   });
 });
 
-
 app.post('/api/getItemsFromDB', (req, res) => {
   const type = req.body.type;
   console.log({type});
@@ -441,7 +487,6 @@ app.post('/api/getItemsFromDB', (req, res) => {
     if(!docs || docs.length === 0) {
       return res.status(404).json({error: 'No documents found'});  
     }
-
     console.log('Items filtered by type: ', type);
     res.json(docs);
   });
@@ -460,7 +505,6 @@ app.post('/api/POSTUpdateDBStockNumbers', (request, response) => {
   })
   response.json({
       status: "success",
-    
   })
 })
 
@@ -557,7 +601,6 @@ app.post('/api/POSTSendCustomerEmail', (request, response) => {
   sendEmail(data)
   response.json({
       status: "success",
-    
   })
 })
 
@@ -600,16 +643,12 @@ response.json(null);
         console.log('Found code', discountCode.discPercent);
         response.json(discountCode.discPercent);
       }
-      
-      
-
     }
   });
 })
 
 app.post('/api/POSTFindSearchItems', (request, response) => {
   const title = request.body.title;
-
   console.log("Received title to find:", title);
 
   const regex = new RegExp(title, "i");
@@ -620,6 +659,52 @@ app.post('/api/POSTFindSearchItems', (request, response) => {
     } else {
       console.log('Found item', docs);
       response.json(docs);
+    }
+  });
+});
+
+app.post('/api/getItemsFromDBAndFilter', (request, response) => {
+  const type = request.body.type;
+  const search = request.body.filtervalue;
+  console.log(type, search);
+
+  db1.find({type: type }).sort({ price: search }).exec((err, items) => {
+    if (err) {
+      console.error('Error fetching documents:', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      console.log('Items sorted by PRICE: Success');
+      response.json(items);
+    }
+  });
+});
+
+app.post('/api/getAllItemsFromDBAndFilter', (request, response) => {
+  const search = request.body.filtervalue;
+
+  db1.find({}).sort({ price: search }).exec((err, items) => {
+    if (err) {
+      console.error('Error fetching documents:', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      console.log('Items sorted by PRICE: Success');
+      response.json(items);
+    }
+  });
+});
+
+app.post('/api/getSearchItemsFromDBAndFilter', (request, response) => {
+  const title = request.body.title;
+  const search = request.body.filtervalue;
+  const regex = new RegExp(title, "i");
+
+  db1.find({ title: { $regex: regex }  }).sort({ price: search }).exec((err, items) => {
+    if (err) {
+      console.error('Error fetching documents:', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      console.log('Items sorted by PRICE: Success');
+      response.json(items);
     }
   });
 });
