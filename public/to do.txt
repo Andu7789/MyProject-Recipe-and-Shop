@@ -25,8 +25,9 @@
 * when decreasing to zeor only delete that item
 * no items match your search message
 * add option to filter by price (high to low)
---------------- Still to do ---------------
 * cartitems text is wrong
+--------------- Still to do ---------------
+* If you add delivery after the disocunt code it will reset the checkout button price!!
 * move discount and delivery up under address
 * favourite recipe
 * video screen - show or hide cart?
@@ -34,6 +35,10 @@
 * new address - if you cancel it hides things!!  - seems to be intermittent...
 * order number 12, looks to be duplicating items
 
+blue -#155263
+orange - #FFCC47
+
+small language models - orca2 - in relation to generative AI
 
 
 

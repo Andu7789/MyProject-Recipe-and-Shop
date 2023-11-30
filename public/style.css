@@ -14,19 +14,24 @@
   text-decoration: none;
   color: black;
   font-size: medium;
+  
 }
 .custom-nav-pills .nav-link.active {
-  background-color: black;
+  background-color:#FFCC47;
   color: white;
+  font-weight: bold;
+
 }
 .custom-nav-pills .nav-link.dropdown-toggle {
-  color: black;
+  color: #155263;
+  font-weight: bold;
 }
 .nav-item .nav-link {
-  color: black;
+  color: #155263;
+ 
 }
 .nav-item .nav-link2 {
-  color: black;
+  color: #155263;
 }
 .hidden {
   display: none;
@@ -111,4 +116,16 @@ td.booked {
 }
 td.unavailable {
   background-color: #c1d7d7; /* Change the background color for booked cells */
+}
+
+.customBorder {
+  border: 2px solid #155263;
+  
+}
+
+.customButtonColour {
+  background-color: #FFCC47;
+   color: white;
+  font-weight: bold;
+
 }

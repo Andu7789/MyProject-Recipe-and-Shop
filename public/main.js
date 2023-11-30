@@ -66,9 +66,10 @@ let checkoutContainerBottom2ID = document.getElementById(
 let accountContainerID = document.getElementById("accountContainer");
 //Account container - information (wording)
 let accountContainer2ID = document.getElementById("accountContainer2");
+let accountContainer3ID = document.getElementById("accountContainer3");
 //Account Elements (buttons)
 let yourAddressessButtonID = document.getElementById("yourAddressessButton");
-let StockControlButtonID = document.getElementById("StockControlButton");
+let discountCodesButtonID = document.getElementById("discountCodesButton");
 let previousOrdersButtonID = document.getElementById("previousOrdersButton");
 
 //Add new address container
@@ -90,7 +91,9 @@ let productViewTitleID = document.getElementById("productViewTitle");
 let productViewPriceID = document.getElementById("productViewPrice");
 let productViewQtyID = document.getElementById("productViewQty");
 let productViewAddButtonID = document.getElementById("productViewAddButton");
-let productViewDescriptionID = document.getElementById("productViewDescription");
+let productViewDescriptionID = document.getElementById(
+  "productViewDescription"
+);
 let carouselImg1ID = document.getElementById("carouselImg1");
 let carouselDesc1ID = document.getElementById("carouselDesc1");
 let carouselImg2ID = document.getElementById("carouselImg2");
@@ -102,13 +105,16 @@ let carousel3captionID = document.getElementById("carousel3-caption");
 let productViewInsufficientStockID = document.getElementById(
   "productViewInsufficientStock"
 );
-let productViewNumberInCartID = document.getElementById("productViewNumberInCart");
+let productViewNumberInCartID = document.getElementById(
+  "productViewNumberInCart"
+);
 
 //Search and reset container (shopping)
-let seacrhBarShoppingID = document.getElementById("seacrhBarShopping")
+let seacrhBarShoppingID = document.getElementById("seacrhBarShopping");
 let resetButtonShoppingID = document.getElementById("resetButtonShopping");
-let searchButtonShoppingID = document.getElementById("searchButtonShopping")
-let dropdownFilterTypeID = document.getElementById("dropdownFilterType")
+let searchButtonShoppingID = document.getElementById("searchButtonShopping");
+let dropdownFilterTypeID = document.getElementById("dropdownFilterType");
+let fruitButtonID = document.getElementById("fruitButton");
 
 let dropdownCuisine2ID = document.getElementById("dropdownCuisine2");
 let dropdownMealType2ID = document.getElementById("dropdownMealType2");
@@ -184,7 +190,7 @@ let selectedSlotId = null;
 let dicountAmount = 0;
 let counterDiscountCode = 1;
 let searchType = "";
-let titleForProductSearch = ""
+let titleForProductSearch = "";
 
 let cartIcon = document.getElementById("cartIcon");
 let cartItemCount = document.getElementById("cartItemCount");
@@ -204,24 +210,22 @@ const selectItem = (event, value, buttonID) => {
   event.preventDefault();
   var button = document.getElementById(buttonID);
   button.innerHTML = value;
-console.log(value);
-  if (value === 'Price - High to Low' || value === 'Price - Low to High') {
+  console.log(value);
+  if (value === "Price - High to Low" || value === "Price - Low to High") {
+    value === "Price - Low to High" ? (filterChoice = 1) : (filterChoice = -1);
 
-    value === 'Price - Low to High' ? (filterChoice = 1) : (filterChoice = -1);
-
-console.log( {searchType},    {titleForProductSearch}
-);
-    if(!searchType && !titleForProductSearch){
+    console.log({ searchType }, { titleForProductSearch });
+    if (!searchType && !titleForProductSearch) {
       //generateShoppingUIFirstBuild()
       console.log(123);
-      filterShoppingCardsAllAPI(filterChoice)
-    } else if (!titleForProductSearch)  {
+      filterShoppingCardsAllAPI(filterChoice);
+    } else if (!titleForProductSearch) {
       console.log(567);
-      filterShoppingCardsAPI(filterChoice)
+      filterShoppingCardsAPI(filterChoice);
     } else {
       console.log(345);
-      filterShoppingCardsSearchAPI(filterChoice)
-    } 
+      filterShoppingCardsSearchAPI(filterChoice);
+    }
   }
 };
 
@@ -315,13 +319,13 @@ closeButtonID.addEventListener("click", function () {
 
 const closeButtonViewSettings = () => {
   displayShopSettings();
-  
-  if(!searchType && !titleForProductSearch){
-    generateShoppingUIFirstBuild()
-  } else if (!titleForProductSearch)  {
-      generateShoppingUI(searchType);
+
+  if (!searchType && !titleForProductSearch) {
+    generateShoppingUIFirstBuild();
+  } else if (!titleForProductSearch) {
+    generateShoppingUI(searchType);
   } else {
-    searchShopItems
+    searchShopItems;
   }
 
   productViewContainerID.classList.add("hidden");
@@ -382,6 +386,8 @@ accountButtontID.addEventListener("click", function () {
   recipeMainContainerID.classList.add("hidden");
   accountContainer.classList.remove("hidden");
   accountContainer2ID.classList.add("hidden");
+  accountContainer3ID.classList.add("hidden");
+
   productViewContainerID.classList.add("hidden");
   cartContainerID.classList.add("hidden");
   checkoutContainer.classList.add("hidden");
@@ -430,8 +436,6 @@ function check() {
     dishTypeValue2 = "Main Course";
   }
   dropdownFilterTypeValue = dropdownFilterTypeID.innerHTML;
-console.log({dropdownFilterTypeValue});
-
 }
 //used for when a user hits 'enter key' whilst the cursor is in the recipe search bar
 seacrhBarID.addEventListener("keydown", function (event) {
@@ -444,10 +448,9 @@ seacrhBarID.addEventListener("keydown", function (event) {
 //used for when a user hits 'enter key' whilst the cursor is in the shop search bar
 seacrhBarShoppingID.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
-    searchShopItems()
+    searchShopItems();
   }
 });
-
 
 const fetchRecipesProductView = () => {
   check();
@@ -546,14 +549,13 @@ const generateShoppingUI = (type) => {
     const objFromStorageOrderNUmber = JSON.parse(strObjFromStorageOrderNumber);
     orderClass.orderNumber = objFromStorageOrderNUmber;
   }
-  titleForProductSearch = ""
-  dropdownFilterTypeID.innerHTML = "Filter"
+  titleForProductSearch = "";
+  dropdownFilterTypeID.innerHTML = "Filter";
   searchType = type;
   const requestData = {
     type: type,
   };
 
-  
   fetch("/api/getItemsFromDB", {
     method: "POST",
     headers: {
@@ -563,7 +565,7 @@ const generateShoppingUI = (type) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      buildShopCards(data)
+      buildShopCards(data);
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -581,13 +583,13 @@ const generateShoppingUIFirstBuild = () => {
     const objFromStorageOrderNUmber = JSON.parse(strObjFromStorageOrderNumber);
     orderClass.orderNumber = objFromStorageOrderNUmber;
   }
-  dropdownFilterTypeID.innerHTML = "Filter"
-  searchType = ""
- 
-  fetch("/api/getItemsFromDBFirstBuild", )
+  dropdownFilterTypeID.innerHTML = "Filter";
+  searchType = "";
+
+  fetch("/api/getItemsFromDBFirstBuild")
     .then((response) => response.json())
     .then((data) => {
-      buildShopCards(data)
+      buildShopCards(data);
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -695,7 +697,6 @@ const AddToCart = (event, inputbox, price, title, ID, image) => {
     block: "center",
   });
 
-
   const inputboxID = document.getElementById(inputbox); //get the ID of the input box in line with the 'add' button they pressed
   let numOfItems = parseInt(inputboxID.value, 10);
   inCartElement.textContent = `In cart: ${numOfItems}`;
@@ -737,30 +738,39 @@ const AddToCart = (event, inputbox, price, title, ID, image) => {
   cartClass.totalPrice += itemTotalPrice;
   UpdateCurrentOrderQTYAPI(numOfItems, ID);
   //When a user has items in the cart and then reduces the number to zero 0 remove that item from the cart
-  if (numOfItems === 0){
-    const indexToRemove = cartClass.cartItems.findIndex(item => item.title === title);
+  if (numOfItems === 0) {
+    const indexToRemove = cartClass.cartItems.findIndex(
+      (item) => item.title === title
+    );
 
     if (indexToRemove !== -1) {
-        // Remove the item at the found index
-        cartClass.cartItems.splice(indexToRemove, 1);
+      // Remove the item at the found index
+      cartClass.cartItems.splice(indexToRemove, 1);
     } else {
     }
   }
   updateCartUI();
-  //check to see which version of the shopping cards to show.  If user has clicked the shop tab then searchtype will be blank so show all items
-  if(!searchType && !titleForProductSearch){ 
-    generateShoppingUIFirstBuild()
-  } else if (!titleForProductSearch)  { //if user has NOT used the search bar then display the items corresponding to the item type
-      generateShoppingUI(searchType);
-  } else {
-    searchShopItems //display items requested via the search bar
-  }
+  //update the cart icon value
+  cartClass.totalItemsInCart = 0
+  cartClass.cartItems.forEach((qty) => {
+    cartClass.totalItemsInCart = cartClass.totalItemsInCart + qty.quantity;
+  });
+  cartItemCount.textContent = cartClass.totalItemsInCart;
 
+  //check to see which version of the shopping cards to show.  If user has clicked the shop tab then searchtype will be blank so show all items
+  if (!searchType && !titleForProductSearch) {
+    generateShoppingUIFirstBuild();
+  } else if (!titleForProductSearch) {
+    //if user has NOT used the search bar then display the items corresponding to the item type
+    generateShoppingUI(searchType);
+  } else {
+    searchShopItems; //display items requested via the search bar
+  }
 };
 
 const buildShopCards = (data) => {
-  
   cardsContainerShopID.innerHTML = "";
+  console.log({data});
   data.forEach((product) => {
     const productDiv = document.createElement("div");
 
@@ -811,6 +821,7 @@ const buildShopCards = (data) => {
 
     productDiv.style.background = "white";
     stockElement.style.textAlign = "center";
+
     if (product.stock === 0) {
       stockElement.textContent = `Out of Stock`;
       stockElement.style.color = "Red";
@@ -873,23 +884,22 @@ const buildShopCards = (data) => {
 
     cardsContainerShopID.appendChild(productDiv);
   });
-if (data.length === 0){
-  const productDiv = document.createElement("div");
-  productDiv.style.border = "1px solid #ccc";
+  if (data.length === 0) {
+    const productDiv = document.createElement("div");
+    productDiv.style.border = "1px solid #ccc";
     productDiv.style.borderRadius = "10px";
     productDiv.style.padding = "10px"; // Add padding for better spacing
     productDiv.style.margin = "0 10px 10px 0";
     productDiv.style.textAlign = "center";
     productDiv.style.width = "500px";
-    productDiv.textContent = "No items match your search"
-    productDiv.style.fontWeight = "bold"
+    productDiv.textContent = "No items match your search";
+    productDiv.style.fontWeight = "bold";
     productDiv.style.color = "red";
     cardsContainerShopID.appendChild(productDiv);
-}
-}
-const searchShopItems = () =>{
- 
-  titleForProductSearch = seacrhBarShoppingID.value
+  }
+};
+const searchShopItems = () => {
+  titleForProductSearch = seacrhBarShoppingID.value;
   const requestBody = { title: titleForProductSearch };
 
   fetch("/api/POSTFindSearchItems", {
@@ -901,13 +911,12 @@ const searchShopItems = () =>{
   })
     .then((response) => response.json())
     .then((data) => {
-      buildShopCards(data)
+      buildShopCards(data);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-
-}
+};
 
 const updateCartUI = () => {
   cartContainerID.innerHTML = "";
@@ -921,37 +930,33 @@ const updateCartUI = () => {
   cartClass.cartItems.forEach((item, index) => {
     const cartItemElement = document.createElement("div");
     cartItemElement.innerHTML = `
-          <div class="cart-item">
-              <span>${item.title}</span>
-              <span>Qty: ${item.quantity}</span>
-              <span><b>Total Price: £${item.totalPrice.toFixed(2)}</b></span>
-              <b class="deletex" onclick="removeFromCart(${index}, '${
-      item.title
-    }')">X</b>
-
-          </div>`;
+                                <div class="cart-item">removeFromCart
+                                <span>${item.title}</span>
+                                <span>Qty: ${item.quantity}</span>
+                                <span><b>Total Price: £${item.totalPrice.toFixed(2)}</b></span>
+                                <b class="deletex" onclick="removeFromCart(${index}, '${item.title}')">X</b>
+                                </div>`;
     cartContainerID.appendChild(cartItemElement);
     cartClass.cartTotalPrice += item.totalPrice;
-    cartClass.totalItemsInCart += item.quantity;
 
-    cartItemCount.textContent = cartClass.totalItemsInCart;
   });
+
+
+
   //Add the 'checkout' button
   const totalElement = document.createElement("div");
-  totalElement.innerHTML = `<div <h4 class="mt-2"><b>Sub Total: £${cartClass.cartTotalPrice.toFixed(
-    2
-  )}</b></h4>
+  totalElement.innerHTML = `<div <h4 class="mt-2"><b>Sub Total: £${cartClass.cartTotalPrice.toFixed(2)}</b></h4>
                             </div>
                             <div <button class="btn my-3 btn-default btn-sm btn-secondary rounded " onclick=createCheckout()  id="btnCheckout">Checkout</button>
-                              </div>`;
+                            </div>`;
+                            
   cartContainerID.appendChild(totalElement);
+
 };
 
 //detele the item fron the cart ARRAY when a user has clicked on 'x'
 const removeFromCart = (index, title) => {
   const removedQuantity = cartClass.cartItems[index].quantity;
-  console.warn(cartClass.cartItems);
-  console.log(cartClass.cartItems[index].quantity);
   cartClass.cartItems.splice(index, 1);
   cartClass.cartTotalPrice = cartClass.cartItems.reduce(
     (total, item) => total + item.totalPrice,
@@ -963,13 +968,13 @@ const removeFromCart = (index, title) => {
   // Update stock control and UI
   setStockControlToZeroAPI(title);
   updateCartUI();
-  
-  if(!searchType && !titleForProductSearch){
-    generateShoppingUIFirstBuild()
-  } else if (!titleForProductSearch)  {
-      generateShoppingUI(searchType);
+
+  if (!searchType && !titleForProductSearch) {
+    generateShoppingUIFirstBuild();
+  } else if (!titleForProductSearch) {
+    generateShoppingUI(searchType);
   } else {
-    searchShopItems
+    searchShopItems;
   }
 
   if (!productViewContainerID.classList.contains("hidden")) {
@@ -1170,7 +1175,7 @@ const buildDiscountCode = () => {
                                     </div>
                                     <div class="my-1" id="discountCodeMessage"><b></b></div>   
                                     </div>`;
-                                    checkoutContainerBottom.appendChild(discountparts);
+  checkoutContainerBottom.appendChild(discountparts);
 };
 
 const CheckDiscountCode = () => {
@@ -1391,16 +1396,20 @@ const chooseNewAddress = () => {
   //let selectedAddressIndex = null; // Declare selectedAddressIndex here
   checkoutContainerrightID.innerHTML = "";
   chooseNewAddressContainerID.innerHTML = "";
-  selectedAddressIndex = 0 // if a user doesnt click on an address then the one strored first in the array will be displayed
+  selectedAddressIndex = 0; // if a user doesnt click on an address then the one strored first in the array will be displayed
   //Build up the addresses from MY address Book and add a radio button
   addresses.forEach((address, index) => {
     const createRadioBtnAddresses = document.createElement("div");
-    createRadioBtnAddresses.innerHTML = `<div class="form-check border border-secondary rounded ps-5 py-3">
-                                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault${index}" ${index === 0 ? 'checked' : ''}>
+    createRadioBtnAddresses.innerHTML = `<div class="form-check border border-secondary rounded mt-2 ps-5 py-3">
+                                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault${index}" ${
+      index === 0 ? "checked" : ""
+    }>
                                          <label class="form-check-label" for="flexRadioDefault${index}">
                                            <div class="cart-item">
                                               <span>${address.line_1}</span>
-                                              <span>, ${address.post_town}</span>
+                                              <span>, ${
+                                                address.post_town
+                                              }</span>
                                               <span>, ${address.postcode}</span>
                                            </div>
                                          </label>
@@ -1417,13 +1426,13 @@ const chooseNewAddress = () => {
 
   const chooseNewAddressBtn = document.createElement("div");
   chooseNewAddressBtn.innerHTML = `<div>
-                                    <button class="btn ms-1 mt-3 btn-default btn-sm btn-secondary rounded"
+                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
                                     onclick="useSelectedAddress(selectedAddressIndex)">Use this address
                                     </button>
-                                    <button class="btn ms-1 mt-3 btn-default btn-sm btn-secondary rounded"
+                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
                                     onclick="CancelBtnUseThisAddress()">Cancel
                                     </button>
-                                    <button class="btn ms-1 mt-3 btn-default btn-sm btn-secondary rounded"
+                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
                                     onclick="addNewAddress2()">Add new address
                                     </button>
                                   </div>`;
@@ -1483,14 +1492,13 @@ const useSelectedAddress = (index) => {
       selectedAddress.post_town,
       selectedAddress.Postcode,
       selectedAddress.PhoneNo
-      
     );
-   
+
     checkoutContainerrightID.appendChild(deliveryAddressDefault);
   } else {
     console.log("No address selected.");
   }
-  console.log(savedAddress)
+  console.log(savedAddress);
 };
 //Function to add orders to the nested array
 const addOrder = (orderArray, order) => {
@@ -1543,6 +1551,119 @@ const createOrder = () => {
 
   location.reload();
 };
+
+discountCodesButtonID.addEventListener("click", () => {
+  accountContainer2ID.classList.remove("hidden");
+  checkDiscountCodeALLAPI();
+});
+let lastIDDiscountCode = 0
+const buildDiscountCodes = (codes) => {
+  accountContainer2ID.innerHTML = "";
+  accountContainer3ID.innerHTML = ""
+  lastIDDiscountCode = codes.length
+  codes.forEach((item) => {
+    const discountCodeRow = document.createElement("div");
+    discountCodeRow.innerHTML = `<div class="container border border-secondary mt-4 border-1 rounded text-center p-2 bg-white text-dark">
+                                  <div class="row">
+                                    <div class="col">
+                                      <input type="text" class="form-control border border-secondary border-1 rounded ms-5 mt-3 mb-3" id="discountCodeTitle${item.ID}"
+                                      value="${item.code}" style="width:200px">
+                                    </div>
+                                    <div class="col">
+                                      <input type="number" class="form-control border border-secondary border-1 rounded ms-1 mt-3 mb-3" id="discountCodePercentage${item.ID}"
+                                      value="${item.discPercent}" style="width:70px"  min="1" max="100">
+                                    </div>
+                                    <div class="col">
+                                      <div class="">
+                                        <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
+                                        onclick="updateDiscountCode(${item.ID}, document.getElementById('discountCodeTitle${item.ID}').value, document.getElementById('discountCodePercentage${item.ID}').value)">Update
+                                        </button>
+                                      </div>
+                                    </div>
+                                    <div class="col">
+                                      <div class="">
+                                        <button class="btn ms-1 mt-3 me-5 mb-3 btn-default btn-sm btn-secondary rounded"
+                                        onclick="deleteDiscountCode(${item.ID})">Delete
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>`;
+    accountContainer2ID.appendChild(discountCodeRow);
+
+  });
+  addDiscountCodeButtons()
+   
+};
+   //add the buttons at the bottom after creating the discount codes
+const addDiscountCodeButtons = () =>{
+  document.getElementById("accountContainer2").classList.remove('hidden')
+  document.getElementById("accountContainer3").classList.remove('hidden')
+  const discountCodesButtonElement = document.createElement("div");
+  discountCodesButtonElement.innerHTML = `</div>
+                                      <div <button class="btn ms-1 mt-3 btn-default btn-sm btn-secondary rounded " onclick=hideDiscountButtons() >Close Discount Codes</button></div>
+                                      <div <button class="btn ms-3 mt-3 btn-default btn-sm btn-secondary rounded " onclick=addDiscountCodeIputs() ">Add Discount Code</button>
+                                    </div>`;
+  accountContainer3ID.appendChild(discountCodesButtonElement);
+  //accountContainer2ID.appendChild(accountContainer3ID);
+
+}
+
+const hideDiscountButtons = () => {
+
+  document.getElementById("accountContainer2").classList.add('hidden')
+  document.getElementById("accountContainer3").classList.add('hidden')
+}
+
+const addDiscountCodeIputs = () => {
+  const discountCodeRowAdd = document.createElement("div");
+  discountCodeRowAdd.innerHTML = `<div class="container border border-secondary mt-4 border-1 rounded text-center p-2 bg-white text-dark">
+                                <div class="row">
+                                  <div class="col">
+                                    <input type="text" class="form-control border border-secondary border-1 rounded ms-5 mt-3 mb-3" id="discountCodeTitleNew"
+                                    value="" style="width:200px">
+                                  </div>
+                                  <div class="col">
+                                    <input type="number" class="form-control border border-secondary border-1 rounded ms-1 mt-3 mb-3" id="discountCodePercentageNew"
+                                    value="" style="width:70px" min="1" max="100">
+                                  </div>
+                                  <div class="col">
+                                    <div class="">
+                                      <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
+                                      onclick="addDiscountCodeAPI(${lastIDDiscountCode+1},document.getElementById('discountCodeTitleNew').value, document.getElementById('discountCodePercentageNew').value)">Update
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="">
+                                      <button class="btn ms-1 mt-3 me-5 mb-3 btn-default btn-sm btn-secondary rounded"
+                                      onclick="deleteDiscountCode()">Delete
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>`;
+  accountContainer2ID.appendChild(discountCodeRowAdd);
+}
+
+const updateDiscountCode = (ID, updatedCode, updatedPercentage) => {
+
+  console.log('Updating discount ID:', ID);
+  console.log('Updated Title:', updatedCode);
+  console.log('Updated Percentage:', updatedPercentage);
+  updateDiscountCodeAPI(ID, updatedCode, updatedPercentage)
+
+};
+
+
+const deleteDiscountCode = (ID) => {
+  console.log(ID);
+  deleteDiscountCodeAPI(ID)
+};
+
+
 
 //when you click the previous orders button, show teh orders by order number
 previousOrdersButtonID.addEventListener("click", () => {
@@ -1946,7 +2067,8 @@ const checkDiscountCodeAPI = (discountCode) => {
   const requestData = {
     discountCode: discountCode,
   };
-  fetch("/api/POSTheckDiscountCodeAPI", {
+  console.log({requestData});
+  fetch("/api/POSTCheckDiscountCodeAPI", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -1964,12 +2086,11 @@ const checkDiscountCodeAPI = (discountCode) => {
 };
 
 const filterShoppingCardsAPI = (filtervalue) => {
-
   const requestData = {
     type: searchType,
-    filtervalue: filtervalue
+    filtervalue: filtervalue,
   };
-  
+
   fetch("/api/getItemsFromDBAndFilter", {
     method: "POST",
     headers: {
@@ -1979,19 +2100,18 @@ const filterShoppingCardsAPI = (filtervalue) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      buildShopCards(data)
+      buildShopCards(data);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-}
+};
 
 const filterShoppingCardsAllAPI = (filtervalue) => {
-
   const requestData = {
-    filtervalue: filtervalue
+    filtervalue: filtervalue,
   };
-  console.log({filtervalue});
+  console.log({ filtervalue });
   fetch("/api/getAllItemsFromDBAndFilter", {
     method: "POST",
     headers: {
@@ -2001,20 +2121,19 @@ const filterShoppingCardsAllAPI = (filtervalue) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      buildShopCards(data)
+      buildShopCards(data);
     })
     .catch((error) => {
       console.error("Error:", error);
-    })
-}
+    });
+};
 
 const filterShoppingCardsSearchAPI = (filtervalue) => {
-
   const requestData = {
     title: titleForProductSearch,
-    filtervalue: filtervalue
+    filtervalue: filtervalue,
   };
-  console.log({titleForProductSearch});
+  console.log({ titleForProductSearch });
   fetch("/api/getSearchItemsFromDBAndFilter", {
     method: "POST",
     headers: {
@@ -2024,7 +2143,93 @@ const filterShoppingCardsSearchAPI = (filtervalue) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      buildShopCards(data)
+      buildShopCards(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
+const checkDiscountCodeALLAPI = () => {
+  fetch("/api/POSTAllDiscountCodeAPI", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      buildDiscountCodes(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
+
+const deleteDiscountCodeAPI = (ID) => {
+  const requestData = {
+    ID: ID,
+  };
+  console.log("2164", ID );
+  fetch("/api/POSTdeleteDiscountCodeAPI", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      buildDiscountCodes(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
+const updateDiscountCodeAPI = (ID, updatedCode, updatedPercentage) =>{
+
+  const requestData = {
+    ID: ID,
+    updatedCode: updatedCode,
+    discPercent: updatedPercentage,
+  };
+console.log({requestData});
+  fetch("/api/POSTupdateDiscountCodeAPI", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      buildDiscountCodes(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
+const addDiscountCodeAPI = (ID,code, discPercent) => {
+
+  const requestData = {
+    ID: ID,
+    code: code,
+    discPercent: discPercent,
+  };
+console.log({requestData});
+  fetch("/api/POSTAddDiscountCodeAPI", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      buildDiscountCodes(data);
     })
     .catch((error) => {
       console.error("Error:", error);

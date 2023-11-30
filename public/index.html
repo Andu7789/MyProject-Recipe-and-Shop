@@ -16,25 +16,28 @@
 
 
 
-    <ul class="nav nav-pills sticky-top navbar-light bg-light custom-nav-pills ms-1 me-3 mt-2 p-3 border border-secondary rounded">
+    <ul class="nav nav-pills sticky-top navbar-light bg-white custom-nav-pills ms-1 me-3 mt-2 p-3 rounded customBorder">
       <!-- Your existing navigation items -->
+      <a class="navbar-brand rounded" href="#">
+        <img src="Logo/Logo2.png" alt="" width="120 " height="60" alt="">
+    </a>
       <li class="nav-item">
-        <a class="nav-link active" id="recipesMenu" href="#">Recipes</a>
+        <a class="nav-link active mt-2 ms-4" id="recipesMenu" href="#">Recipes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="shop" href="#">Shop</a>
+        <a class="nav-link  mt-2 ms-2" id="shop" href="#">Shop</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link videosMenu" id="videosMenu" href="#">Videos</a>
+        <a class="nav-link videosMenu mt-2 ms-2" id="videosMenu" href="#">Videos</a>
       </li>
       <!-- <li class="nav-item">
     <a class="nav-link" id="newsLetter" href="#">News Letter</a>
   </li>-->
       <li class="nav-item">
-        <a class="nav-link" id="MemoryDestruct" href="#">Memory Destruct!!!</a>
+        <a class="nav-link mt-2 ms-2" id="MemoryDestruct" href="#">Memory Destruct!!!</a>
       </li>
-      <form class="d-flex ms-auto me-3">
-        <button class="btn btn-secondary me-3 rounded" type="submit" id="accountButton">Account</button>
+      <form class="d-flex ms-auto me-3 mt-2">
+        <button class="btn btn-sm customButtonColour me-3 rounded nav-link" style=" height: 40px;"type="submit" id="accountButton">Account</button>
         <i class="fa-solid fa-cart-shopping fa-2xl mt-3 carthover" id="cartIcon" onclick="checkForNumberofItemsInOrder()"></i>
         <span id="cartItemCount">0</span>
 
@@ -154,12 +157,12 @@
               <div class="row">
                 <div class="col">
                   <div class="">
-                    <button class="btn btn-secondary" type="button" id="fruitButton" style="width: 100px;" onclick="generateShoppingUI('fruit')">Fruit</button>
+                    <button class="btn customButtonColour" type="button" id="fruitButton" style="width: 100px;" onclick="generateShoppingUI('fruit')">Fruit</button>
                   </div>
                 </div>
                 <div class="col">
                   <div class="">
-                    <button class="btn btn-secondary" type="button" id="vegatablesButton" style="width: 100px;" onclick="generateShoppingUI('vegetable')">Vegetables</button>
+                    <button class="btn customButtonColour" type="button" id="vegatablesButton" style="width: 100px;" onclick="generateShoppingUI('vegetable')">Vegetables</button>
                   </div>
                 </div>
                 <div class="col">
@@ -195,10 +198,10 @@
 
 
             <!-- Product Cards container-->
-            <div class="container  pt-3 mb-5 pb-1 ps-5 pe-5 bg-light text-dark border border-secondary rounded mt-5 hidden" id="cardsContainerShop">
+            <div class="container  pt-3 mb-5 pb-1 ps-5 pe-5 bg-light text-dark customBorder rounded mt-5 hidden" id="cardsContainerShop">
             </div>
           </div>
-          <div class="container text-center border border-dark my-2 rounded py-3 px-5 hidden" id="productViewContainer">
+          <div class="container text-center customBorder my-2 rounded py-3 px-5 hidden" id="productViewContainer">
 
             <div class="row">
 
@@ -357,7 +360,7 @@
 
         <div class="col-3 fixed-col">
           <!-- Shopping cart container-->
-          <div class="container border border-secondary border-1 bg-light mb-5 mt-2 w-100 rounded sticky-sidebar" id="cartContainer">
+          <div class="container customBorder border-1 bg-light mb-5 mt-2 w-100 rounded sticky-sidebar" id="cartContainer">
             <div style="font-size: 24px; margin-bottom: 15px;">
               <h2 class="mt-2"><b>Shopping Cart</b></h2>
             </div>
@@ -475,8 +478,8 @@ Newsletter signed up message container
 
 
     <!-- Checkout container-->
-    <div class="container  bg-dark text-dark border border-secondary rounded  mt-2 hidden" id="checkoutContainer">
-      <div class="container border border-secondary bg-light rounded w-85 p-3 my-3">
+    <div class="container  bg-dark text-dark border border-secondary rounded  mt-2 hidden p-5" id="checkoutContainer">
+      <div class="container border border-secondary bg-light rounded w-85 p-3">
         <div class="col-12 container" id="checkoutContainerTop"></div>
         <div class="row">
           <div class="col-6 checkoutContainer-left" id="checkoutContainer-left">
@@ -497,18 +500,19 @@ Newsletter signed up message container
     <!-- ----------------------------------------------------------------------------------------------------------------------------------  -->
 
     <!-- Choose new delivery address container-->
-    <div class="container float-end border border-secondary rounded w-25  ms-3 me-3 mt-3 p-3 hidden " id="chooseNewAddressContainer">
+    <div class="container float-end customBorder rounded w-25  my-3 mx-3 hidden " id="chooseNewAddressContainer">
       <h4>Your Addresses</h>
     </div>
     <!-- Account section main container-->
-    <div class="container float-end border border-secondary rounded w-35  ms-3 me-3 mt-3 p-3 hidden" id="accountContainer">
+    <div class="container float-end customBorder rounded w-35  ms-3 me-3 mt-3 mb-3 p-3 hidden" id="accountContainer">
       <button class="btn btn-secondary me-2 rounded ms-3" id="previousOrdersButton">Previous Orders</button>
       <button class="btn btn-secondary me-2 rounded ms-3" id="yourAddressessButton">Your Addresses</button>
-      <button class="btn btn-secondary me-2 rounded ms-3" id="StockControlButton">Stock Control</button>
+      <button class="btn btn-secondary me-2 rounded ms-3" id="discountCodesButton">Discount Codes</button>
       <div class="col-12 container" id="accountContainer2"></div>
+      <div class="col-12 container" id="accountContainer3"></div>
     </div>
     <!-- Add new address container-->
-    <div class="container w-25 p-3 mt-3 border border-dark-subtle border-2 rounded hidden" id="addAddressFormContainer">
+    <div class="container w-25 p-3 mt-3 customBorder border-2 rounded hidden" id="addAddressFormContainer">
       <form>
         <div class="row">
           <h3>Add new adresss</h3>

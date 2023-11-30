@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const app = express();
 const fs = require("fs");
 const Datastore = require("nedb");
@@ -11,6 +12,16 @@ app.listen(port, () => {
 
 app.use(express.static("public")); //listens for all files within the 'public' folder
 app.use(express.json({ limit: "1mb" })); //need this for JSON to be allowed to be used
+
+// Define routes
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Add a route for the new HTML page
+app.get('/AdminPortal', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'AdminPortal.html'));
+});
 
 app.get('/api-keys', (req, res) => {
   const apiKey = process.env.API_KEY;
@@ -425,17 +436,25 @@ db3 = databasedicountCodes;
 
 let discCode = [
   { ID: 1, code: "RecipeRealm10", discPercent: 10},
-  { ID: 1, code: "RecipeRealm20", discPercent: 20},
-  { ID: 1, code: "RecipeRealm30", discPercent: 30},
-  { ID: 1, code: "Paul100", discPercent: 100},
+  { ID: 2, code: "RecipeRealm20", discPercent: 20},
+  { ID: 3, code: "RecipeRealm30", discPercent: 30},
+  { ID: 4, code: "Paul100", discPercent: 100},
 
 ]
+
+db3.remove({}, { multi: true }, function (err, newDocs) {
+  if (err) {
+    console.error('Error clearing the database:', err);
+  } else {
+    console.log('DiscCode - Database clearing completed:', newDocs);
+  }
+})
 
 db3.insert(discCode, function (err, discCode) {
   if (err) {
     console.error('Error creating the database:', err);
   } else {
-    console.log('discCode - Database creation completed:');
+    console.log('DiscCode - Database creation completed:');
   }
 
 });
@@ -465,10 +484,10 @@ function convertToDateObject(dateString) {
 app.get("/api/getItemsFromDBFirstBuild", (req, res) => {
   db1.find({}).sort({ title: 1 }).exec((err, items) => {
     if (err) {
-      console.error('Error fetching documents:', err);
+      console.error('getItemsFromDBFirstBuild:', err);
       res.status(500).json({ error: "Internal Server Error" });
     } else {
-      console.log('Items sorted by title: Success');
+      console.log('getItemsFromDBFirstBuild: Success');
       res.json(items);
     }
   });
@@ -480,14 +499,14 @@ app.post('/api/getItemsFromDB', (req, res) => {
 
   db1.find({type: type}, (err, docs) => {
     if(err) {
-      console.error('Error fetching documents: ', err);
+      console.error('getItemsFromDB: ', err);
       return res.status(500).json({error: 'Internal Server Error'});
     }
 
     if(!docs || docs.length === 0) {
       return res.status(404).json({error: 'No documents found'});  
     }
-    console.log('Items filtered by type: ', type);
+    console.log('Items filtered by type (getItemsFromDB): ', type);
     res.json(docs);
   });
 });
@@ -497,9 +516,9 @@ app.post('/api/POSTUpdateDBStockNumbers', (request, response) => {
   data.forEach((item) => {
     db1.update({ title: item.title}, { $inc: { stock: -item.quantity } }, {}, (err, numAffected, upsert) => {
       if (err) {
-        console.error('Error updating record:', err);
+        console.error('POSTUpdateDBStockNumbers:', err);
       } else {
-        console.log('Record updated successfully');
+        console.log('POSTUpdateDBStockNumbers: Success');
       }
     });
   })
@@ -517,10 +536,10 @@ app.post('/api/POSTUpdateDBOrderQtyWhenDeleted', (request, response) => {
     {},
     (err, numAffected, upsert) => {
       if (err) {
-        console.error('Error updating record:', err);
+        console.error('POSTUpdateDBOrderQtyWhenDeleted:', err);
         response.status(500).json({ status: 'error', message: 'Internal Server Error' });
       } else {
-        console.log('Record updated successfully');
+        console.log('POSTUpdateDBOrderQtyWhenDeleted: Success');
         response.json({
           status: 'success',
         });
@@ -534,10 +553,10 @@ app.post('/apigetProductInfo', (request, response) => {
   console.log("Received ID to find:", ID)
   db1.find({ ID: ID}, function (err, docs) {
     if (err) {
-      console.error('Error fetching documents:', err);
+      console.error('apigetProductInfo:', err);
       response.status(500).json({ error: "Internal Server Error" });
     } else {
-      console.log('Items sorted by title: Success');
+      console.log('apigetProductInfo: Success');
       response.json(docs);
     }
   });
@@ -553,10 +572,10 @@ app.post('/api/POSTUpdateCurrentOrderQTY', (request, response) => {
     {},
     (err) => {
       if (err) {
-        console.error('Error updating record:', err);
+        console.error('POSTUpdateCurrentOrderQTY:', err);
         response.status(500).json({ status: 'error', message: 'Internal Server Error' });
       } else {
-        console.log('Record updated successfully');
+        console.log('POSTUpdateCurrentOrderQTY: Success');
         response.json({
           status: 'success',
         });
@@ -571,9 +590,10 @@ app.post('/api/updateOrderQtyToZero', (req, res) => {
 
   db1.update({}, updateQuery, updateOptions, (err, numAffected) => {
     if (err) {
-      console.error('Error updating documents:', err);
+      console.error('updateOrderQtyToZero:', err);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
+      console.log('updateOrderQtyToZero: Success');
       res.json({ status: 'success', numAffected: numAffected });
     }
   });
@@ -586,10 +606,10 @@ app.post('/api/GETTitleID', (request, response) => {
 
   db1.find({ title: title }, function (err, docs) {
     if (err) {
-      console.error('Error fetching documents:', err);
+      console.error('GETTitleID:', err);
       response.status(500).json({ error: "Internal Server Error" });
     } else {
-      console.log('Found item');
+      console.log('GETTitleID: Success');
       response.json(docs);
     }
   });
@@ -627,13 +647,13 @@ app.post('/api/POSTfinalPriceofOrder', (request, response) => {
   });
 });
 
-app.post('/api/POSTheckDiscountCodeAPI', (request, response) => { 
+app.post('/api/POSTCheckDiscountCodeAPI', (request, response) => { 
   const discountCode = request.body.discountCode
   console.log(discountCode);
 
   db3.findOne({ code: discountCode }, function (err, discountCode) {
     if (err) {
-      console.error('Error fetching documents:', err);
+      console.error('POSTCheckDiscountCodeAPI:', err);
       response.status(500).json({ error: "Internal Server Error" });
     } else {
       if (!discountCode){
@@ -654,10 +674,10 @@ app.post('/api/POSTFindSearchItems', (request, response) => {
   const regex = new RegExp(title, "i");
   db1.find({ title: { $regex: regex } }, function (err, docs) {
     if (err) {
-      console.error('Error fetching documents:', err);
+      console.error('POSTFindSearchItems:', err);
       response.status(500).json({ error: "Internal Server Error" });
     } else {
-      console.log('Found item', docs);
+      console.log('POSTFindSearchItems: Success');
       response.json(docs);
     }
   });
@@ -666,14 +686,13 @@ app.post('/api/POSTFindSearchItems', (request, response) => {
 app.post('/api/getItemsFromDBAndFilter', (request, response) => {
   const type = request.body.type;
   const search = request.body.filtervalue;
-  console.log(type, search);
 
   db1.find({type: type }).sort({ price: search }).exec((err, items) => {
     if (err) {
-      console.error('Error fetching documents:', err);
+      console.error('getItemsFromDBAndFilter:', err);
       response.status(500).json({ error: "Internal Server Error" });
     } else {
-      console.log('Items sorted by PRICE: Success');
+      console.log('getItemsFromDBAndFilter: Success');
       response.json(items);
     }
   });
@@ -684,10 +703,10 @@ app.post('/api/getAllItemsFromDBAndFilter', (request, response) => {
 
   db1.find({}).sort({ price: search }).exec((err, items) => {
     if (err) {
-      console.error('Error fetching documents:', err);
+      console.error('getAllItemsFromDBAndFilter:', err);
       response.status(500).json({ error: "Internal Server Error" });
     } else {
-      console.log('Items sorted by PRICE: Success');
+      console.log('getAllItemsFromDBAndFilter: Success');
       response.json(items);
     }
   });
@@ -700,15 +719,177 @@ app.post('/api/getSearchItemsFromDBAndFilter', (request, response) => {
 
   db1.find({ title: { $regex: regex }  }).sort({ price: search }).exec((err, items) => {
     if (err) {
-      console.error('Error fetching documents:', err);
+      console.error('Error fetching documents (getSearchItemsFromDBAndFilter):', err);
       response.status(500).json({ error: "Internal Server Error" });
     } else {
-      console.log('Items sorted by PRICE: Success');
+      console.log('getSearchItemsFromDBAndFilter: Success');
       response.json(items);
     }
   });
 });
-  //RecipeRealm30
+
+// Retrieve all coupons from the database
+app.post('/api/POSTAllDiscountCodeAPI', (request, response) => {
+  db3.find({}, function (err, codes) {
+    if (err) {
+      console.error('Error fetching dicount codes (POSTAllDiscountCodeAPI):', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      console.log('POSTAllDiscountCodeAPI: Success');
+      response.json(codes);
+    }
+});
+})
+
+// Delete discont code 
+app.post('/api/POSTdeleteDiscountCodeAPI', (request, response) => {
+  const ID = request.body.ID
+console.log({ID});
+  db3.remove({ ID: ID}, function (err, codes) {
+    if (err) {
+      console.error('Error fetching dicount codes (POSTdeleteDiscountCodeAPI):', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      db3.find({}, function (err, codes) {
+        if (err) {
+          console.error('Error fetching dicount codes (POSTdeleteDiscountCodeAPI):', err);
+          response.status(500).json({ error: "Internal Server Error" });
+        } else {
+          console.log('POSTdeleteDiscountCodeAPI: Success');
+          console.log(codes);
+          response.json(codes);
+        }
+    });
+    }
+});
+})
+
+// Delete, then update discont code 
+app.post('/api/POSTupdateDiscountCodeAPI', (request, response) => {
+  const ID = request.body.ID;
+  const updatedCode = request.body.updatedCode;
+  const discPercent = request.body.discPercent;
+
+  let newCode = [
+    { ID: ID, code: updatedCode, discPercent: discPercent }
+  ];
+  console.log({newCode});
+
+  db3.remove({ ID: ID }, function (err, codes) {
+    if (err) {
+      console.error('Error removing code (POSTupdateDiscountCodeAPI):', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      db3.insert(newCode, function (err, discCode) {
+        if (err) {
+          console.error('Error inserting new code (POSTupdateDiscountCodeAPI):', err);
+          response.status(500).json({ error: "Internal Server Error" });
+        } else {
+          db3.find({}, function (err, codes) {
+            if (err) {
+              console.error('Error fetching discount codes (POSTupdateDiscountCodeAPI):', err);
+              response.status(500).json({ error: "Internal Server Error" });
+            } else {
+              console.log('POSTupdateDiscountCodeAPI: Success');
+              response.json(codes);
+            }
+          });
+        }
+      });
+    }
+  });
+});
+
+app.post('/POSTAddDiscountCodeAPI', (request, response) => {
+const ID = request.body.ID;
+const code = request.body.code;
+const discPercent = request.body.discPercent;
+
+let newCode = [{ ID: ID, code: code, discPercent: discPercent }];
+console.log({ newCode });
+
+db3.insert(newCode, function (err, codes) {
+  if (err) {
+    console.error('Error fetching discount codes (POSTAddDiscountCodeAPI):', err);
+    response.status(500).json({ error: "Internal Server Error" });
+  } else {
+    console.log('POSTAddDiscountCodeAPI: Success');
+    // response.json(codes);
+  }
+});
+});
+
+app.post('/api/POSTAddDiscountCodeAPI', (request, response) => {
+
+  const ID = request.body.ID;
+  const code = request.body.code;
+  const discPercent = request.body.discPercent;
+
+  let newCode = [
+    { ID:ID, code: code, discPercent: discPercent }
+  ];
+console.log({newCode});
+  db3.insert(newCode, function (err, codes) {
+    if (err) {
+      console.error('Error fetching dicount codes (POSTAddDiscountCodeAPI):', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      console.log('POSTAddDiscountCodeAPI: Success');
+      //response.json(codes);
+    }
+});
+})
+
+app.post('/api/POSTgenerateStockListAPI', (request, response) => {
+
+  const type = request.body.type;
+
+console.log({type});
+db1.find({ type: type }, function (err, stock) {
+    if (err) {
+      console.error('Error fetching dicount codes (POSTgenerateStockListAPI):', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      console.log('POSTgenerateStockListAPI: Success');
+      response.json(stock);
+    }
+});
+})
+
+app.get("/api/generateAllStockListAPI", (req, response) => {
+  db1.find({}).sort({ title: 1 }).exec((err, items) => {
+    if (err) {
+      console.error('generateAllStockListAPI:', err);
+      response.status(500).json({ error: "Internal Server Error" });
+    } else {
+      console.log('generateAllStockListAPI: Success');
+      response.json(items);
+    }
+  });
+});
+
+app.post('/api/POSTupdateStockAmountAPI', (request, response) => { 
+  const ID = request.body.ID
+  const stock = request.body.stock
+  db1.update(
+    { ID: ID },
+    { $set: { stock: stock } },
+    {},
+    (err) => {
+      if (err) {
+        console.error('POSTupdateStockAmountAPI:', err);
+        response.status(500).json({ status: 'error', message: 'Internal Server Error' });
+      } else {
+        console.log('POSTupdateStockAmountAPI: Success');
+        response.json({
+          status: 'success',
+        });
+      }
+    }
+  );
+});
+
+
 
 
 
