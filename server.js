@@ -58,9 +58,23 @@ const sendEmail = (data) =>{
 
 const attachments = []
 let htmlContent = `
-<div style="margin-bottom: 10px;">Hello Andy, 
-    This is your order, scheduled to be delivered ${deliverySlotDayServerSide} ${deliveryDateServerSide} between ${deliverySlotTimeServerSide}
-</div>`;
+
+<div style="margin-bottom: 10px;">
+      <img src="cid:uniqueLogoId" alt="Logo" style="width: 200px; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; border: 1px solid #155263;">
+      <br>
+      Hello Andy
+      <br>
+      <br>
+      This is your order, scheduled to be delivered ${deliverySlotDayServerSide} ${deliveryDateServerSide} between ${deliverySlotTimeServerSide}
+    </div>
+  `;
+
+  attachments.push({
+    filename: 'Logo.png', 
+    path: 'public/Logo/Logo2.png', 
+    encoding: 'base64',
+    cid: 'uniqueLogoId', 
+  });
 
   data.forEach((item, index) => {
     attachments.push({
@@ -74,7 +88,7 @@ let htmlContent = `
      data.forEach((item,index) => {
 
       htmlContent += `
-      <div style="width: 500px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="width: 500px; border-radius: 8px; border: 1px solid #155263; padding: 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
       <div style="flex: 1; display: flex; align-items: center;">
           <img src="cid:uniqueImageId${index + 1}" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; margin-right: 10px; ;padding: 5px">
       </div>
@@ -92,11 +106,11 @@ let htmlContent = `
       
      })
      htmlContent += `
-      <div style="width: 500px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+      <div style="width: 500px; border-radius: 8px; border: 1px solid #155263; padding: 10px; margin-bottom: 10px;">
           <span><b>Total Price of your order is £${finalPriceofOrederServerSide.toFixed(2)}, this includes your delivery charge of £${deliveryPriceServerSide.toFixed(2)}</b></span>
       </div>`;
 
-      htmlContent += `<div style="width: 500px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+      htmlContent += `<div style="width: 500px; border-radius: 8px; border: 1px solid #155263; padding: 10px; margin-bottom: 10px;">
     <span><b>Delivery Address:</b></span>`;
 
     savedAddressServerSide.forEach((addressLine) => {
@@ -619,6 +633,7 @@ app.post('/api/POSTSendCustomerEmail', (request, response) => {
   const data = request.body
   //console.log(data);
   sendEmail(data)
+  console.log(data);
   response.json({
       status: "success",
   })

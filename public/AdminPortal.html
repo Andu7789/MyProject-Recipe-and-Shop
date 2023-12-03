@@ -18,10 +18,10 @@
        </a>
         <form class="d-flex ms-auto me-3 mt-2">
             <div class="input-group">
-                <input type="text" class="form-control me-2" placeholder="Username" required id="userNameInput">
+                <input type="text" class="form-control me-2 customBorderThinner" placeholder="Username" required id="userNameInput">
             </div>
             <div class="input-group">
-                <input type="text" class="form-control me-2" placeholder="Password" required id="passwordInput">
+                <input type="text" class="form-control me-2 customBorderThinner" placeholder="Password" required id="passwordInput">
             </div>
           <button class="btn btn-sm customButtonColour me-3 rounded nav-link" style=" height: 40px;"type="submit" id="accountButton">Login</button>
         </form>
@@ -29,45 +29,46 @@
     <div class="container-fluid ">
         <div class="row">
           <div class="col">
-            <!-- Recipe container-->
-            <div class="container my-5 pb-1 ps-5 pe-5 bg-dark text-dark border border-secondary rounded " id="adminMainContainer">
-                <button class="btn btn-secondary my-5 rounded ms-3" id="stockControlButton">Stock Control</button>
-                <button class="btn btn-secondary my-5 rounded ms-3" id="discountCodesButton">Discount Codes</button>
-                <div class="container py-3 ps-5 pe-5 bg-light text-dark border border-secondary rounded hidden" id="adminContainer2"></div>
+     
+            <div class="container my-5 pb-1 ps-5 pe-5 text-dark customBorder rounded d-flex" id="adminMainContainer">
+                <button class="btn btnYellowStockDisc my-5 rounded ms-3" id="stockControlButton">Stock Control</button>
+                <button class="btn btnYellowStockDisc  my-5 rounded ms-3" id="discountCodesButton">Discount Codes</button>
+                <button class="btn btnYellowStockDisc  my-5 rounded ms-3 ms-auto " id="MemoryDestruct">Memory Destruct!!!</button></div>
+                <div class="container text-dark  hidden" id="adminContainer2"></div>
                 <div class="container py-5 hidden" id="adminContainer3"></div>
             
 
-                <div class="container text-center p-2 text-dark hidden" id="adminContainer4">
+                <div class="container text-center customBorderThinner rounded p-2 text-dark hidden mb-2" id="adminContainer4">
                     <div class="row">
                     <div class="col">
                         <div class="">
-                        <button class="btn customButtonColour" type="button" id="fruitButton" style="width: 100px;" onclick="generateStockListAPI('fruit')">Fruit</button>
+                        <button class="btn btnYellow" type="button" id="fruitButton" style="width: 100px;" onclick="generateStockListAPI('fruit')">Fruit</button>
                         </div>
                     </div>
                     <div class="col">
                         <div class="">
-                        <button class="btn customButtonColour" type="button" id="vegatablesButton" style="width: 100px;" onclick="generateStockListAPI('vegetable')">Vegetables</button>
+                        <button class="btn btnYellow" type="button" id="vegetableButton" style="width: 100px;" onclick="generateStockListAPI('vegetable')">Vegetables</button>
                         </div>
                     </div>
                     <div class="col">
                         <div class="">
-                        <button class="btn btn-secondary" type="button" id="meatButton" style="width: 100px" onclick="generateStockListAPI('meat')">Meat</button>
+                        <button class="btn btnYellow" type="button" id="meatButton" style="width: 100px" onclick="generateStockListAPI('meat')">Meat</button>
                         </div>
                     </div>
                     <div class="col">
                         <div class="">
-                        <button class="btn btn-secondary" type="button" id="FishButton" style="width: 100px" onclick="generateStockListAPI('fish')">Fish</button>
+                        <button class="btn btnYellow" type="button" id="fishButton" style="width: 100px" onclick="generateStockListAPI('fish')">Fish</button>
                         </div>
                     </div>
                     <div class="col">
                         <div class="">
-                        <button class="btn btn-secondary" type="button" id="allButton" style="width: 100px" onclick="generateAllStockListAPI()">All</button>
+                        <button class="btn btnYellow" type="button" id="allButton" style="width: 100px" onclick="generateAllStockListAPI()">All</button>
                         </div>
                     </div>
                     </div>
                 </div>
                 <div class="container py-5 hidden" id="adminContainer5"></div>
-            </div>
+            
             
        
 </body>

@@ -32,27 +32,28 @@ let video2ID = document.getElementById("video2");
 let btnbac1ID = document.getElementById("btnbac1");
 let btnbac2ID = document.getElementById("btnbac2");
 
-//Newsletter container - Main
-//let newsLetterContainerID = document.getElementById("newsLetterContainer");
-//Newsletter Elements
-//let newsLetterbuttonID = document.getElementById("newsLetterbutton");
-//let alertboxID = document.getElementById("alertbox");
+//email confirmation popup
+let alertboxID = document.getElementById("alertbox");
+let messageCloseButtonD = document.getElementById("messageCloseButton");
 
 //Shooping container - Main
 let shoppingcontainerID = document.getElementById("shoppingcontainer");
+
 //Shopping cards container - Main
 let cardsContainerShopID = document.getElementById("cardsContainerShop");
+
 //Shopping cart container
 let cartContainerID = document.getElementById("cartContainer");
 let shoppingCartHeadingID = document.getElementById("shoppingCartHeading");
 
 //Checkout container - Main
 let checkoutContainerID = document.getElementById("checkoutContainer");
-//Checkout left and righ containers
+
+//Checkout left and right containers
 let checkoutContainerTopID = document.getElementById("checkoutContainerTop");
 let checkoutContainerLeftID = document.getElementById("checkoutContainer-left");
 let checkoutContainerrightID = document.getElementById(
-  "checkoutContainer-righ"
+  "checkoutContainer-right"
 );
 let checkoutContainerBottomID = document.getElementById(
   "checkoutContainerBottom"
@@ -64,9 +65,11 @@ let checkoutContainerBottom2ID = document.getElementById(
 
 //Account container - Main
 let accountContainerID = document.getElementById("accountContainer");
+
 //Account container - information (wording)
 let accountContainer2ID = document.getElementById("accountContainer2");
 let accountContainer3ID = document.getElementById("accountContainer3");
+
 //Account Elements (buttons)
 let yourAddressessButtonID = document.getElementById("yourAddressessButton");
 let discountCodesButtonID = document.getElementById("discountCodesButton");
@@ -78,6 +81,7 @@ let addAddressFormConatinerID = document.getElementById(
 );
 //Add new address button - used in the form where you populate the new address you are going to add
 let addAddressButtonID = document.getElementById("addAddressButton");
+
 //Add new address Elements
 let line_1ID = document.getElementById("line_1");
 let line_2ID = document.getElementById("line_2");
@@ -115,7 +119,6 @@ let resetButtonShoppingID = document.getElementById("resetButtonShopping");
 let searchButtonShoppingID = document.getElementById("searchButtonShopping");
 let dropdownFilterTypeID = document.getElementById("dropdownFilterType");
 let fruitButtonID = document.getElementById("fruitButton");
-
 let dropdownCuisine2ID = document.getElementById("dropdownCuisine2");
 let dropdownMealType2ID = document.getElementById("dropdownMealType2");
 let dropdownDishType2ID = document.getElementById("dropdownDishType2");
@@ -216,14 +219,13 @@ const selectItem = (event, value, buttonID) => {
 
     console.log({ searchType }, { titleForProductSearch });
     if (!searchType && !titleForProductSearch) {
-      //generateShoppingUIFirstBuild()
-      console.log(123);
+
       filterShoppingCardsAllAPI(filterChoice);
     } else if (!titleForProductSearch) {
-      console.log(567);
+
       filterShoppingCardsAPI(filterChoice);
     } else {
-      console.log(345);
+
       filterShoppingCardsSearchAPI(filterChoice);
     }
   }
@@ -240,8 +242,6 @@ recipesMenuID.addEventListener("click", function () {
   shoppingcontainerID.classList.add("hidden");
   checkoutContainerID.classList.add("hidden");
   accountContainerID.classList.add("hidden");
-  //newsLetterContainerID.classList.add("hidden")
-  //newsLetterID.classList.remove("active")
   productViewContainerID.classList.add("hidden");
   cartContainerID.classList.remove("hidden");
 });
@@ -256,9 +256,8 @@ videosMenuID.addEventListener("click", function () {
   video2ID.classList.add("hidden");
   shoppingcontainerID.classList.add("hidden");
   accountContainerID.classList.add("hidden");
-  //newsLetterContainerID.classList.add("hidden")
-  //newsLetterID.classList.remove("active")
   productViewContainerID.classList.add("hidden");
+  cartContainerID.classList.add("hidden");
 });
 
 btnboilID.addEventListener("click", function () {
@@ -292,22 +291,6 @@ resetButtonID.addEventListener("click", function () {
 resetButtonShoppingID.addEventListener("click", function () {
   seacrhBarShoppingID.value = "";
 });
-
-/*newsLetterID.addEventListener("click", function(){
-    recipeMainContainerID.classList.add("hidden")
-    videoscontainerID.classList.add("hidden") 
-    recipesMenuID.classList.remove("active")
-    videosMenuID.classList.remove("active")
-   // newsLetterID.classList.add("active")
-   // newsLetterContainerID.classList.remove("hidden")
-    shoppingcontainerID.classList.add("hidden") 
-    shopID.classList.remove("active")
- })*/
-
-/* newsLetterbuttonID.addEventListener("click", function(){
-    newsLetterContainerID.classList.add("hidden")
-    alertboxID.classList.toggle("hidden")
- })*/
 
 closeButton1ID.addEventListener("click", function () {
   closeButtonViewSettings();
@@ -352,7 +335,6 @@ const createProductViewDisplaySettings = () => {
   if (productViewContainerID.classList.contains("hidden")) {
     productViewContainerID.classList.remove("hidden");
   }
-  //cartContainerID.classList.add("hidden");
   shoppingcontainerID.classList.add("hidden");
   shopID.classList.remove("active");
   dropdownCuisine2ID.innerHTML = "Cusine Type";
@@ -371,7 +353,6 @@ const displayShopSettings = () => {
   checkoutContainerID.classList.add("hidden");
   recipeMainContainerID.classList.add("hidden");
   videoscontainerID.classList.add("hidden");
-  //newsLetterContainerID.classList.add("hidden")
   video1ID.classList.add("hidden");
   video2ID.classList.add("hidden");
   accountContainerID.classList.add("hidden");
@@ -380,7 +361,6 @@ const displayShopSettings = () => {
 };
 
 accountButtontID.addEventListener("click", function () {
-  //newsLetterContainerID.classList.add("hidden")
   videoscontainerID.classList.add("hidden");
   shoppingcontainerID.classList.add("hidden");
   recipeMainContainerID.classList.add("hidden");
@@ -405,6 +385,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
 //function to create default values for the recipe search if a user doesn't select anything
 function check() {
   cusineValue = dropdownCuisineID.innerHTML;
@@ -494,8 +487,6 @@ const getRecipes2 = async () => {
     return false;
   }
   let data2 = await response2.json();
-  //generateUI(data.hits); //call the fucntion with the API data
-
   carouselImg1.src = data2.hits[0].recipe.image;
   carouselImg2.src = data2.hits[1].recipe.image;
   carouselImg3.src = data2.hits[2].recipe.image;
@@ -521,7 +512,7 @@ const getRecipes2 = async () => {
 const generateUI = (articles) => {
   for (let item of articles) {
     let card = document.createElement("div");
-    card.innerHTML = `<div class="card mt-5 ms-4 text-center" style="width: 13rem;">
+    card.innerHTML = `<div class="card mt-5 ms-4 text-center customBorderThinner" style="width: 13rem;">
       <a href="${item.recipe.url}" target="_blank">
         <img src="${item.recipe.image}" class="card-img-top" alt="${item.recipe.label}">
       </a>
@@ -538,6 +529,18 @@ const generateUI = (articles) => {
     cardsContainerID.appendChild(card);
   }
 };
+//  To set the colour of the button (type) on the shopping page - shows it as a different colour so you can see which type is being shown
+function setActive(buttonId) {
+  // Remove 'active' class from all buttons
+  let buttons = document.querySelectorAll('.btnYellow');// for all buttons with this class
+  buttons.forEach((button) => {
+    button.classList.remove('active');
+  });
+
+  // Add 'active' class to the clicked button
+  let clickedButton = document.getElementById(buttonId);
+  clickedButton.classList.add('active');
+}
 
 //Build the shopping cards with the items type selected by the user
 const generateShoppingUI = (type) => {
@@ -551,10 +554,14 @@ const generateShoppingUI = (type) => {
   }
   titleForProductSearch = "";
   dropdownFilterTypeID.innerHTML = "Filter";
+
+ 
+
   searchType = type;
   const requestData = {
     type: type,
   };
+  console.log(type);
 
   fetch("/api/getItemsFromDB", {
     method: "POST",
@@ -565,13 +572,19 @@ const generateShoppingUI = (type) => {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
+      setActive(type + 'Button');
+      //let clickedButton = document.getElementById(type + 'Button');
+    //clickedButton.classList.toggle('active');
       buildShopCards(data);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
+    
 };
 generateShoppingUI(); //call the function and send it the API data
+
 
 //Buiilds the shopping cards with all the items
 const generateShoppingUIFirstBuild = () => {
@@ -590,6 +603,7 @@ const generateShoppingUIFirstBuild = () => {
     .then((response) => response.json())
     .then((data) => {
       buildShopCards(data);
+      setActive('allButton');
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -597,8 +611,7 @@ const generateShoppingUIFirstBuild = () => {
 };
 
 const generateProductView = async (event, productId, inputbox) => {
-  // Your function logic goes here
-  //event.preventDefault();
+
   carouselExampleCaptions;
   storeForProductID = productId;
 
@@ -670,9 +683,7 @@ const generateProductView = async (event, productId, inputbox) => {
   productViewDescriptionID.innerHTML = product.Description;
   productViewQtyID.value = numOfItems;
 
-  // Now you can use jsonProductInfo in the rest of your function logic
 };
-//getProductInfoFrommDatabase(productId)
 
 async function getProductInfoFrommDatabase(productId) {
   const options = {
@@ -770,16 +781,15 @@ const AddToCart = (event, inputbox, price, title, ID, image) => {
 
 const buildShopCards = (data) => {
   cardsContainerShopID.innerHTML = "";
-  console.log({data});
   data.forEach((product) => {
     const productDiv = document.createElement("div");
-
-    productDiv.style.border = "1px solid #ccc";
+    productDiv.style.border = "1px solid #155263"
     productDiv.style.borderRadius = "10px";
     productDiv.style.padding = "10px"; // Add padding for better spacing
     productDiv.style.margin = "0 10px 10px 0";
     productDiv.style.textAlign = "center";
     productDiv.style.width = "220px";
+    productDiv.classList = " mt-4"
 
     const imageElement = document.createElement("img");
     imageElement.src = `data:image/png;base64,${product.image}`;
@@ -859,7 +869,7 @@ const buildShopCards = (data) => {
       const addButton = document.createElement("button");
       addButton.textContent = "Add to Cart";
       addButton.style.height = "40px";
-      addButton.classList.add("btn", "btn-secondary", "rounded");
+      addButton.classList.add("btn", "btnYellow", "rounded");
       addButton.onclick = (event) => {
         if (product.stock < parseInt(inputElement.value, 10)) {
           stockElement.textContent = `Not enough Stock`;
@@ -902,6 +912,12 @@ const searchShopItems = () => {
   titleForProductSearch = seacrhBarShoppingID.value;
   const requestBody = { title: titleForProductSearch };
 
+  //set all type buttons to 'not selected colour'
+  let buttons = document.querySelectorAll('.btnYellow');// for all buttons with this class
+  buttons.forEach((button) => {
+    button.classList.remove('active');
+  });
+
   fetch("/api/POSTFindSearchItems", {
     method: "POST",
     headers: {
@@ -930,7 +946,7 @@ const updateCartUI = () => {
   cartClass.cartItems.forEach((item, index) => {
     const cartItemElement = document.createElement("div");
     cartItemElement.innerHTML = `
-                                <div class="cart-item">removeFromCart
+                                <div class="cart-item">
                                 <span>${item.title}</span>
                                 <span>Qty: ${item.quantity}</span>
                                 <span><b>Total Price: £${item.totalPrice.toFixed(2)}</b></span>
@@ -941,17 +957,14 @@ const updateCartUI = () => {
 
   });
 
-
-
   //Add the 'checkout' button
   const totalElement = document.createElement("div");
   totalElement.innerHTML = `<div <h4 class="mt-2"><b>Sub Total: £${cartClass.cartTotalPrice.toFixed(2)}</b></h4>
                             </div>
-                            <div <button class="btn my-3 btn-default btn-sm btn-secondary rounded " onclick=createCheckout()  id="btnCheckout">Checkout</button>
+                            <div <button class="btn my-3 btn-default btn-sm btnYellow rounded " onclick=createCheckout()  id="btnCheckout">Checkout</button>
                             </div>`;
                             
   cartContainerID.appendChild(totalElement);
-
 };
 
 //detele the item fron the cart ARRAY when a user has clicked on 'x'
@@ -1020,7 +1033,7 @@ function createCheckout() {
   cartClass.cartItems.forEach((item, index) => {
     const cartItemElement = document.createElement("div");
     cartItemElement.innerHTML = `
-<div class="card mb-3">
+<div class="card mb-3 customBorderThinner">
   <div class="card-body">
     <div class="d-flex justify-content-between">
     <div class="cart-item">
@@ -1047,7 +1060,7 @@ function createCheckout() {
   });
   const cartItemElementTotal = document.createElement("div");
   cartItemElementTotal.innerHTML = `
-<div class="card mb-3">
+<div class="card mb-3 customBorderThinner">
 <div class="card-body">
   <div class="d-flex justify-content-between">
     <div class="cart-item">
@@ -1088,11 +1101,11 @@ const buildDefualtAddress = (cartClass) => {
     checkoutContainerBottomID.innerHTML = "";
     let defaultAddress = getDefaultAddress(); //get the current DEFAULT address
     const deliveryAddressDefault = document.createElement("div");
-    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded-3">
-                                      <div class="card-body">
+    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded customBorderThinner">
+                                      <div class="card-body ">
                                       <div class="d-flex justify-content-between align-items-center ">
                                           <b>Delivery Address</b>
-                                          <button type="button" class="btn btn-secondary btn-block btn-sm mt-3" onclick=chooseNewAddress() id="chooseNewAddress">change</button></div>
+                                          <button type="button" class="btn btnYellow btn-block btn-sm mt-3" onclick=chooseNewAddress() id="chooseNewAddress">change</button></div>
                                           <div class="d-flex justify-content-between">
                                             <p class="mb-1">${defaultAddress.line_1}</p>
                                           </div>
@@ -1122,11 +1135,11 @@ const buildDefualtAddress = (cartClass) => {
   } else {
     console.warn({ savedAddress });
     const deliveryAddressDefault = document.createElement("div");
-    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded-3">
+    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded customBorderThinner">
                                       <div class="card-body">
                                       <div class="d-flex justify-content-between align-items-center ">
                                           <b>Delivery Address</b>
-                                          <button type="button" class="btn btn-secondary btn-block btn-sm mt-3" onclick=chooseNewAddress() id="chooseNewAddress">change</button></div>
+                                          <button type="button" class="btn btnYellow btn-block btn-sm mt-3" onclick=chooseNewAddress() id="chooseNewAddress">change</button></div>
                                           <div class="d-flex justify-content-between">
                                             <p class="mb-1">${savedAddress[0]}</p>
                                           </div>
@@ -1148,7 +1161,7 @@ const buildDefualtAddress = (cartClass) => {
         (cartClass.cartTotalPrice + deliveryPrice) *
         (discountPercantageValue / 100);
       finalPriceofOrder = finalPriceofOrder - dicountAmount;
-      finalCheckOutButton.innerHTML = `<button type="button" class="btn btn-secondary btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
+      finalCheckOutButton.innerHTML = `<button type="button" class="btn btnYellow btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
                                     <div class="d-flex justify-content-between ">
                                       <div>£${finalPriceofOrder.toFixed(
                                         2
@@ -1166,12 +1179,12 @@ const buildDefualtAddress = (cartClass) => {
 const buildDiscountCode = () => {
   const discountparts = document.createElement("div");
   discountparts.innerHTML = `
-<div class="card text-dark rounded-3 mt-2">
+<div class="card text-dark rounded-3 mt-2 customBorderThinner">
                                     <div class="card-body">
                                     <div class="mb-1"><b>Do you have a discount code?</b></div>
                                     <div class="d-flex justify-content-between align-items-center ">
-                                    <input type="text" class="form-control border border-secondary border-1 rounded me-2" style="width: 250px;" id="discountCodeInput" pattern="[a-zA-Z0-9]+" maxlength="15">
-                                    <button class="btn btn-secondary rounded btn-sm" type="button" id="discountCodeInputButton" onclick =CheckDiscountCode() >Apply</button>
+                                    <input type="text" class="form-control customBorderThinner border-1 rounded me-2" style="width: 250px;" id="discountCodeInput" pattern="[a-zA-Z0-9]+" maxlength="15">
+                                    <button class="btn btnYellow rounded btn-sm" type="button" id="discountCodeInputButton" onclick =CheckDiscountCode() >Apply</button>
                                     </div>
                                     <div class="my-1" id="discountCodeMessage"><b></b></div>   
                                     </div>`;
@@ -1209,7 +1222,7 @@ const calculateDiscount = (discountPercentage) => {
     discountCodeMessageID.style.color = "red";
     discountCodeMessageID.style.fontWeight = "bold";
   }
-  finalCheckOutButton.innerHTML = `<button type="button" class="btn btn-secondary btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
+  finalCheckOutButton.innerHTML = `<button type="button" class="btn btnYellow btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
                                     <div class="d-flex justify-content-between ">
                                       <div>£${finalPriceofOrder.toFixed(
                                         2
@@ -1221,7 +1234,7 @@ const calculateDiscount = (discountPercentage) => {
 
 const buildDeliverySlot = () => {
   const chooseDeliverySlotButton = document.createElement("div");
-  chooseDeliverySlotButton.innerHTML = `<button type="button" class="btn btn-secondary btn-block btn-sm mt-3 ml-auto" onclick=chooseDeliverySlot() id="chooseDilverySlotButton">
+  chooseDeliverySlotButton.innerHTML = `<button type="button" class="btn btnYellow btn-block btn-sm mt-3 ml-auto" onclick=chooseDeliverySlot() id="chooseDilverySlotButton">
   <div class="d-flex justify-content-between ">
     <div>Choose Delivery Slot</div>
   </div>
@@ -1233,7 +1246,7 @@ const buildDeliverySlot = () => {
 const buildCheckoutButton = () => {
   checkoutContainerBottom2ID.innerHTML = "";
   finalCheckOutButton = document.createElement("div");
-  finalCheckOutButton.innerHTML = `<button type="button" class="btn btn-secondary btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
+  finalCheckOutButton.innerHTML = `<button type="button" class="btn btnYellow btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
                                     <div class="d-flex justify-content-between ">
                                       <div>£${finalPriceofOrder.toFixed(
                                         2
@@ -1259,7 +1272,7 @@ const chooseDeliverySlot = () => {
 
     const apiURL = "/api/getDeliverySlotsFromDB";
 
-    fetch(apiURL)
+    fetch("/api/getDeliverySlotsFromDB")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -1400,7 +1413,7 @@ const chooseNewAddress = () => {
   //Build up the addresses from MY address Book and add a radio button
   addresses.forEach((address, index) => {
     const createRadioBtnAddresses = document.createElement("div");
-    createRadioBtnAddresses.innerHTML = `<div class="form-check border border-secondary rounded mt-2 ps-5 py-3">
+    createRadioBtnAddresses.innerHTML = `<div class="form-check customBorderThinner rounded mt-2 ps-5 py-3">
                                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault${index}" ${
       index === 0 ? "checked" : ""
     }>
@@ -1426,19 +1439,18 @@ const chooseNewAddress = () => {
 
   const chooseNewAddressBtn = document.createElement("div");
   chooseNewAddressBtn.innerHTML = `<div>
-                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
+                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btnYellow rounded"
                                     onclick="useSelectedAddress(selectedAddressIndex)">Use this address
                                     </button>
-                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
+                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btnYellow rounded"
                                     onclick="CancelBtnUseThisAddress()">Cancel
                                     </button>
-                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
+                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btnYellow rounded"
                                     onclick="addNewAddress2()">Add new address
                                     </button>
                                   </div>`;
   chooseNewAddressContainerID.appendChild(chooseNewAddressBtn);
 };
-console.log(selectedAddressIndex);
 //function to call the add address window
 const addNewAddress2 = () => {
   addAddressFormConatinerID.classList.remove("hidden");
@@ -1467,11 +1479,11 @@ const useSelectedAddress = (index) => {
     let addresses = JSON.parse(localStorage.getItem("addresses")) || [];
     let selectedAddress = addresses[index];
     const deliveryAddressDefault = document.createElement("div");
-    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded-3">
-                                        <div class="card-body">
+    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded customBorderThinner">
+                                        <div class="card-body ">
                                           <div class="d-flex justify-content-between align-items-center mb-1">
                                             <b>Delivery Address</b>
-                                            <button type="button" class="btn btn-secondary btn-block btn-sm mt-3" onclick=chooseNewAddress() id="chooseNewAddress">Change</button></div>
+                                            <button type="button" class="btn btnYellow btn-block btn-sm mt-3" onclick=chooseNewAddress() id="chooseNewAddress">Change</button></div>
                                           <div class="d-flex justify-content-between">
                                             <p class="mb-1">${selectedAddress.line_1}</p>
                                           </div>
@@ -1522,8 +1534,9 @@ const createOrder = () => {
   cartItemCount.innerHTML = 0;
   UpdateStockControlAPI();
   updateOrderQtyToZeroAPI();
+  alertboxID.classList.toggle("hidden")
   cartClass.cartItems = [];
-  cartContainerID.classList.remove("hidden");
+  cartContainerID.classList.add("hidden");
 
   checkoutContainerID.classList.add("hidden");
   let counter = orderClass.orderNumber - 1;
@@ -1548,9 +1561,13 @@ const createOrder = () => {
 
   const strObjOrdeNum = JSON.stringify(orderClass.orderNumber);
   localStorage.setItem("strObjOrderNum", strObjOrdeNum); //put the order number into LocalStorage
-
-  location.reload();
 };
+
+messageCloseButtonD.addEventListener("click", () => {
+  console.log("clicked");
+  alertboxID.classList.toggle("hidden")
+ location.reload();
+});
 
 discountCodesButtonID.addEventListener("click", () => {
   accountContainer2ID.classList.remove("hidden");
@@ -1575,14 +1592,14 @@ const buildDiscountCodes = (codes) => {
                                     </div>
                                     <div class="col">
                                       <div class="">
-                                        <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
+                                        <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btnYellow rounded"
                                         onclick="updateDiscountCode(${item.ID}, document.getElementById('discountCodeTitle${item.ID}').value, document.getElementById('discountCodePercentage${item.ID}').value)">Update
                                         </button>
                                       </div>
                                     </div>
                                     <div class="col">
                                       <div class="">
-                                        <button class="btn ms-1 mt-3 me-5 mb-3 btn-default btn-sm btn-secondary rounded"
+                                        <button class="btn ms-1 mt-3 me-5 mb-3 btn-default btn-sm btnYellow rounded"
                                         onclick="deleteDiscountCode(${item.ID})">Delete
                                         </button>
                                       </div>
@@ -1602,8 +1619,8 @@ const addDiscountCodeButtons = () =>{
   document.getElementById("accountContainer3").classList.remove('hidden')
   const discountCodesButtonElement = document.createElement("div");
   discountCodesButtonElement.innerHTML = `</div>
-                                      <div <button class="btn ms-1 mt-3 btn-default btn-sm btn-secondary rounded " onclick=hideDiscountButtons() >Close Discount Codes</button></div>
-                                      <div <button class="btn ms-3 mt-3 btn-default btn-sm btn-secondary rounded " onclick=addDiscountCodeIputs() ">Add Discount Code</button>
+                                      <div <button class="btn ms-1 mt-3 btn-default btn-sm btnYellow rounded " onclick=hideDiscountButtons() >Close Discount Codes</button></div>
+                                      <div <button class="btn ms-3 mt-3 btn-default btn-sm btnYellow rounded " onclick=addDiscountCodeIputs() ">Add Discount Code</button>
                                     </div>`;
   accountContainer3ID.appendChild(discountCodesButtonElement);
   //accountContainer2ID.appendChild(accountContainer3ID);
@@ -1630,14 +1647,14 @@ const addDiscountCodeIputs = () => {
                                   </div>
                                   <div class="col">
                                     <div class="">
-                                      <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
+                                      <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btnYellow rounded"
                                       onclick="addDiscountCodeAPI(${lastIDDiscountCode+1},document.getElementById('discountCodeTitleNew').value, document.getElementById('discountCodePercentageNew').value)">Update
                                       </button>
                                     </div>
                                   </div>
                                   <div class="col">
                                     <div class="">
-                                      <button class="btn ms-1 mt-3 me-5 mb-3 btn-default btn-sm btn-secondary rounded"
+                                      <button class="btn ms-1 mt-3 me-5 mb-3 btn-default btn-sm btnYellow rounded"
                                       onclick="deleteDiscountCode()">Delete
                                       </button>
                                     </div>
@@ -1698,7 +1715,7 @@ previousOrdersButtonID.addEventListener("click", () => {
   }
   const ordersButtonElement = document.createElement("div");
   ordersButtonElement.innerHTML = `</div>
-                                       <div <button class="btn ms-1 mt-3 btn-default btn-sm btn-secondary rounded " onclick=document.getElementById("accountContainer2").classList.add('hidden')  id="btnCloseOrders">Close orders</button>
+                                       <div <button class="btn ms-1 mt-3 btn-default btn-sm btnYellow rounded " onclick=document.getElementById("accountContainer2").classList.add('hidden')  id="btnCloseOrders">Close orders</button>
                                       </div>`;
   accountContainer2ID.appendChild(ordersButtonElement);
 });
@@ -1852,8 +1869,8 @@ const createAddressCards = async () => {
   //add the buttons at the bottom after creating the address cards
   const AddressesButtonElement = document.createElement("div");
   AddressesButtonElement.innerHTML = `</div>
-                                      <div <button class="btn ms-1 mt-3 btn-default btn-sm btn-secondary rounded " onclick=document.getElementById("accountContainer2").classList.add('hidden') >Close Addresses</button></div>
-                                      <div <button class="btn ms-3 mt-3 btn-default btn-sm btn-secondary rounded " onclick=initialiseAddressFormContainer() ">Add Addresses</button>
+                                      <div <button class="btn ms-1 mt-3 btn-default btn-sm btnYellow rounded " onclick=document.getElementById("accountContainer2").classList.add('hidden') >Close Addresses</button></div>
+                                      <div <button class="btn ms-3 mt-3 btn-default btn-sm btnYellow rounded " onclick=initialiseAddressFormContainer() ">Add Addresses</button>
                                     </div>`;
   accountContainer2ID.appendChild(AddressesButtonElement);
 };

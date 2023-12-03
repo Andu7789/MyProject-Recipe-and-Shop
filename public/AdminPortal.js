@@ -14,6 +14,9 @@ discountCodesButtonID.addEventListener("click", () => {
   document.getElementById("adminContainer3").classList.remove("hidden");
   document.getElementById("adminContainer4").classList.add("hidden");
   document.getElementById("adminContainer5").classList.add("hidden");
+  discountCodesButtonID.classList.add("active")
+  stockControlButtonID.classList.remove("active")
+  
   checkDiscountCodeALLAPI();
 });
 
@@ -21,7 +24,23 @@ stockControlButtonID.addEventListener("click", () => {
   document.getElementById("adminContainer4").classList.remove("hidden");
   document.getElementById("adminContainer2").classList.add("hidden");
   document.getElementById("adminContainer3").classList.add("hidden");
+  stockControlButtonID.classList.add("active")
+  discountCodesButtonID.classList.remove("active")
+
 });
+
+function setActive(buttonId) {
+  // Remove 'active' class from all buttons
+  let buttons = document.querySelectorAll('.btnYellow');// for all buttons with this class
+  buttons.forEach((button) => {
+    button.classList.remove('active');
+  });
+
+  // Add 'active' class to the clicked button
+  let clickedButton = document.getElementById(buttonId);
+  console.log(buttonId);
+  clickedButton.classList.add('active');
+}
 
 const buildDiscountCodes = (codes) => {
   adminContainer2ID.innerHTML = "";
@@ -29,26 +48,26 @@ const buildDiscountCodes = (codes) => {
   lastIDDiscountCode = codes.length;
   codes.forEach((item) => {
     const discountCodeRow = document.createElement("div");
-    discountCodeRow.innerHTML = `<div class="container border border-secondary mt-2 border-1 rounded text-center p-2 bg-white text-dark">
+    discountCodeRow.innerHTML = `<div class="container customBorderThinner mt-2 border-1 rounded text-center p-2 bg-white text-dark">
                                   <div class="row">
                                     <div class="col">
-                                      <input type="text" class="form-control border border-secondary border-1 rounded ms-5 mt-3 mb-3" id="discountCodeTitle${item.ID}"
+                                      <input type="text" class="form-control customBorderThinner border-1 rounded ms-5 mt-3 mb-3" id="discountCodeTitle${item.ID}"
                                       value="${item.code}" style="width:200px">
                                     </div>
                                     <div class="col">
-                                      <input type="number" class="form-control border border-secondary border-1 rounded ms-1 mt-3 mb-3" id="discountCodePercentage${item.ID}"
+                                      <input type="number" class="form-control customBorderThinner border-1 rounded ms-1 mt-3 mb-3" id="discountCodePercentage${item.ID}"
                                       value="${item.discPercent}" style="width:70px"  min="1" max="100">
                                     </div>
                                     <div class="col">
                                       <div class="">
-                                        <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
+                                        <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btnYellow rounded"
                                         onclick="updateDiscountCode(${item.ID}, document.getElementById('discountCodeTitle${item.ID}').value, document.getElementById('discountCodePercentage${item.ID}').value)">Update
                                         </button>
                                       </div>
                                     </div>
                                     <div class="col">
                                       <div class="">
-                                        <button class="btn ms-1 mt-3 me-5 mb-3 btn-default btn-sm btn-secondary rounded"
+                                        <button class="btn ms-1 mt-3 me-5 mb-3 btn-default btn-sm btnYellow rounded"
                                         onclick="deleteDiscountCode(${item.ID})">Delete
                                         </button>
                                       </div>
@@ -67,8 +86,8 @@ const addDiscountCodeButtons = () => {
   //document.getElementById("adminContainer3").classList.remove('hidden')
   const discountCodesButtonElement = document.createElement("div");
   discountCodesButtonElement.innerHTML = `</div>
-                                      <div <button class="btn my-3 btn-default btn btn-secondary rounded " onclick=hideDiscountButtons() >Close Discount Codes</button></div>
-                                      <div <button class="btn ms-3 my-3 btn-default btn btn-secondary rounded " onclick=addDiscountCodeIputs() ">Add Discount Code</button>
+                                      <div <button class="btn my-3 btn-default btn btnYellow rounded " onclick=hideDiscountButtons() >Close Discount Codes</button></div>
+                                      <div <button class="btn ms-3 my-3 btn-default btn btnYellow rounded " onclick=addDiscountCodeIputs() ">Add Discount Code</button>
                                     </div>`;
   adminContainer3ID.appendChild(discountCodesButtonElement);
   //adminContainer2ID.appendChild(adminContainer3ID);
@@ -77,23 +96,25 @@ const addDiscountCodeButtons = () => {
 const hideDiscountButtons = () => {
   document.getElementById("adminContainer2").classList.add("hidden");
   document.getElementById("adminContainer3").classList.add("hidden");
+  discountCodesButtonID.classList.remove("active")
+  stockControlButtonID.classList.remove("active")
 };
 
 const addDiscountCodeIputs = () => {
   const discountCodeRowAdd = document.createElement("div");
-  discountCodeRowAdd.innerHTML = `<div class="container border border-secondary mt-2 mb-5 border-1 rounded text-center p-2 bg-white text-dark">
+  discountCodeRowAdd.innerHTML = `<div class="container customBorderThinner mt-2 mb-1 border-1 rounded text-center p-2 bg-white text-dark">
                                 <div class="row">
                                   <div class="col">
-                                    <input type="text" class="form-control border border-secondary border-1 rounded ms-5 mt-3 mb-5" id="discountCodeTitleNew"
+                                    <input type="text" class="form-control customBorderThinner border-1 rounded ms-5 mt-3 mb-3" id="discountCodeTitleNew"
                                     value="" style="width:200px">
                                   </div>
                                   <div class="col">
-                                    <input type="number" class="form-control border border-secondary border-1 rounded ms-1 mt-3 mb-3" id="discountCodePercentageNew"
+                                    <input type="number" class="form-control customBorderThinner border-1 rounded ms-1 mt-3 mb-3" id="discountCodePercentageNew"
                                     value="" style="width:70px" min="1" max="100">
                                   </div>
                                   <div class="col">
                                     <div class="">
-                                      <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
+                                      <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btnYellow rounded"
                                       onclick="addDiscountCodeAPI(${
                                         lastIDDiscountCode + 1
                                       },document.getElementById('discountCodeTitleNew').value, document.getElementById('discountCodePercentageNew').value)">Update
@@ -102,7 +123,7 @@ const addDiscountCodeIputs = () => {
                                   </div>
                                   <div class="col">
                                     <div class="">
-                                      <button class="btn ms-1 mt-3 me-5 mb-3 btn-default btn-sm btn-secondary rounded"
+                                      <button class="btn ms-1 mt-3 me-5 mb-3 btn-default btn-sm btnYellow rounded"
                                       onclick="deleteDiscountCode()">Delete
                                       </button>
                                     </div>
@@ -128,19 +149,19 @@ const buildStockCards = (stock) => {
   console.log({ stock });
   stock.forEach((item) => {
     const stockCodeRow = document.createElement("div");
-    stockCodeRow.innerHTML = `<div class="container border border-secondary mt-2 border-1 rounded text-center p-2 bg-white text-dark">
+    stockCodeRow.innerHTML = `<div class="container customBorderThinner mt-2 border-1 rounded text-center p-2 bg-white text-dark">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control border border-secondary border-1 rounded ms-5 mt-3 mb-3" id="stockTitle${item.ID}"
+                                                <input type="text" class="form-control customBorderThinner border-1 rounded ms-5 mt-3 mb-3" id="stockTitle${item.ID}"
                                                     value="${item.title}" style="width:200px">
                                             </div>
                                             <div class="col">
-                                                <input type="number" class="form-control border border-secondary border-1 rounded ms-1 mt-3 mb-3" id="stockquantity${item.ID}"
+                                                <input type="number" class="form-control customBorderThinner border-1 rounded ms-1 mt-3 mb-3" id="stockquantity${item.ID}"
                                                     value="${item.stock}" style="width:70px"  min="0" max="100">
                                             </div>
                                             <div class="col">
                                                 <div class="">
-                                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btn-secondary rounded"
+                                                    <button class="btn ms-1 mt-3 mb-3 btn-default btn-sm btnYellow rounded"
                                                         onclick="updateStockAmountAPI(${item.ID}, parseInt(document.getElementById('stockquantity${item.ID}').value, 10))">Update
                                                     </button>
                                                 </div>
@@ -153,7 +174,7 @@ const buildStockCards = (stock) => {
 
   const stockButtonElement = document.createElement("div");
   stockButtonElement.innerHTML = `</div>
-                                            <div <button class="btn my-3 btn-default btn btn-secondary rounded " onclick=hideStockButtons() >Close Discount Codes</button></div>
+                                            <div <button class="btn my-3 btn-default btn btnYellow rounded " onclick=hideStockButtons() >Close Stock Control</button></div>
                                           </div>`;
   adminContainer5ID.appendChild(stockButtonElement);
 };
@@ -161,6 +182,9 @@ const buildStockCards = (stock) => {
 const hideStockButtons = () => {
   document.getElementById("adminContainer4").classList.add("hidden");
   document.getElementById("adminContainer5").classList.add("hidden");
+  stockControlButtonID.classList.remove("active")
+  discountCodesButtonID.classList.remove("active")
+
 };
 
 const checkDiscountCodeALLAPI = () => {
@@ -261,6 +285,7 @@ const generateStockListAPI = (type) => {
   })
     .then((response) => response.json())
     .then((data) => {
+      setActive(type + 'Button');
       buildStockCards(data);
       console.log(data);
     })
@@ -273,6 +298,7 @@ const generateAllStockListAPI = () => {
   fetch("/api/generateAllStockListAPI")
     .then((response) => response.json())
     .then((data) => {
+      setActive('allButton');
       buildStockCards(data);
       console.log(data);
     })

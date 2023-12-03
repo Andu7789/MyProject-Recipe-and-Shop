@@ -26,11 +26,14 @@
 * no items match your search message
 * add option to filter by price (high to low)
 * cartitems text is wrong
+* email sent confirmation popup
+* video screen - show or hide cart?
 --------------- Still to do ---------------
 * If you add delivery after the disocunt code it will reset the checkout button price!!
+* move memory destruct
 * move discount and delivery up under address
 * favourite recipe
-* video screen - show or hide cart?
+
 * need an account section to store the email address
 * new address - if you cancel it hides things!!  - seems to be intermittent...
 * order number 12, looks to be duplicating items

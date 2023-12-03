@@ -16,8 +16,47 @@
   font-size: medium;
   
 }
+
+.btnYellow {
+  background-color: #155263;
+  color: white;
+  transition: background-color 0.3s ease; 
+}
+
+.btnYellow:hover {
+  background-color: #FFCC47;
+  color: white;
+  font-weight: bold;
+}
+
+.btnYellow.active {
+  background-color: #FFCC47; /* Set to the darker color when the button is active/clicked */
+  color: white;
+  font-weight: bold;
+}
+
+.btnYellowStockDisc {
+  background-color: #155263;
+  color: white;
+  transition: background-color 0.3s ease; 
+}
+
+.btnYellowStockDisc:hover {
+  background-color: #FFCC47;
+  color: white;
+  font-weight: bold;
+}
+
+.btnYellowStockDisc.active {
+  background-color: #FFCC47; /* Set to the darker color when the button is active/clicked */
+  color: white;
+  font-weight: bold;
+}
+
+
+
 .custom-nav-pills .nav-link.active {
-  background-color:#FFCC47;
+  background-color:#155263;
   color: white;
   font-weight: bold;
 
@@ -123,9 +162,21 @@ td.unavailable {
   
 }
 
+.customBorderThinner {
+  border: 1px solid #155263;
+  
+}
+
+
+
 .customButtonColour {
   background-color: #FFCC47;
    color: white;
   font-weight: bold;
 
+}
+
+.alert {
+  width:30%;    
+  margin: 0 auto; /* This will center the alert horizontally */
 }
