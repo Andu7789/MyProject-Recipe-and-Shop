@@ -1,3 +1,9 @@
+body {
+  background-image: url('Background/spaghetti-with-garlic-mushrooms.jpg');
+
+}
+
+
 #cardsContainer {
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto 1fr;
@@ -53,7 +59,11 @@
   font-weight: bold;
 }
 
-
+.btnHidden {
+  background-color: white;
+  color: white;
+  transition: background-color 0.3s ease; 
+}
 
 .custom-nav-pills .nav-link.active {
   background-color:#155263;

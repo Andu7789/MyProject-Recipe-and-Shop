@@ -3,9 +3,21 @@ let adminContainer2ID = document.getElementById("adminContainer2");
 let adminContainer3ID = document.getElementById("adminContainer3");
 let adminContainer4ID = document.getElementById("adminContainer4");
 let adminContainer5ID = document.getElementById("adminContainer5");
+let mainContainerID = document.getElementById("mainContainer");
 
 let discountCodesButtonID = document.getElementById("discountCodesButton");
 let stockControlButtonID = document.getElementById("stockControlButton");
+let failedLogonID = document.getElementById("failedLogon");
+let MemoryDestructID = document.getElementById("MemoryDestruct");
+
+let loginSuccessful = false;
+let userNameInputID = document.getElementById("userNameInput")
+let passwordInputID = document.getElementById("passwordInput")
+let accountButtonID = document.getElementById("accountButton")
+let accountButtonLogoffID = document.getElementById("accountButtonLogoff")
+
+
+//var userNameValueID = document.getElementById("userNameInput").value;
 
 let lastIDDiscountCode = 0;
 
@@ -14,9 +26,11 @@ discountCodesButtonID.addEventListener("click", () => {
   document.getElementById("adminContainer3").classList.remove("hidden");
   document.getElementById("adminContainer4").classList.add("hidden");
   document.getElementById("adminContainer5").classList.add("hidden");
-  discountCodesButtonID.classList.add("active")
-  stockControlButtonID.classList.remove("active")
-  
+  discountCodesButtonID.classList.add("active");
+  stockControlButtonID.classList.remove("active");
+
+
+
   checkDiscountCodeALLAPI();
 });
 
@@ -24,22 +38,31 @@ stockControlButtonID.addEventListener("click", () => {
   document.getElementById("adminContainer4").classList.remove("hidden");
   document.getElementById("adminContainer2").classList.add("hidden");
   document.getElementById("adminContainer3").classList.add("hidden");
-  stockControlButtonID.classList.add("active")
-  discountCodesButtonID.classList.remove("active")
+  stockControlButtonID.classList.add("active");
+  discountCodesButtonID.classList.remove("active");
+});
 
+
+
+//clear out all items in LocalStorage
+MemoryDestructID.addEventListener("click", () => {
+  localStorage.clear();
+  if (localStorage.getItem("strObj") == null) {
+    alert("local storage - strobj is clear");
+  }
 });
 
 function setActive(buttonId) {
   // Remove 'active' class from all buttons
-  let buttons = document.querySelectorAll('.btnYellow');// for all buttons with this class
+  let buttons = document.querySelectorAll(".btnYellow"); // for all buttons with this class
   buttons.forEach((button) => {
-    button.classList.remove('active');
+    button.classList.remove("active");
   });
 
   // Add 'active' class to the clicked button
   let clickedButton = document.getElementById(buttonId);
   console.log(buttonId);
-  clickedButton.classList.add('active');
+  clickedButton.classList.add("active");
 }
 
 const buildDiscountCodes = (codes) => {
@@ -96,8 +119,8 @@ const addDiscountCodeButtons = () => {
 const hideDiscountButtons = () => {
   document.getElementById("adminContainer2").classList.add("hidden");
   document.getElementById("adminContainer3").classList.add("hidden");
-  discountCodesButtonID.classList.remove("active")
-  stockControlButtonID.classList.remove("active")
+  discountCodesButtonID.classList.remove("active");
+  stockControlButtonID.classList.remove("active");
 };
 
 const addDiscountCodeIputs = () => {
@@ -182,9 +205,8 @@ const buildStockCards = (stock) => {
 const hideStockButtons = () => {
   document.getElementById("adminContainer4").classList.add("hidden");
   document.getElementById("adminContainer5").classList.add("hidden");
-  stockControlButtonID.classList.remove("active")
-  discountCodesButtonID.classList.remove("active")
-
+  stockControlButtonID.classList.remove("active");
+  discountCodesButtonID.classList.remove("active");
 };
 
 const checkDiscountCodeALLAPI = () => {
@@ -285,7 +307,7 @@ const generateStockListAPI = (type) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      setActive(type + 'Button');
+      setActive(type + "Button");
       buildStockCards(data);
       console.log(data);
     })
@@ -298,7 +320,7 @@ const generateAllStockListAPI = () => {
   fetch("/api/generateAllStockListAPI")
     .then((response) => response.json())
     .then((data) => {
-      setActive('allButton');
+      setActive("allButton");
       buildStockCards(data);
       console.log(data);
     })
@@ -322,10 +344,67 @@ const updateStockAmountAPI = (ID, stockQty) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log();
       //buildDiscountCodes(data);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 };
+
+function getLogonDetails() {
+  // Get the value from the "Username" input field
+  event.preventDefault();
+
+  getLogonDetailsAPI();
+  console.log("test",{loginSuccessful});
+ 
+
+  // Add your logic here, for example, sending the username to the server or performing validation.
+}
+
+const getLogonDetailsAPI = () => {
+  fetch("http://localhost:5051/Logon")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      let userNameValue = document.getElementById("userNameInput").value;
+      let passwordValue = document.getElementById("passwordInput").value;
+
+      console.log("Username entered:", userNameValue);
+      console.log("Password entered:", passwordValue);
+
+      // Use find to stop the loop when a match is found
+      const foundEntry = data.find((entry) => {
+        return userNameValue === entry.username && passwordValue === entry.password;
+      });
+
+      if (foundEntry) {
+        mainContainerID.classList.remove("hidden");
+        loginSuccessful = true;
+        console.log({loginSuccessful});
+        userNameInputID.classList.add("hidden")
+        passwordInputID.classList.add("hidden")
+        accountButtonID.classList.add("hidden")
+        accountButtonLogoffID.classList.remove("hidden")
+        failedLogon.classList.add("hidden")
+      } else {
+        console.log({loginSuccessful});
+        failedLogonID.classList.remove("hidden");
+        console.log("here");
+        userNameInput.value = ""; 
+        passwordInput.value = ""
+      }
+    })
+    .catch((error) => console.error("Error:", error));
+};
+
+const showLogOn = () => {
+        userNameInputID.classList.remove("hidden")
+        passwordInputID.classList.remove("hidden")
+        accountButtonID.classList.remove("hidden")
+        accountButtonLogoffID.classList.add("hidden")
+        mainContainerID.classList.add("hidden")
+        userNameInput.value = ""; 
+        passwordInput.value = ""
+
+}

@@ -20,25 +20,27 @@
             <div class="input-group">
                 <input type="text" class="form-control me-2 customBorderThinner" placeholder="Username" required id="userNameInput">
             </div>
+         
             <div class="input-group">
-                <input type="text" class="form-control me-2 customBorderThinner" placeholder="Password" required id="passwordInput">
+                <input type="password" class="form-control me-2 customBorderThinner" placeholder="Password" required id="passwordInput">
             </div>
-          <button class="btn btn-sm customButtonColour me-3 rounded nav-link" style=" height: 40px;"type="submit" id="accountButton">Login</button>
+          <button class="btn btn-sm btnYellowStockDisc me-3 rounded nav-link" style=" height: 40px;"type="submit" id="accountButton" onclick="getLogonDetails()">Login</button>
         </form>
+        <button class="btn btnYellowStockDisc rounded hidden mt-2" id="accountButtonLogoff" style="height: 40px; width: 100px" onclick='showLogOn()'>Log Off</button>
     </ul>
-    <div class="container-fluid ">
+
+    <div class="container-fluid " id="mainContainer">
         <div class="row">
           <div class="col">
-     
-            <div class="container my-5 pb-1 ps-5 pe-5 text-dark customBorder rounded d-flex" id="adminMainContainer">
+            <div class="container my-5 pb-1 ps-5 pe-5 text-dark customBorder rounded d-flex bg-white" id="adminMainContainer">
                 <button class="btn btnYellowStockDisc my-5 rounded ms-3" id="stockControlButton">Stock Control</button>
                 <button class="btn btnYellowStockDisc  my-5 rounded ms-3" id="discountCodesButton">Discount Codes</button>
                 <button class="btn btnYellowStockDisc  my-5 rounded ms-3 ms-auto " id="MemoryDestruct">Memory Destruct!!!</button></div>
-                <div class="container text-dark  hidden" id="adminContainer2"></div>
-                <div class="container py-5 hidden" id="adminContainer3"></div>
+                <div class="container pt-5 pb-5 mt-5 mb-5 customBorderThinner hidden bg-white rounded" id="adminContainer2"></div>
+                <div class="container pt-3 pb-3 mt-3 customBorderThinner hidden bg-white rounded" id="adminContainer3"></div>
             
 
-                <div class="container text-center customBorderThinner rounded p-2 text-dark hidden mb-2" id="adminContainer4">
+                <div class="container text-center customBorderThinner rounded p-2 text-dark hidden mb-2 bg-white" id="adminContainer4">
                     <div class="row">
                     <div class="col">
                         <div class="">
@@ -67,10 +69,18 @@
                     </div>
                     </div>
                 </div>
-                <div class="container py-5 hidden" id="adminContainer5"></div>
-            
-            
-       
+                <div class="container pt-5 pb-3 mt-5 customBorderThinner hidden bg-white rounded" id="adminContainer5"></div>
+             <!-- password fail container -->
+   </div>
+</div>
+</div>
+   <div class="container text-dark customBorder rounded alert mt-5 text-center hidden bg-white" id="failedLogon">
+    <strong class="mx-auto">Incorrect logon details, please try again</strong>
+    <div class="text-center mt-3">
+      <button class="border-secondary rounded mx-auto btnYellow" id="messageCloseButton" onclick='document.getElementById("failedLogon").classList.add("hidden")'>Close</button>
+    </div>
+  </div> 
+  
 </body>
 <script src="AdminPortal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

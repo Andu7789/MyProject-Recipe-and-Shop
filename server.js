@@ -23,6 +23,11 @@ app.get('/AdminPortal', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'AdminPortal.html'));
 });
 
+// Add a route for the new HTML page
+app.get('/Logon', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'Logon.html'));
+});
+
 app.get('/api-keys', (req, res) => {
   const apiKey = process.env.API_KEY;
   const appId = process.env.APP_ID;
@@ -60,14 +65,16 @@ const attachments = []
 let htmlContent = `
 
 <div style="margin-bottom: 10px;">
-      <img src="cid:uniqueLogoId" alt="Logo" style="width: 200px; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; border: 1px solid #155263;">
-      <br>
-      Hello Andy
-      <br>
-      <br>
-      This is your order, scheduled to be delivered ${deliverySlotDayServerSide} ${deliveryDateServerSide} between ${deliverySlotTimeServerSide}
+    <img src="cid:uniqueLogoId" alt="Logo" style="width: 200px; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; border: 1px solid #155263;">
+    <br>
+    Hello Andy,
+    <br>
+    <br>
+    <div style="width: 500px;">
+        Your order is scheduled to be delivered ${deliverySlotDayServerSide} ${deliveryDateServerSide} between ${deliverySlotTimeServerSide}.
     </div>
-  `;
+</div>
+`;
 
   attachments.push({
     filename: 'Logo.png', 
@@ -118,8 +125,12 @@ let htmlContent = `
 
     })
 
-
 htmlContent += `</div>`;
+htmlContent += `
+    <div style="width: 500px;">
+    <br>
+        Thankyou for shopping with us.
+    </div>`
 
   // Example usage:
   const mailOptions = {
@@ -266,10 +277,10 @@ let doc = [
   Leaner selected cuts, finely ground for tenderness`, orderQty: 0, type: "meat"},
   { ID: 4, title: "Chicken Breast", price: 6.95, image: base64Image3, stock: 20, Description: `Fresh Class A skinless chicken breast fillets. Quality and welfare are at the heart of what we do.
   Our Welfare Approved Fed on a wholegrain diet for a succulent texture`, orderQty: 0, type: "meat"},
-  { ID: 5, title: "Peeled Prawns", price: 8, image: base64Image4, stock: 20, Description: `Cooked and peeled king prawns (Litopenaeus vannamei).
+  { ID: 5, title: "Peeled Prawns", price: 8, image: base64Image4, stock: 0, Description: `Cooked and peeled king prawns (Litopenaeus vannamei).
   Responsibly sourcing our seafood is important to us, which is why our fish experts work with responsibly managed farms and fisheries to continually improve their high standards of quality, welfare and sustainability.
   Ready to Eat Responsibly Sourced`, orderQty: 0, type: "fish"}, 
-  { ID: 6, title: "Salmon", price: 7.49, image: base64Image5, stock: 20, Description: `Boneless skin-on salmon (Salmo salar) side.
+  { ID: 6, title: "Salmon", price: 7.49, image: base64Image5, stock: 0, Description: `Boneless skin-on salmon (Salmo salar) side.
   Farmed in waters off the coast of Norway or Scotland. A versatile fish prepared with the skin on for ease of cooking and to give a fuller flavour. Responsibly sourcing our seafood is important to us which is why our fish experts work with responsibly managed farms and fisheries to continually improve their high standards of quality, welfare and sustainability.`, orderQty: 0, type: "fish"},
   { ID: 7, title: "Sausages", price: 3.29, image: base64Image6, stock: 0, Description: `Pork sausages with seasoning.
   Our sausages are made for us by a family run business who've taken pride in making sausages for more than 200 years. They are all made with 100% British pork which is hand trimmed by expertly trained butchers. The sausages are then seasoned and other carefully selected ingredients are added to enhance the rich, succulent flavour.`, orderQty: 0, type: "meat"},
@@ -285,14 +296,14 @@ let doc = [
   { ID: 16, title: "Strawberries", price: 2.29, image: base64Image15, stock: 20, Description: `Delicately hand picked. Carefully selected when ripe for their sweet, juicy flavour.`, orderQty: 0, type: "fruit"},
   { ID: 17, title: "Leeks", price: 0.67, image: base64Image16, stock: 20, Description: `Locally grown at farmer Andy's`, orderQty: 0, type: "vegetable"},
   { ID: 18, title: "Carrots", price: 0.32, image: base64Image17, stock: 20, Description: `Locally grown at farmer Andy's`, orderQty: 0, type: "vegetable"},
-  { ID: 19, title: "Cauliflower", price: 0.89, image: base64Image18, stock: 20, Description: `Locally grown`, orderQty: 0, type: "vegetable"},
+  { ID: 19, title: "Cauliflower", price: 0.89, image: base64Image18, stock: 0, Description: `Locally grown`, orderQty: 0, type: "vegetable"},
   { ID: 20, title: "Sea Bream", price: 8.89, image: base64Image19, stock: 17, Description: `These sea bream fillets have a clean, delicate flavour and dense, juicy flesh. Pan-fried,…they are delicious enjoyed with new potatoes, or steam with ginger and spring onions and. serve with stir-fried pak choi.`, orderQty: 0, type: "fish"},
   { ID: 21, title: "Cod Fillets", price: 5.50, image: base64Image20, stock: 14, Description: `2 Defrosted skinless and boneless cod fillets.
   Line caught fish from well managed and responsible fisheries`, orderQty: 0, type: "fish"},
   { ID: 22, title: "Whole Cod", price: 12.99, image: base64Image21, stock: 8, Description: `This prime whole cod is chunky and succulent with a delicate flavour. It's boneless, skinless and easy to oven-bake`, orderQty: 0, type: "fish"},
   { ID: 23, title: "Smoked Haddock", price: 7.99, image: base64Image22, stock: 15, Description: `Defrosted, dyed, smoked skinless and boneless haddock fillets.  Line caught fish from well managed and responsible fisheries`, orderQty: 0, type: "fish"},
   { ID: 24, title: "Green Cabbage", price: 0.49, image: base64Image23, stock: 7, Description: `Mild in flavour and slightly earthy. Our organic pointed cabbage comes from dedicated farmers who work hand-in-hand with nature. They grow vegetables that are as good for the planet as your plate. Delicious in slaws, roasted or sauteed.`, orderQty: 0, type: "vegetable"},
-  { ID: 25, title: "New Potatoes", price: 0.12, image: base64Image24, stock: 7, Description: `Perfect cold or hot Delicious in a salad or roasted.`, orderQty: 0, type: "vegetable"},
+  { ID: 25, title: "New Potatoes", price: 0.12, image: base64Image24, stock: 0, Description: `Perfect cold or hot Delicious in a salad or roasted.`, orderQty: 0, type: "vegetable"},
   { ID: 26, title: "Beefsteak tomato", price: 0.87, image: base64Image25, stock: 12, Description: `Intensely red beef tomato has a balanced acidity with a hint of sweetness and slight aroma, being tender yet crisp. Best when sliced or chopped in salads and sandwiches to give added richness.`, orderQty: 0, type: "vegetable"},
   { ID: 27, title: "Red Cabbage", price: 0.81, image: base64Image26, stock: 4, Description: `Sweet and colourful. Our organic cabbage comes from dedicated farmers who work hand-in-hand with nature. They grow vegetables that are as good for the planet as your plate. Braise red cabbage or shred thinly into slaws...`, orderQty: 0, type: "vegetable"},
   { ID: 28, title: "Red Onion", price: 0.34, image: base64Image27, stock: 7, Description: `SSweet and firm. ……Our organic onions come from dedicated farmers who work hand-in-hand with nature to grow vegetables that are as good for the planet as your plate. `, orderQty: 0, type: "vegetable"}
@@ -452,7 +463,7 @@ let discCode = [
   { ID: 1, code: "RecipeRealm10", discPercent: 10},
   { ID: 2, code: "RecipeRealm20", discPercent: 20},
   { ID: 3, code: "RecipeRealm30", discPercent: 30},
-  { ID: 4, code: "Paul100", discPercent: 100},
+  { ID: 4, code: "50", discPercent: 50},
 
 ]
 

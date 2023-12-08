@@ -28,20 +28,18 @@
 * cartitems text is wrong
 * email sent confirmation popup
 * video screen - show or hide cart?
---------------- Still to do ---------------
-* If you add delivery after the disocunt code it will reset the checkout button price!!
 * move memory destruct
+* If you add delivery after the disocunt code it will reset the checkout button price!!
 * move discount and delivery up under address
-* favourite recipe
+--------------- Still to do ---------------
 
+* align the checkout items (buttons etc)
+* favourite recipe
 * need an account section to store the email address
 * new address - if you cancel it hides things!!  - seems to be intermittent...
 * order number 12, looks to be duplicating items
 
-blue -#155263
-orange - #FFCC47
 
-small language models - orca2 - in relation to generative AI
 
 
 

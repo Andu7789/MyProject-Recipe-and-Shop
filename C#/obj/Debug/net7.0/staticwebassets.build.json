@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "6Gw4Lug+o2WyL+z24/f30lFYtsFK53/lEKTc91Pumc4=",
+  "Source": "LogonApps",
+  "BasePath": "_content/LogonApps",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

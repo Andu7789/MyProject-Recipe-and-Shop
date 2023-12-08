@@ -16,7 +16,7 @@
 
 
 
-    <ul class="nav nav-pills sticky-top navbar-light bg-white custom-nav-pills ms-1 me-3 mt-2 p-3 rounded customBorder">
+    <ul class="nav nav-pills sticky-top navbar-light bg-white custom-nav-pills mx-3 mt-4 p-3 rounded customBorder">
       <!-- Your existing navigation items -->
       <a class="navbar-brand rounded" href="#">
         <img src="Logo/Logo2.png" alt="" width="120 " height="60" alt="">
@@ -30,19 +30,15 @@
       <li class="nav-item">
         <a class="nav-link videosMenu mt-2 ms-2" id="videosMenu" href="#">Videos</a>
       </li>
-      <!-- <li class="nav-item">
-    <a class="nav-link" id="newsLetter" href="#">News Letter</a>
-  </li>-->
-      <li class="nav-item">
-        <a class="nav-link mt-2 ms-2" id="MemoryDestruct" href="#">Memory Destruct!!!</a>
-      </li>
-      <form class="d-flex ms-auto me-3 mt-2">
-        <button class="btn btn-sm customButtonColour me-3 rounded nav-link" style=" height: 40px;"type="submit" id="accountButton">Account</button>
+      <form class="d-flex ms-auto me-5 mt-2">
+        <a class="nav-link " id="temp1" href="#"></a>
+        <div id="auth-links">
+        <button class="" onclick="Clerk.openSignIn()"></button>
+        </div>
+        <div class="me-5 btnHidden" id="user-button"></div>
+        <button class="btn btn-sm btnYellow me-3 rounded nav-link" style=" height: 40px;"type="submit" id="accountButton">Account</button>
         <i class="fa-solid fa-cart-shopping fa-2xl mt-3 carthover" style="color: #155263;" id="cartIcon" onclick="checkForNumberofItemsInOrder()"></i>
         <span id="cartItemCount">0</span>
-
-
-
       </form>
     </ul>
 
@@ -50,7 +46,7 @@
       <div class="row">
         <div class="col-9">
           <!-- Recipe container-->
-          <div class="container mb-5 mt-2 pb-1 ps-5 pe-5  text-dark rounded customBorder " id="recipeMainContainer">
+          <div class="container mb-5 mt-4 pb-1 ps-5 pe-5 bg-white text-dark rounded customBorder " id="recipeMainContainer">
             <div class="container mt-3">
               <div class="row">
                 <div class="col">
@@ -135,11 +131,11 @@
               </div>
             </div>
             <!-- recipe card container-->
-            <div class="container customBorderThinner bg-light mb-5 mt-5 pb-5 pe-4 rounded cardsContainer" id="cardsContainer">
+            <div class="container customBorderThinner mb-5 mt-5 pb-5 pe-4 rounded cardsContainer" id="cardsContainer">
             </div>
           </div>
           <!-- Main shopping container-->
-          <div class="container mb-5 mt-2 pb-1 ps-5 pe-5  text-dark rounded customBorder hidden" id="shoppingcontainer">
+          <div class="container mb-5 mt-4 pb-1 ps-5 pe-5 bg-white text-dark rounded customBorder hidden" id="shoppingcontainer">
             <div class="container mt-3">
               <div class="row">
                 <div class="col">
@@ -200,10 +196,10 @@
 
 
             <!-- Product Cards container-->
-            <div class="container  mb-5 mt-5 p-4 bg-light text-dark customBorderThinner rounded mt-5 hidden" id="cardsContainerShop">
+            <div class="container  mb-5 mt-5 p-4 bg-white text-dark customBorderThinner rounded mt-5 hidden" id="cardsContainerShop">
             </div>
           </div>
-          <div class="container text-center customBorder my-2 rounded py-3 px-5 hidden" id="productViewContainer">
+          <div class="container text-center customBorder my-2 mt-4 rounded py-3 px-5 hidden bg-white" id="productViewContainer">
 
             <div class="row">
 
@@ -362,23 +358,20 @@
 
         <div class="col-3 fixed-col">
           <!-- Shopping cart container-->
-          <div class="container customBorder bg-light mb-5 mt-2 w-100 rounded sticky-sidebar" id="cartContainer">
+          <div class="container customBorder mb-5 mt-4 w-100 rounded sticky-sidebar bg-white" id="cartContainer">
             <div style="font-size: 24px; margin-bottom: 15px;">
-              <h2 class="mt-2"><b>Shopping Cart</b></h2>
+              <h3 class="mt-2 text-center"><b>Shopping Cart</b></h3>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-
-
-
     <!-- Vidoes container-->
-    <div class="container container-videos hidden border border-secondary bg-dark p-5 rounded mt-2" id="videoscontainer">
+    <div class="container container-videos hidden customBorder p-5 bg-white rounded mt-2" id="videoscontainer">
       <div class="row row-cols-1 row-cols-md-2 g-4 rounded">
         <div class="col">
-          <div class="card border border-secondary">
+          <div class="card customBorderThinner">
             <img src="https://img.taste.com.au/3Sc_EN9s/w643-h428-cfill-q90/taste/2018/05/how-to-boil-an-egg-140215-2.jpg" class="card-img-top"
               alt="...">
             <div class="card-body">
@@ -388,7 +381,7 @@
           </div>
         </div>
         <div class="col">
-          <div class="card border border-secondary">
+          <div class="card customBorderThinner">
             <img src="https://www.egginfo.co.uk/sites/default/files/styles/large_main_image/public/2022/07/how-to-poach-egg-1300.jpg?itok=NfYxJZyM"
               class="card-img-top" alt="...">
             <div class="card-body">
@@ -401,14 +394,14 @@
       </div>
     </div>
     <div class="container video1 hidden" id="video1">
-      <div class="position-absolute top-50 start-50 translate-middle" style="width: 570px; height: 325px; border: 5px grey solid ">
+      <div class="position-absolute top-50 start-50 translate-middle" style="width: 570px; height: 325px; border: 5px #155263 solid;">
         <iframe class="" width="560" height="315" src="https://www.youtube.com/embed/NltcHMilrU8" frameborder="0" allowfullscreen></iframe>
         <button class="btn btnYellow rounded mt-2 " id="btnbac1">Back to
           vidoes</button>
       </div>
     </div>
     <div class="container video2 hidden" id="video2">
-      <div class="position-absolute top-50 start-50 translate-middle" style="width: 570px; height: 325px; border: 5px grey solid">
+      <div class="position-absolute top-50 start-50 translate-middle" style="width: 570px; height: 325px; border: 5px #155263 solid;">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/yifZtA3uF-E" frameborder="0" allowfullscreen></iframe>
         <button class="btn btnYellow rounded mt-2 " id="btnbac2">Back to
           vidoes</button>
@@ -416,7 +409,7 @@
     </div>
 
    <!-- Email confirmation container -->
-   <div class="container text-dark border border-secondary rounded alert mt-5 text-center hidden" id="alertbox">
+   <div class="container text-dark customBorder rounded alert mt-5 text-center hidden bg-white"  id="alertbox">
     <strong class="mx-auto">All done.</strong> Your order is being worked on. An email with your order details has been sent to you
     <div class="text-center mt-3">
       <button class="border-secondary rounded mx-auto btnYellow" id="messageCloseButton">Close</button>
@@ -424,22 +417,22 @@
   </div>
   
     <!-- Checkout container-->
-<div class="container text-dark customBorder rounded mt-2 hidden p-5" id="checkoutContainer">
-  <div class="container customBorderThinner bg-light rounded w-85 p-3">
+<div class="container text-dark customBorder rounded mt-4 bg-white hidden p-5" id="checkoutContainer">
+  <div class="container customBorderThinner bg-white rounded w-85 p-3">
     <div class="col-12 container" id="checkoutContainerTop"></div>
     <div class="row">
       <div class="col-6" id="checkoutContainer-left"></div>
       <div class="col-6" id="checkoutContainer-right">
         <!-- First additional container within checkoutContainer-right -->
-        <div class="container border border-secondary">
-          <h1>test</h1>
-          <h1>test</h1>
+        <div class="container " id="one">
         </div>
         <!-- Second additional container within checkoutContainer-right -->
-        <div class="container border border-secondary">
+        <div class="container " id="two">
           <!-- Content of the second additional container -->
-          <h1>test</h1>
-          <h1>test</h1>
+        </div>
+        <!-- Second additional container within checkoutContainer-right -->
+        <div class="container " id="three">
+          <!-- Content of the second additional container -->
         </div>
       </div>
     </div>
@@ -458,19 +451,19 @@
     <!-- ----------------------------------------------------------------------------------------------------------------------------------  -->
 
     <!-- Choose new delivery address container-->
-    <div class="container float-end customBorder rounded w-25  my-3 mx-3 hidden " id="chooseNewAddressContainer">
+    <div class="container float-end customBorder rounded w-25 bg-white my-3 mx-3 hidden " id="chooseNewAddressContainer">
       <h4>Your Addresses</h>
     </div>
     <!-- Account section main container-->
-    <div class="container float-end customBorder rounded w-35  ms-3 me-3 mt-3 mb-3 p-3 hidden" id="accountContainer">
+    <div class="container float-end customBorder rounded w-35  ms-3 me-3 mt-4 mb-3 p-3 hidden bg-white" id="accountContainer">
       <button class="btn btnYellow me-2 rounded ms-3" id="previousOrdersButton">Previous Orders</button>
       <button class="btn btnYellow me-2 rounded ms-3" id="yourAddressessButton">Your Addresses</button>
-      <button class="btn btnYellow me-2 rounded ms-3" id="discountCodesButton">Discount Codes</button>
-      <div class="col-12 container" id="accountContainer2"></div>
-      <div class="col-12 container" id="accountContainer3"></div>
+      <!-- <button class="btn btnYellow me-2 rounded ms-3" id="discountCodesButton">Discount Codes</button>-->
+      <div class="col-12 container bg-white" id="accountContainer2"></div>
+      <div class="col-12 container bg-white" id="accountContainer3"></div>
     </div>
     <!-- Add new address container-->
-    <div class="container w-25 p-3 mt-3 customBorder border-2 rounded hidden" id="addAddressFormContainer">
+    <div class="container w-25 p-3 mt-3 customBorder border-2 bg-white hidden rounded" id="addAddressFormContainer">
       <form>
         <div class="row">
           <h3>Add new adresss</h3>
@@ -519,8 +512,8 @@
     </div>
 
     <!-- Delivery Slot container-->
-    <div class="container mb-5 bg-dark text-dark border border-secondary rounded mt-2 hidden" id="chooseDeliverySlotContainer">
-      <div class="container border border-secondary bg-light rounded  w-85 p-3 my-3">
+    <div class="container mb-5 bg-white text-dark border border-secondary rounded mt-2 hidden" id="chooseDeliverySlotContainer">
+      <div class="container border border-secondary bg-white rounded  w-85 p-3 my-3">
         <div class="col-12 " id="chooseDeliverySlotContainerTop"></div>
         
         <div class="row">
@@ -530,7 +523,7 @@
         </div>
       </div>
     </div>
-
+    <script src="https://widget.cxgenie.ai/widget.js" data-aid="0bacf744-e93c-47a1-a4f9-7b612b81144f"></script>
   </body>
   <script src="main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

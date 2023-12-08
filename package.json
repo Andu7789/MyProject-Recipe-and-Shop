@@ -8,9 +8,11 @@
         "build": "parcel build index.html"
     },
     "dependencies": {
+        "@clerk/clerk-js": "^4.65.6",
         "@ideal-postcodes/address-finder": "latest",
         "@ideal-postcodes/core-axios": "latest",
         "@ideal-postcodes/postcode-lookup": "latest",
+        "cors": "^2.8.5",
         "dotenv": "^16.3.1",
         "nedb": "^1.8.0",
         "nodemailer": "^6.9.7",

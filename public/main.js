@@ -1,3 +1,7 @@
+
+
+
+
 //Dropdown section for recipes
 let dropdownCuisineID = document.getElementById("dropdownCuisine");
 let dropdownMealTypeID = document.getElementById("dropdownMealType");
@@ -147,6 +151,10 @@ let chooseDeliverySlotContainerTopID = document.getElementById(
 let chooseDeliverySlotContainerBottomID = document.getElementById(
   "chooseDeliverySlotContainerBottom"
 );
+let OneID = document.getElementById("one");
+let TwoID = document.getElementById("two");
+let ThreeID = document.getElementById("three");
+
 
 let apikey = "40441ec58e3ea7ae607a45ed2385fcdb";
 let appid = "166089c0";
@@ -160,12 +168,14 @@ class cart {
   }
 }
 
+
 class order {
   constructor() {
     this.customerOrder = [];
     this.orderNumber = 1;
   }
 }
+
 let cartClass = new cart();
 let orderClass = new order();
 
@@ -188,7 +198,7 @@ let savedAddress = [];
 let finalCheckOutButton;
 let counter3 = 0;
 let counterBuildAddress = 1;
-let = discountPercantageValue = 0;
+let discountPercantageValue = 0;
 let selectedSlotId = null;
 let dicountAmount = 0;
 let counterDiscountCode = 1;
@@ -258,6 +268,7 @@ videosMenuID.addEventListener("click", function () {
   accountContainerID.classList.add("hidden");
   productViewContainerID.classList.add("hidden");
   cartContainerID.classList.add("hidden");
+  checkoutContainerID.classList.add("hidden");
 });
 
 btnboilID.addEventListener("click", function () {
@@ -386,18 +397,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
 //function to create default values for the recipe search if a user doesn't select anything
 function check() {
   cusineValue = dropdownCuisineID.innerHTML;
@@ -510,7 +509,7 @@ const getRecipes2 = async () => {
 };
 
 const generateUI = (articles) => {
-  for (let item of articles) {
+  articles.forEach((item) => {
     let card = document.createElement("div");
     card.innerHTML = `<div class="card mt-5 ms-4 text-center customBorderThinner" style="width: 13rem;">
       <a href="${item.recipe.url}" target="_blank">
@@ -524,13 +523,37 @@ const generateUI = (articles) => {
         <li class="list-group-item text-capitalize">${item.recipe.dishType}</li>
         <li class="list-group-item text-capitalize">${item.recipe.cuisineType}</li>
         <li class="list-group-item"> Serves ${item.recipe.yield}</li>
+      
       </ul>
     </div>`;
     cardsContainerID.appendChild(card);
-  }
+  })
 };
+
+/*
+/*<i class="fa-regular fa-heart fa-lg my-3 carthover" style="color: #155263;" id="heart" onclick="toggleHeartStyle(this, '${item.recipe.url}', '${item.recipe.label}', '${item.recipe.image}')"></i>
+
+function toggleHeartStyle(heartIcon, url, label, image) {
+  const computedStyle = getComputedStyle(heartIcon);
+  const currentColor = computedStyle.color;
+
+  // Toggle between the two styles
+  if (currentColor === "rgb(21, 82, 99)") {
+    const newHeartIcon = document.createElement("i");
+    newHeartIcon.className = "fa-solid fa-heart fa-lg my-3 imghover";
+    newHeartIcon.style.color = "#FFCC47";
+    heartIcon.parentNode.replaceChild(newHeartIcon, heartIcon);
+  } else {
+    const newHeartIcon = document.createElement("i");
+    newHeartIcon.className = "fa-regular fa-heart fa-lg my-3 imghover";
+    newHeartIcon.style.color = "#155263";
+    heartIcon.parentNode.replaceChild(newHeartIcon, heartIcon);
+  }
+
+}*/
+
 //  To set the colour of the button (type) on the shopping page - shows it as a different colour so you can see which type is being shown
-function setActive(buttonId) {
+const setActive = (buttonId) => {
   // Remove 'active' class from all buttons
   let buttons = document.querySelectorAll('.btnYellow');// for all buttons with this class
   buttons.forEach((button) => {
@@ -939,7 +962,7 @@ const updateCartUI = () => {
   cartClass.cartTotalPrice = 0;
   const heading = document.createElement("div");
   heading.innerHTML = `<div style="font-size: 24px; margin-bottom: 15px;">
-                          <h2 class="mt-2"><b>Shopping Cart</b></h2>
+                          <h2 class="mt-2 text-center"><b>Shopping Cart</b></h2>
                        </div>`;
   cartContainerID.appendChild(heading);
   //create the line of details for the item being added to the cart
@@ -995,13 +1018,13 @@ const removeFromCart = (index, title) => {
   }
 };
 //clear out all items in LocalStorage
-MemoryDestructID.addEventListener("click", () => {
+/*MemoryDestructID.addEventListener("click", () => {
   localStorage.clear();
   orderClass.orderNumber = 1;
   if (localStorage.getItem("strObj") == null) {
     alert("local storage - strobj is clear");
   }
-});
+});*/
 //Gets the current default address
 const getDefaultAddress = () => {
   let addresses = JSON.parse(localStorage.getItem("addresses")) || []; //get the current ADDRESSES stored in localStorage or return and empty ARRAY
@@ -1033,7 +1056,7 @@ function createCheckout() {
   cartClass.cartItems.forEach((item, index) => {
     const cartItemElement = document.createElement("div");
     cartItemElement.innerHTML = `
-<div class="card mb-3 customBorderThinner">
+<div class="card mb-3 ms-2 customBorderThinner">
   <div class="card-body">
     <div class="d-flex justify-content-between">
     <div class="cart-item">
@@ -1060,7 +1083,7 @@ function createCheckout() {
   });
   const cartItemElementTotal = document.createElement("div");
   cartItemElementTotal.innerHTML = `
-<div class="card mb-3 customBorderThinner">
+<div class="card mb-3 ms-2 customBorderThinner">
 <div class="card-body">
   <div class="d-flex justify-content-between">
     <div class="cart-item">
@@ -1091,17 +1114,17 @@ const buildDefualtAddress = (cartClass) => {
     " " +
     deliveryDate +
     " " +
-    deliverySlotTime +
+    deliverySlotTime +chooseNewAddress
     " - £" +
     deliveryPrice.toFixed(2);
   finalPriceofOrder = cartClass.cartTotalPrice + deliveryPrice;
 
   //Decides if its the 1st time the checkout has been built then it uses the Default address.  If a user then chooses a new address AND goes away from  the screen and come back, it will then show the newly selected address and not redispaly the default address
   if (counterBuildAddress === 1) {
-    checkoutContainerBottomID.innerHTML = "";
+    OneID.innerHTML = "";
     let defaultAddress = getDefaultAddress(); //get the current DEFAULT address
     const deliveryAddressDefault = document.createElement("div");
-    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded customBorderThinner">
+    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded customBorderThinner ms-3">
                                       <div class="card-body ">
                                       <div class="d-flex justify-content-between align-items-center ">
                                           <b>Delivery Address</b>
@@ -1120,7 +1143,8 @@ const buildDefualtAddress = (cartClass) => {
                                           </div>
                                         </div>
                                         </div>`;
-    checkoutContainerrightID.appendChild(deliveryAddressDefault);
+    OneID.appendChild(deliveryAddressDefault);
+    checkoutContainerrightID.appendChild(OneID)
     savedAddress = [];
     savedAddress.push(
       defaultAddress.line_1,
@@ -1129,13 +1153,14 @@ const buildDefualtAddress = (cartClass) => {
       defaultAddress.PhoneNo
     );
     counterBuildAddress++;
-    buildDeliverySlot();
-    buildCheckoutButton();
+    buildDeliverySlot();  
     buildDiscountCode();
+    buildCheckoutButton();
+ 
   } else {
-    console.warn({ savedAddress });
+    OneID.innerHTML = "";
     const deliveryAddressDefault = document.createElement("div");
-    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded customBorderThinner">
+    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded customBorderThinner ms-3">
                                       <div class="card-body">
                                       <div class="d-flex justify-content-between align-items-center ">
                                           <b>Delivery Address</b>
@@ -1155,31 +1180,34 @@ const buildDefualtAddress = (cartClass) => {
                                         </div>
                                         </div>`;
 
-    checkoutContainerrightID.appendChild(deliveryAddressDefault);
+    OneID.appendChild(deliveryAddressDefault);
+    checkoutContainerrightID.appendChild(OneID)
+    OneID.appendChild(TwoID)
+
     if (discountPercantageValue) {
       dicountAmount =
-        (cartClass.cartTotalPrice + deliveryPrice) *
-        (discountPercantageValue / 100);
-      finalPriceofOrder = finalPriceofOrder - dicountAmount;
-      finalCheckOutButton.innerHTML = `<button type="button" class="btn btnYellow btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
-                                    <div class="d-flex justify-content-between ">
-                                      <div>£${finalPriceofOrder.toFixed(
-                                        2
-                                      )}  -</div>
-                                      <div>  --  Checkout <i class="fas fa-long-arrow-alt-right ps-5"></i></div>
-                                    </div>
-                                    </button>`;
+        //(cartClass.cartTotalPrice + deliveryPrice) *
+        cartClass.cartTotalPrice * (discountPercantageValue / 100);
+      finalPriceofOrder = finalPriceofOrder - dicountAmount;}
+      finalCheckOutButton.innerHTML = `<div class="text-start">
+                                    <button type="button" class="btn btnYellow btn-block btn-sm mt-3" onclick=createOrder() id="finalCheckOutButton">
+                                      <div class="d-flex justify-content-between ">
+                                      <div class="pe-3">£${finalPriceofOrder.toFixed(2)}</div>
+                                      <div>Checkout <i class="fas fa-long-arrow-alt-right ps-3"></i></div>
+                                      </div>
+                                    </button>
+                                  </div>`;
       discountCodeMessageID.innerHTML = `Great news, your code entitles you to ${discountPercantageValue}% off your order, saving you £${dicountAmount.toFixed(
         2
       )}`;
     }
   }
-};
+
 
 const buildDiscountCode = () => {
   const discountparts = document.createElement("div");
   discountparts.innerHTML = `
-<div class="card text-dark rounded-3 mt-2 customBorderThinner">
+<div class="card text-dark rounded-3 ms-2 mt-2 customBorderThinner">
                                     <div class="card-body">
                                     <div class="mb-1"><b>Do you have a discount code?</b></div>
                                     <div class="d-flex justify-content-between align-items-center ">
@@ -1188,7 +1216,8 @@ const buildDiscountCode = () => {
                                     </div>
                                     <div class="my-1" id="discountCodeMessage"><b></b></div>   
                                     </div>`;
-  checkoutContainerBottom.appendChild(discountparts);
+  TwoID.appendChild(discountparts);
+  OneID.appendChild(TwoID)
 };
 
 const CheckDiscountCode = () => {
@@ -1198,15 +1227,15 @@ const CheckDiscountCode = () => {
 
 const calculateDiscount = (discountPercentage) => {
   discountCodeMessageID = document.getElementById("discountCodeMessage");
-
+console.log({counterDiscountCode}, {discountPercentage});
   if (discountPercentage && counterDiscountCode === 1) {
     discountPercantageValue = discountPercentage;
     dicountAmount =
-      (cartClass.cartTotalPrice + deliveryPrice) *
-      (discountPercantageValue / 100);
+      //(cartClass.cartTotalPrice + deliveryPrice) *
+      cartClass.cartTotalPrice *(discountPercantageValue / 100);
     finalPriceofOrder = finalPriceofOrder - dicountAmount;
 
-    discountCodeMessageID.innerHTML = `Great news, your code entitles you to ${discountPercantageValue}% off your order, saving you £${dicountAmount.toFixed(
+    discountCodeMessageID.innerHTML = `Great news, your code entitles you to ${discountPercantageValue}% order, saving you £${dicountAmount.toFixed(
       2
     )}`;
     discountCodeMessageID.style.color = "green";
@@ -1222,39 +1251,47 @@ const calculateDiscount = (discountPercentage) => {
     discountCodeMessageID.style.color = "red";
     discountCodeMessageID.style.fontWeight = "bold";
   }
-  finalCheckOutButton.innerHTML = `<button type="button" class="btn btnYellow btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
-                                    <div class="d-flex justify-content-between ">
-                                      <div>£${finalPriceofOrder.toFixed(
-                                        2
-                                      )}  -</div>
-                                      <div>  --  Checkout <i class="fas fa-long-arrow-alt-right ps-5"></i></div>
-                                    </div>
-                                    </button>`;
+  finalCheckOutButton.innerHTML = `<div class="text-start">
+                                    <button type="button" class="btn btnYellow btn-block btn-sm mt-3" onclick=createOrder() id="finalCheckOutButton">
+                                      <div class="d-flex justify-content-between ">
+                                      <div class="pe-3">£${finalPriceofOrder.toFixed(2)}</div>
+                                      <div>Checkout <i class="fas fa-long-arrow-alt-right ps-3"></i></div>
+                                      </div>
+                                    </button>
+                                  </div>`;
 };
 
 const buildDeliverySlot = () => {
+  console.log("buildDeliverySlot");
   const chooseDeliverySlotButton = document.createElement("div");
-  chooseDeliverySlotButton.innerHTML = `<button type="button" class="btn btnYellow btn-block btn-sm mt-3 ml-auto" onclick=chooseDeliverySlot() id="chooseDilverySlotButton">
+  chooseDeliverySlotButton.innerHTML = `<button type="button" class="btn btnYellow btn-block btn-sm mt-3 ml-auto ms-2" onclick=chooseDeliverySlot() id="chooseDilverySlotButton">
   <div class="d-flex justify-content-between ">
     <div>Choose Delivery Slot</div>
   </div>
   </button>
-  <div class="mt-2" id="deliveryTimeText"> Current Delivery Slot: </div>`;
-  checkoutContainerBottomID.appendChild(chooseDeliverySlotButton);
+  <div class="mt-2 ms-2" id="deliveryTimeText"> Current Delivery Slot: </div>`;
+  TwoID.appendChild(chooseDeliverySlotButton);
+  OneID.appendChild(TwoID)
+  
 };
 
 const buildCheckoutButton = () => {
-  checkoutContainerBottom2ID.innerHTML = "";
-  finalCheckOutButton = document.createElement("div");
-  finalCheckOutButton.innerHTML = `<button type="button" class="btn btnYellow btn-block btn-sm mt-3 ml-auto" onclick=createOrder() id="finalCheckOutButton">
-                                    <div class="d-flex justify-content-between ">
-                                      <div>£${finalPriceofOrder.toFixed(
-                                        2
-                                      )}  -</div>
-                                      <div>  --  Checkout <i class="fas fa-long-arrow-alt-right ps-5"></i></div>
-                                    </div>
-                                    </button>`;
-  checkoutContainerBottom2ID.appendChild(finalCheckOutButton);
+console.log("buildCheckoutButton");
+ThreeID.innerHTML = "";
+finalCheckOutButton = document.createElement("div");
+
+finalCheckOutButton.innerHTML = `<div class="text-start">
+<button type="button" class="btn btnYellow btn-block btn-sm mt-3" onclick=createOrder() id="finalCheckOutButton">
+  <div class="d-flex justify-content-between ">
+  <div class="pe-3">£${finalPriceofOrder.toFixed(2)}</div>
+  <div>Checkout <i class="fas fa-long-arrow-alt-right ps-3"></i></div>
+  </div>
+</button>
+</div>`;
+
+  ThreeID.appendChild(finalCheckOutButton);
+  TwoID.appendChild(ThreeID)
+
   const deliveryTimeText = document.getElementById("deliveryTimeText");
 
   deliveryTimeText.style.fontWeight = "bold";
@@ -1262,6 +1299,9 @@ const buildCheckoutButton = () => {
 };
 
 const chooseDeliverySlot = () => {
+  console.log({deliveryPrice});
+  finalPriceofOrder = finalPriceofOrder - deliveryPrice
+  console.log({finalPriceofOrder});
   chooseDeliverySlotContainerID.classList.remove("hidden");
   checkoutContainerID.classList.add("hidden");
 
@@ -1352,12 +1392,16 @@ const chooseDeliverySlot = () => {
 
                 // Update the selected cell reference
                 selectedSlotId = slot.status === "booked" ? slot.id : null;
-
-                selectedSlotId = selectedSlotId;
-                deliveryDay = day;
-                deliveryDate = date;
-                deliverySlotTime = slot.time;
-                deliveryPrice = slot.price;
+                if(selectedSlotId){ // update if a cell is selected
+                  selectedSlotId = selectedSlotId;
+                  deliveryDay = day;
+                  deliveryDate = date;
+                  deliverySlotTime = slot.time;
+                  deliveryPrice = slot.price;
+                } else {   //if no cell is selected then by setting deliverySlotTime to null it will not print any details on the checkout screen
+                  deliverySlotTime = null
+                  deliveryPrice = 0
+                }
               };
             })(cell, slot, schedule[k].day, schedule[k].date);
 
@@ -1379,9 +1423,12 @@ const chooseDeliverySlot = () => {
       .catch((error) => {});
   }
   tableCount++;
+  
+  buildCheckoutButton
 };
 
 const deliveryConfirmSlot = () => {
+  
   deliverySlotInformation =
     deliveryDay +
     " " +
@@ -1390,10 +1437,14 @@ const deliveryConfirmSlot = () => {
     deliverySlotTime +
     " - £" +
     deliveryPrice.toFixed(2);
-  finalPriceofOrder = cartClass.cartTotalPrice + deliveryPrice;
+
+      //finalPriceofOrder = cartClass.cartTotalPrice + deliveryPrice;
+      finalPriceofOrder = finalPriceofOrder + deliveryPrice;
+
   buildCheckoutButton();
   deliveryTimeText.innerHTML = "";
   chooseDeliverySlotContainer.classList.add("hidden");
+
   if (!deliverySlotTime) {
     deliveryTimeText.innerHTML += "No slot selected";
   } else {
@@ -1407,7 +1458,7 @@ const chooseNewAddress = () => {
   chooseNewAddressContainer.classList.remove("hidden");
   let addresses = JSON.parse(localStorage.getItem("addresses")) || [];
   //let selectedAddressIndex = null; // Declare selectedAddressIndex here
-  checkoutContainerrightID.innerHTML = "";
+  OneID.innerHTML = "";
   chooseNewAddressContainerID.innerHTML = "";
   selectedAddressIndex = 0; // if a user doesnt click on an address then the one strored first in the array will be displayed
   //Build up the addresses from MY address Book and add a radio button
@@ -1473,13 +1524,12 @@ const CancelBtnUseThisAddress = () => {
 const useSelectedAddress = (index) => {
   chooseNewAddressContainerID.classList.add("hidden");
   checkoutContainerID.classList.remove("hidden");
-  console.log(index);
 
   if (index !== null) {
     let addresses = JSON.parse(localStorage.getItem("addresses")) || [];
     let selectedAddress = addresses[index];
     const deliveryAddressDefault = document.createElement("div");
-    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded customBorderThinner">
+    deliveryAddressDefault.innerHTML = `<div class="card text-dark rounded customBorderThinner ms-3">
                                         <div class="card-body ">
                                           <div class="d-flex justify-content-between align-items-center mb-1">
                                             <b>Delivery Address</b>
@@ -1506,11 +1556,13 @@ const useSelectedAddress = (index) => {
       selectedAddress.PhoneNo
     );
 
-    checkoutContainerrightID.appendChild(deliveryAddressDefault);
+    OneID.appendChild(deliveryAddressDefault);
   } else {
     console.log("No address selected.");
   }
   console.log(savedAddress);
+  OneID.appendChild(TwoID)
+  TwoID.appendChild(ThreeID)
 };
 //Function to add orders to the nested array
 const addOrder = (orderArray, order) => {
@@ -1569,7 +1621,7 @@ messageCloseButtonD.addEventListener("click", () => {
  location.reload();
 });
 
-discountCodesButtonID.addEventListener("click", () => {
+/*discountCodesButtonID.addEventListener("click", () => {
   accountContainer2ID.classList.remove("hidden");
   checkDiscountCodeALLAPI();
 });
@@ -1678,7 +1730,7 @@ const updateDiscountCode = (ID, updatedCode, updatedPercentage) => {
 const deleteDiscountCode = (ID) => {
   console.log(ID);
   deleteDiscountCodeAPI(ID)
-};
+};*/
 
 
 
@@ -2084,7 +2136,6 @@ const checkDiscountCodeAPI = (discountCode) => {
   const requestData = {
     discountCode: discountCode,
   };
-  console.log({requestData});
   fetch("/api/POSTCheckDiscountCodeAPI", {
     method: "POST",
     headers: {
@@ -2095,7 +2146,6 @@ const checkDiscountCodeAPI = (discountCode) => {
     .then((response) => response.json())
     .then((data) => {
       calculateDiscount(data);
-      console.log(data);
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -2166,89 +2216,43 @@ const filterShoppingCardsSearchAPI = (filtervalue) => {
       console.error("Error:", error);
     });
 };
+// code for Google log on
+const publishableKey = "pk_test_Y2FwYWJsZS1raXRlLTgyLmNsZXJrLmFjY291bnRzLmRldiQ"; // <- Add Publishable Key here
 
-const checkDiscountCodeALLAPI = () => {
-  fetch("/api/POSTAllDiscountCodeAPI", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      buildDiscountCodes(data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
+const startClerk = async () => {
+  const Clerk = window.Clerk;
+
+  try {
+    // Load Clerk environment and session if available
+    await Clerk.load();
+
+    const userButton = document.getElementById("user-button");
+    const authLinks = document.getElementById("auth-links");
+
+    Clerk.addListener(({ user }) => {
+      // Display links conditionally based on user state
+      authLinks.style.display = user ? "none" : "block";
     });
+
+    if (Clerk.user) {
+      // Mount user button component
+      Clerk.mountUserButton(userButton);
+      userButton.style.marginRight = "25px";
+    }
+  } catch (err) {
+    console.error("Error starting Clerk: ", err);
+  }
 };
-
-
-const deleteDiscountCodeAPI = (ID) => {
-  const requestData = {
-    ID: ID,
-  };
-  console.log("2164", ID );
-  fetch("/api/POSTdeleteDiscountCodeAPI", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(requestData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      buildDiscountCodes(data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-};
-
-const updateDiscountCodeAPI = (ID, updatedCode, updatedPercentage) =>{
-
-  const requestData = {
-    ID: ID,
-    updatedCode: updatedCode,
-    discPercent: updatedPercentage,
-  };
-console.log({requestData});
-  fetch("/api/POSTupdateDiscountCodeAPI", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(requestData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      buildDiscountCodes(data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-};
-
-const addDiscountCodeAPI = (ID,code, discPercent) => {
-
-  const requestData = {
-    ID: ID,
-    code: code,
-    discPercent: discPercent,
-  };
-console.log({requestData});
-  fetch("/api/POSTAddDiscountCodeAPI", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(requestData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      buildDiscountCodes(data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
+let temp1ID = document.getElementById("temp1");
+(() => {
+  const script = document.createElement("script");
+  script.setAttribute("data-clerk-publishable-key", publishableKey);
+  script.async = true;
+  script.src = `https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js`;
+  script.crossOrigin = "anonymous";
+  script.addEventListener("load", startClerk);
+  script.addEventListener("error", () => {
+    document.getElementById("no-frontend-api-warning").hidden = false;
+  });
+  temp1ID.appendChild(script);
+})();
