@@ -86,91 +86,91 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
 * Item cards
     * Display the requested recipes/items
 
-#### Login Page
+* Login Page
 
-* Background image
-* Enlarged Logo
-* Logon Button
-    * On click - display the logon option screen
-        * Email logon or
-        * Use Google Account
+    * Background image
+    * Enlarged Logo
+    * Logon Button
+        * On click - display the logon option screen
+            * Email logon or
+            * Use Google Account
 
-#### Video Page
+* Video Page
 
-* Background image
-* Navigation Bar
-    * Website Logo
-    * With links to the Recipe, Shop and Video Pages
-    * Links to the users Google Account, User Account sections and a link to the Checkout (cart icon)
-* Shopping cart
-    * When items have been selected they are shown here and can be deleted [see below for more information](#Shopping-Cart)
-* Search bar - with Search and reset buttons - utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
-* 2 Images, each with a 'Watch Now' button
-    * On click of either button, the corresponding video is displayed which is linked to [YouTube](https://www.youtube.com/)
+    * Background image
+    * Navigation Bar
+        * Website Logo
+        * With links to the Recipe, Shop and Video Pages
+        * Links to the users Google Account, User Account sections and a link to the Checkout (cart icon)
+    * Shopping cart
+        * When items have been selected they are shown here and can be deleted [see below for more information](#Shopping-Cart)
+    * Search bar - with Search and reset buttons - utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
+    * 2 Images, each with a 'Watch Now' button
+        * On click of either button, the corresponding video is displayed which is linked to [YouTube](https://www.youtube.com/)
 
-#### Checkout Page
+* Checkout Page
 
-Background image
-* Navigation Bar
-    * Website Logo
-    * With links to the Recipe, Shop and Video Pages
-    * Links to the users Google Account, User Account sections and a link to the Checkout (cart icon)
-* Shopping cart
-    * When items have been selected they are shown here and can be deleted [see below for more information](#Shopping-Cart)
-* Search bar - with Search and reset buttons - utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
-* Cards displaying each of the items from the shopping cart:-
-    * Product image
-    * Product name
-    * Product Quantity
-    * Price of items
-* Default address - with a button to select a different address 
-* Delivery slot - with a button to select a time slot and on selection the chosen details are populated under the button
-* Discount code - with an input box and button.  Depending on the code entered or the number of codes enetered, different information is displayed under the input box
-* Complete order button
+    Background image
+    * Navigation Bar
+        * Website Logo
+        * With links to the Recipe, Shop and Video Pages
+        * Links to the users Google Account, User Account sections and a link to the Checkout (cart icon)
+    * Shopping cart
+        * When items have been selected they are shown here and can be deleted [see below for more information](#Shopping-Cart)
+    * Search bar - with Search and reset buttons - utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
+    * Cards displaying each of the items from the shopping cart:-
+        * Product image
+        * Product name
+        * Product Quantity
+        * Price of items
+    * Default address - with a button to select a different address 
+    * Delivery slot - with a button to select a time slot and on selection the chosen details are populated under the button
+    * Discount code - with an input box and button.  Depending on the code entered or the number of codes enetered, different information is displayed under the input box
+    * Complete order button
 
-#### Change Address Popup
+* Change Address Popup
 
-* Displays current addresses saved in the users address book
-* Provides the option to choose one of the saved ones, cancel or find a new address
+    * Displays current addresses saved in the users address book
+    * Provides the option to choose one of the saved ones, cancel or find a new address
 
-#### Find New Address Popup
+* Find New Address Popup
 
-* Field which will auto complete as the user starts to enter their address
-* Buttons to select the chosen address or cancel
+    * Field which will auto complete as the user starts to enter their address
+    * Buttons to select the chosen address or cancel
 
-#### User Account Popup
+* User Account Popup
 
-* Button to view previous orders
-* Button to access address book
+    * Button to view previous orders
+    * Button to access address book
 
-#### Address Book
+* Address Book
 
-* Cards for each saved address
-    * Each address has a button to make it default or to remove it
-* Buttons to close the section or add a new address
+    * Cards for each saved address
+        * Each address has a button to make it default or to remove it
+    * Buttons to close the section or add a new address
 
-#### Stock Control Page
+* Stock Control Page
 
-* Nav bar with logo, Username and Password enrty fileds and confirmation button
+    * Nav bar with logo, Username and Password enrty fileds and confirmation button
 
-    * Once logged in:-
+        * Once logged in:-
 
-        * Stock Control Section
+            * Stock Control Section
 
-            * Filter buttons to choose product type
-            * Card for each product with:
-                * Product name
-                * Input box to amend quantity
-                * Update button
+                * Filter buttons to choose product type
+                * Card for each product with:
+                    * Product name
+                    * Input box to amend quantity
+                    * Update button
 
-        * Discount Code Section
+            * Discount Code Section
 
-            * Card for each discount code with:
-                * Input box containg code name
-                * Input box to amend code value
-                * Update and cancel buttons
-        
-        * Memory Destruct Button
+                * Card for each discount code with:
+                    * Input box containg code name
+                    * Input box to amend code value
+                    * Update and cancel buttons
+            
+            * Memory Destruct Button
  
 
 ## Features
