@@ -42,14 +42,14 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
 * C# for the logon details storage on the Admin Portal
 
 * [BootStrap](https://getbootstrap.com/) - to assist with the visuals I learnt  as I found this gave me greater control over the style and layout of the pages.
-* [EDAMAM](#https://api.edamam.com/) - provided the API data for the recipe lookup
-* [Express js](#https://expressjs.com/) - for running the Web Server
-* [NEeDB](#https://dbdb.io/db/nedb) - for running my Databases
-* [@ideal-postcodes/address-finder](#https://www.npmjs.com/package/@ideal-postcodes/address-finder) - for the address lookup functionality
-* [Clerk.com](#https://clerk.com/) - for the Google Authentication at log on
-* [Nodemailer](#https://www.npmjs.com/package/nodemailer) - for sending the customer order email
-* [cxgenie.ai](#https://cxgenie.ai/) - chatbot
-* [.md](#https://www.ionos.co.uk/digitalguide/websites/web-development/what-is-a-md-file/) - so that I could write this ReadMe
+* [EDAMAM](https://api.edamam.com/) - provided the API data for the recipe lookup
+* [Express js](https://expressjs.com/) - for running the Web Server
+* [NEeDB](https://dbdb.io/db/nedb) - for running my Databases
+* [@ideal-postcodes/address-finder](https://www.npmjs.com/package/@ideal-postcodes/address-finder) - for the address lookup functionality
+* [Clerk.com](https://clerk.com/) - for the Google Authentication at log on
+* [Nodemailer](https://www.npmjs.com/package/nodemailer) - for sending the customer order email
+* [cxgenie.ai](https://cxgenie.ai/) - chatbot
+* [.md](https://www.ionos.co.uk/digitalguide/websites/web-development/what-is-a-md-file/) - so that I could write this ReadMe
 ## Design
 
 ### Scope
@@ -66,7 +66,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
     * With links to the Recipe, Shop and Video Pages
     * Links to the users Google Account, User Account sections and a link to the Checkout (cart icon)
 * Shopping cart
-    * When items have been selected they are shown here and can be deleted also [see below for more infomration](#Shopping-Cart)
+    * When items have been selected they are shown here and can be deleted also [see below for more information](#Shopping-Cart)
 * Search bar - with Search and reset buttons
 * Filter buttons
     * On the Recipe page these are used for selecting different types of meals and by country
