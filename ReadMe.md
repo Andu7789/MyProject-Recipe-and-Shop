@@ -4,7 +4,7 @@
 
 This site was created to showcase my learnings from a 12 week course (an Introduction to learning HTML, Javascripts and c#) and formed part of my final presentation.
 
-  <img src="Assets/Screen Shots/Recipe Finder.png" alt="Image 1">
+  <img src="Assets/Screen Shots/Recipe Finder.png" alt="Recipe Finder">
 
 
 ## Contents
@@ -26,11 +26,16 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
         * [Delivery Slot Chooser](#Delivery-Slot-Chooser)
         * [Apply discount code](#Apply-discount-code)
     * [Shopping Cart](#Shopping-Cart)
-    * [Stock Management Page](#Stock-Management-Page)
-    * [Address Choice](#Address-Choice)
-    * [Address Management](#Address-Management)
-    * [New Address Lookup](#New-Address-Lookup)
-    * [Previous Orders](#Previous-Orders)
+    * [User Account Management](#User-Account-Management)
+        * [Stock Management Page](#Stock-Management-Page)
+        * [Address Choice](#Address-Choice)
+        * [Address Management](#Address-Management)
+        * [New Address Lookup](#New-Address-Lookup)
+        * [Previous Orders](#Previous-Orders)
+    * [Admin Page](#Admin-Page)
+        * [Stock Control](#Stock-Control)
+        * [Discount Codes](#Discount-Codes)
+        * [Memory Destruction](#Memory-Destruction)
 * [Future Feature Enhancements](#Future-Feature-Enhancements)
 * [Known outstanding bugs](#Known-outstanding-bugs)
 * [Contributors](#Contributors)
@@ -80,7 +85,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
 * Item cards
     * Display the requested recipes/items
 
-Logon Page
+#### Logon Page
 
 * Background image
 * Enlarged Logo
@@ -89,7 +94,7 @@ Logon Page
         * Email logon or
         * Use Google Account
 
-Video Page
+#### Video Page
 
 * Background image
 * Navigation Bar
@@ -102,7 +107,7 @@ Video Page
 * 2 Images, each with a 'Watch Now' button
     * On click of either button, the corresponding video is displayed which is linked to [YouTube](https://www.youtube.com/)
 
-Checkout Page
+#### Checkout Page
 
 Background image
 * Navigation Bar
@@ -122,28 +127,28 @@ Background image
 * Discount code - with an input box and button.  Depending on the code entered or the number of codes enetered, different information is displayed under the input box
 * Complete order button
 
-Change Address Popup
+#### Change Address Popup
 
 * Displays current addresses saved in the users address book
 * Provides the option to choose one of the saved ones, cancel or find a new address
 
-Find New Address Popup
+#### Find New Address Popup
 
 * Field which will auto complete as the user starts to enter their address
 * Buttons to select the chosen address or cancel
 
-User Account Popup
+#### User Account Popup
 
 * Button to view previous orders
 * Button to access address book
 
-Address Book
+#### Address Book
 
 * Cards for each saved address
     * Each address has a button to make it default or to remove it
 * Buttons to close the section or add a new address
 
-Stock Control Page
+#### Stock Control Page
 
 * Nav bar with logo, Username and Password enrty fileds and confirmation button
 
@@ -165,39 +170,111 @@ Stock Control Page
                 * Update and cancel buttons
         
         * Memory Destruct Button
-
-
-
-
-  
+ 
 
 ## Features
 
-* #### Navigation Bar
+#### Navigation Bar
+<img src="Assets/Screen Shots/Navigation Bar.png" alt="avigation Bar">
 
-* #### Recipe Page
-    * Product View Page
-    * Recipe Carousel
+* Buttons
+    * Links to Recipe, Shop and Video pages - The selected pages name is highlighted 
+    * Link to users Google account - user can use this to log out or manage their Google account
+    * Account button - on click this opens up the [User Account Management](#User-Account-Management) section
+    * Shopping cart icon - If there are items in the shopping cart, when clicked the user is taken to the Checkout Page.  If no items in the cart, clicking has no impact
 
-* #### Shopping Page
+#### Recipe Page
+  <img src="Assets/Screen Shots/Recipe Finder.png" alt="Recipe Finder">
+
+  * Search Input Bar with Search and reset buttons - 
+    * User can enter a main ingredient which in conjunction with the filters will return 20 recipes
+    * utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
+  * Filters
+    * Cuisine Type - Choose a country
+    * Meal Type - Breakfast, lunch, dinner etc
+    * Dish Type - Starter, salad, soup etc
+
+  * Recipe cards
+    * Each card displays:-
+        * Recipe Image - clickable and takes the user to URL
+        * Recipe Title - clickable and takes the user to URL
+        * Meal Type
+        * Dish Type
+        * Cusine Type
+        * Number the recipe serves
+
+  * Shopping Cart
+    * Displays currently selected items from the shopping page with:
+        * The option to delete an item
+        * Button to click through to the checkout
+
+#### Shopping Page
+  <img src="Assets/Screen Shots/Shop.png" alt="Shop">
+  
+ * Search Input Bar with Search and reset buttons - 
+    * User can use 'fuzzy search' to find items
+    * utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
+    * If any products match the serach phrase they will be displayed
+    <img src="Assets/Screen Shots/Product Search.png" alt="Product Search">
+    * Also the option to fiter by price -
+        * High to Low 
+        * Low to High
+    <img src="Assets/Screen Shots/Filter by Price.png" alt="Filter by Price">
+    * If no matches a message will be displayed
+     <img src="Assets/Screen Shots/Shop - no items match search.png" alt="Shop - no items match search">
+    
+
+ * Product filters
+    * On clicking, any products equal to the selected type will be displayed
+    <img src="Assets/Screen Shots/Shop - Filter by type.png" alt="Filter by Type">
+    * Selected 'type' button will be highlighted
+
+ * Product Cards
+    <img src="Assets/Screen Shots/Shop cards.png" alt="Shop Cards">
+    * Product Image
+    * Product Price
+    * Amount in Stock 
+    * Amount selected and in the cart
+    * Input box to enter quantity
+    * Add to cart box
+
+    If the item is out of stock, the following are displayed
+    * Product Image
+    * Product Price
+    * Out of stock message
+
+    Stock amounts can be amended in the [Admin Portal](#Admin-Portal)
+
+    If an item is selected and added to the shopping cart, the 'In Cart' section will be highlighted and will reflect the number in the cart.
+
+    If the amount in the input box is increased or decreased, this is reflected in both the 'In Cart' section and the [Shopping cart](#Shopping-cart)
+
+    If a user clicks on the **Product Image** or **Product Price** this will display the [Product View Page](#Product-View-Page)
+
+* #### Product View Page
+<img src="Assets/Screen Shots/Product View.png" alt="Product View">
+* #### Recipe Carousel
 
 * #### Checkout Page
     * Delivery Slot Chooser
     * Apply discount code
 
- * #### Shopping Cart
+* #### Shopping Cart
+<img src="Assets/Screen Shots/Shopping Cart.png" alt="Shopping Cart">
 
 * #### Stock Management Page
 
 * #### Login Page
 
-* #### Address Choice
+* #### User Account Management
 
-* #### Address Management
+    * #### Address Choice
 
-* #### New Address Lookup
+    * #### Address Management
 
-* #### Previous Orders
+    * #### New Address Lookup
+
+    * #### Previous Orders
 
 ## Future Feature Enhancements
 
