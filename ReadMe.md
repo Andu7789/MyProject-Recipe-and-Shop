@@ -226,11 +226,13 @@ Background image
 
  * Product filters
     * On clicking, any products equal to the selected type will be displayed
-    <img src="Assets/Screen Shots/Shop - Filter by type.png" alt="Filter by Type">
     * Selected 'type' button will be highlighted
+    <img src="Assets/Screen Shots/Shop - Filter by type.png" alt="Filter by Type">
+  
 
  * Product Cards
     <img src="Assets/Screen Shots/Shop cards.png" alt="Shop Cards">
+
     * Product Image
     * Product Price
     * Amount in Stock 
@@ -247,20 +249,44 @@ Background image
 
     If an item is selected and added to the shopping cart, the 'In Cart' section will be highlighted and will reflect the number in the cart.
 
-    If the amount in the input box is increased or decreased, this is reflected in both the 'In Cart' section and the [Shopping cart](#Shopping-cart)
+    If the amount in the input box is increased or decreased, this is reflected in both the 'In Cart' section and the [Shopping cart](#Shopping-cart).
 
-    If a user clicks on the **Product Image** or **Product Price** this will display the [Product View Page](#Product-View-Page)
+    If a user clicks on the **Product Image** or **Product Price** this will display the [Product View Page](#Product-View-Page).
 
-* #### Product View Page
+#### Product View Page
 <img src="Assets/Screen Shots/Product View.png" alt="Product View">
-* #### Recipe Carousel
 
-* #### Checkout Page
-    * Delivery Slot Chooser
-    * Apply discount code
+All the information from the item which was clicked is displayed.  This includes pulling through the the number already in the cart and populating the quantity input box.  Again, if you amend the quantity it will be reflected in the 'In Cart' section and be highlighted.
 
-* #### Shopping Cart
+* Recipe Carousel
+    * The 3 filters from the Recipe Page are used here again, once selected, a user clicks serach and a carousel will be dispalyed which scrolls automatically on a 2 second delay
+    * If the user hovers over an image the carousel will stop
+    * If the user clicks on an image it will open that recipe in a new page
+
+#### Shopping Cart
 <img src="Assets/Screen Shots/Shopping Cart.png" alt="Shopping Cart">
+
+* Contains all the items chosen by the user:-
+    * Product Price
+    * Quantity chosen
+    * Total price of the product * quantity chosen
+* Red 'x'
+    * If a user clicks this it will delete the item from the shopping cart and update the individual product card
+* Sub Total
+    * Price of all items in the Shopping Cart
+* Checkout Button
+    * If a user click this it takes them to the [Checkout Page](#Checkout-Page)
+
+
+#### Checkout Page
+<img src="Assets/Screen Shots/Checkout Screen.png" alt="Checkout Page">
+
+* List of items in cart
+* Address section
+* Delivery Slot Chooser
+* Apply discount code
+
+
 
 * #### Stock Management Page
 
