@@ -86,7 +86,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
 * Item cards
     * Display the requested recipes/items
 
-#### Logon Page
+#### Login Page
 
 * Background image
 * Enlarged Logo
@@ -174,6 +174,15 @@ Background image
  
 
 ## Features
+
+### Login Page
+ <img src="Assets/Screen Shots/Logon Page.png" alt="Logon Page">
+
+ On clicking the 'Sign in' button the Google logon popup is displayed giving the option to use an email to login or to use their Google account login.
+  <img src="Assets/Screen Shots/Logon Google.png" alt="Google Logon">
+
+  On a succesful login, the user is directed to the [Recipe Page](#Recipe-Page)
+
 
 ### Navigation Bar
 <img src="Assets/Screen Shots/Navigation Bar.png" alt="avigation Bar">
@@ -307,9 +316,10 @@ Displays number of items in the cart, if items is equal to 1 then it displays th
         * the date, time and price of the selected slot
 
         On clicking the 'Choose Delivery Slot' button the delivery slot window is displayed
-<img src="Assets/Screen Shots/Choose Delivert Slot.png" alt="Checkout Page">
+    <img src="Assets/Screen Shots/Choose Delivert Slot.png" alt="Checkout Page">
 
-        The dates shown are always today and the next 6 days.  When a user selects a slot the background and the text in the selected slot change.  This will then be used to populate the message under the 'Choose Delivery Slot' on the Checkout Screen.
+    *   The dates shown are always today and the next 6 days.  When a user selects a slot the background and the text in the selected slot change.  This will then be used to populate the message under the 'Choose Delivery Slot' on the Checkout Screen.
+
 
         <img src="Assets/Screen Shots/Delivery Slot message.png" alt="Delivery slot message">        
 
@@ -354,28 +364,18 @@ Displays number of items in the cart, if items is equal to 1 then it displays th
     
     When the user clicks the **Close** button, the recipe page is displayed
 
-* #### User Account Management
+### User Account Management
 
-    * #### Address Choice
+* #### Address Choice
+* #### Address Management
+* #### New Address Lookup
+* #### Previous Orders
 
-    * #### Address Management
-
-    * #### New Address Lookup
-
-    * #### Previous Orders
-
-#### Admin Portal
+### Admin Portal
  <img src="Assets/Screen Shots/Admin Portal - Logon Full.png" alt="Admin Portal">
 
- 
 
-#### Login Page
- <img src="Assets/Screen Shots/Logon Page.png" alt="Logon Page">
 
- On clicking the 'Sign in' button the Google logon popup is displayed giving the option to use an email to login or to use their Google account login.
-  <img src="Assets/Screen Shots/Logon Google.png" alt="Google Logon">
-
-  On a succesful login, the user is directed to the [Recipe Page](@Recipe-Page)
 
 
 
