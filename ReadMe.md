@@ -26,13 +26,14 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
         * [Delivery Slot Chooser](#Delivery-Slot-Chooser)
         * [Apply discount code](#Apply-discount-code)
     * [Shopping Cart](#Shopping-Cart)
+    * [Email](#Email)
     * [User Account Management](#User-Account-Management)
         * [Stock Management Page](#Stock-Management-Page)
         * [Address Choice](#Address-Choice)
         * [Address Management](#Address-Management)
         * [New Address Lookup](#New-Address-Lookup)
         * [Previous Orders](#Previous-Orders)
-    * [Admin Page](#Admin-Page)
+    * [Admin Portal](#Admin-Portal)
         * [Stock Control](#Stock-Control)
         * [Discount Codes](#Discount-Codes)
         * [Memory Destruction](#Memory-Destruction)
@@ -174,7 +175,7 @@ Background image
 
 ## Features
 
-#### Navigation Bar
+### Navigation Bar
 <img src="Assets/Screen Shots/Navigation Bar.png" alt="avigation Bar">
 
 * Buttons
@@ -183,7 +184,7 @@ Background image
     * Account button - on click this opens up the [User Account Management](#User-Account-Management) section
     * Shopping cart icon - If there are items in the shopping cart, when clicked the user is taken to the Checkout Page.  If no items in the cart, clicking has no impact
 
-#### Recipe Page
+### Recipe Page
   <img src="Assets/Screen Shots/Recipe Finder.png" alt="Recipe Finder">
 
   * Search Input Bar with Search and reset buttons - 
@@ -208,7 +209,7 @@ Background image
         * The option to delete an item
         * Button to click through to the checkout
 
-#### Shopping Page
+### Shopping Page
   <img src="Assets/Screen Shots/Shop.png" alt="Shop">
   
  * Search Input Bar with Search and reset buttons - 
@@ -253,7 +254,7 @@ Background image
 
     If a user clicks on the **Product Image** or **Product Price** this will display the [Product View Page](#Product-View-Page).
 
-#### Product View Page
+### Product View Page
 <img src="Assets/Screen Shots/Product View.png" alt="Product View">
 
 All the information from the item which was clicked is displayed.  This includes pulling through the the number already in the cart and populating the quantity input box.  Again, if you amend the quantity it will be reflected in the 'In Cart' section and be highlighted.
@@ -263,7 +264,7 @@ All the information from the item which was clicked is displayed.  This includes
     * If the user hovers over an image the carousel will stop
     * If the user clicks on an image it will open that recipe in a new page
 
-#### Shopping Cart
+### Shopping Cart
 <img src="Assets/Screen Shots/Shopping Cart.png" alt="Shopping Cart">
 
 * Contains all the items chosen by the user:-
@@ -278,19 +279,80 @@ All the information from the item which was clicked is displayed.  This includes
     * If a user click this it takes them to the [Checkout Page](#Checkout-Page)
 
 
-#### Checkout Page
+### Checkout Page
 <img src="Assets/Screen Shots/Checkout Screen.png" alt="Checkout Page">
 
-* List of items in cart
+#### Left hand side
+
+Displays number of items in the cart, if items is equal to 1 then it displays the word **item**, if there are more than 1 it displays **items**
+
+* List of items in cart - 1 line per **Product Title**
+    * Product Image
+    * Product Title
+    * Quantity
+    * Total price of the product * quantity chosen
+
+    * Total Price of cart
+
+#### Right hand side
+
 * Address section
+    * Displays the **Default** Address and a button to change the address - this takes the user to the [Address Choice](#Address-Choice) popup
 * Delivery Slot Chooser
+    * Displays a button to choose a delivery slot and a message detailing either
+        * "No slot selected"
+
+            or
+
+        * the date, time and price of the selected slot
+
+        On clicking the 'Choose Delivery Slot' button the delivery slot window is displayed
+<img src="Assets/Screen Shots/Choose Delivert Slot.png" alt="Checkout Page">
+
+        The dates shown are always today and the next 6 days.  When a user selects a slot the background and the text in the selected slot change.  This will then be used to populate the message under the 'Choose Delivery Slot' on the Checkout Screen.
+
+        <img src="Assets/Screen Shots/Delivery Slot message.png" alt="Delivery slot message">        
+
 * Apply discount code
+    * Displays an input box to enter a discount code and a button to add that code
+    * 3 options are possible with the discount codes:
+        * Invalid code
+        <img src="Assets/Screen Shots/Discount Code - invalid.png" alt="Discount code invalid">
 
+        * Successful code
+        <img src="Assets/Screen Shots/Discount Code - Valid.png" alt="Discount code successful">
 
+        * Only 1 code is allowed
+        <img src="Assets/Screen Shots/Discount Code - Only 1 code allowed.png" alt="Discount code only 1 allowed">
+    
+    If a code is a valid one, the total cost of the shopping cart is reduced by the discount %
 
-* #### Stock Management Page
+* Checkout Button
 
-* #### Login Page
+    Displays the total checkout price (including the discount if a valid code was entered).  On clicking of the Checkout Button:-
+
+    * An [email](#email-sent-to-user) is sent to the user with their order details
+    * A [popup message](#email-popup) is displayed confirming an email has been sent
+
+### Email
+
+* #### Email sent to user
+
+    User receives an email containing all the information gathered throughout the shopping process:-
+    *   Website Logo
+    *   Delivery details
+    *   Product details, quantities, prices
+    *   Total price of the order including the delivery charge
+    *   Delivery address
+
+    <img src="Assets/Screen Shots/Email - Received Email.png" alt="Received Email">
+
+* #### Email popup
+
+    On clicking the checkout button a pop up is displayed
+     <img src="Assets/Screen Shots/Email - Confirmation.png" alt="Email Confirmation">
+    
+    When the user clicks the **Close** button, the recipe page is displayed
 
 * #### User Account Management
 
@@ -301,6 +363,21 @@ All the information from the item which was clicked is displayed.  This includes
     * #### New Address Lookup
 
     * #### Previous Orders
+
+#### Admin Portal
+ <img src="Assets/Screen Shots/Admin Portal - Logon Full.png" alt="Admin Portal">
+
+ 
+
+#### Login Page
+ <img src="Assets/Screen Shots/Logon Page.png" alt="Logon Page">
+
+ On clicking the 'Sign in' button the Google logon popup is displayed giving the option to use an email to login or to use their Google account login.
+  <img src="Assets/Screen Shots/Logon Google.png" alt="Google Logon">
+
+  On a succesful login, the user is directed to the [Recipe Page](@Recipe-Page)
+
+
 
 ## Future Feature Enhancements
 
