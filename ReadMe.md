@@ -37,7 +37,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
     * [Admin Portal](#Admin-Portal)
         * [Stock Control](#Stock-Control)
         * [Discount Codes](#Discount-Codes)
-        * [Memory Destruction](#Memory-Destruction)
+        * [Memory Destruction](#Memory-Destruct)
 * [Maunal User Testing](#Maunal-User-Testing) 
 * [Future Feature Enhancements](#Future-Feature-Enhancements)
 * [Known outstanding bugs](#Known-outstanding-bugs)
