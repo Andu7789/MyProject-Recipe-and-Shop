@@ -23,8 +23,10 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
         * [Recipe Carousele](#Recipe-Carousel)
     * [Shopping Page](#Shopping-Page)
     * [Checkout Page](#Checkout-Page)
+        * [Address section](#Address-section)
         * [Delivery Slot Chooser](#Delivery-Slot-Chooser)
         * [Apply discount code](#Apply-discount-code)
+        * [Checkout Button](#Checkout-Button)
     * [Shopping Cart](#Shopping-Cart)
     * [Email](#Email)
     * [Address Choice](#Address-Choice)
@@ -305,9 +307,9 @@ Displays number of items in the cart, if items is equal to 1 then it displays th
 
 #### Right hand side
 
-* Address section
+* #### Address section
     * Displays the **Default** Address and a button to change the address - this takes the user to the [Address Choice](#Address-Choice) popup
-* Delivery Slot Chooser
+* #### Delivery Slot Chooser
     * Displays a button to choose a delivery slot and a message detailing either
         * "No slot selected"
 
@@ -323,7 +325,7 @@ Displays number of items in the cart, if items is equal to 1 then it displays th
 
         <img src="Assets/Screen Shots/Delivery Slot message.png" alt="Delivery slot message">        
 
-* Apply discount code
+* #### Apply discount code
     * Displays an input box to enter a discount code and a button to add that code
     * 3 options are possible with the discount codes:
         * Invalid code
@@ -337,7 +339,7 @@ Displays number of items in the cart, if items is equal to 1 then it displays th
     
     If a code is a valid one, the total cost of the shopping cart is reduced by the discount %
 
-* Checkout Button
+* #### Checkout Button
 
     Displays the total checkout price (including the discount if a valid code was entered).  On clicking of the Checkout Button:-
 
@@ -372,7 +374,7 @@ When a user has clicked on the 'Change' button next to the address on the Checko
 
  <img src="Assets/Screen Shots/Address - Choose New.png" alt="Address Choose new">
 
-* A user can either choose one of the address shown and the click the 'Use this address' button to take them back to the [Checkout Page](#Checkout-Page)
+* A user can either choose one of the addresses shown and the click the 'Use this address' button to take them back to the [Checkout Page](#Checkout-Page)
 * Cancel and take them back to the [Checkout Page](#Checkout-Page) and the address will not have changed
 * Click on the [Add new address](#New-Address-Lookup) button
 
@@ -385,7 +387,7 @@ If the user wants to use that address, they click on 'Add Address' button and th
 
 ## User Account Management
 
-When a user clicks the 'Account' button on the Navigation bar they will get the Popup where they can manage their [addresses](#Address-Management) and view their [Previous Orders](#revious-Orders).
+When a user clicks the 'Account' button on the Navigation bar they will get the Popup where they can manage their [addresses](#Address-Management) and view their [Previous Orders](#Previous-Orders).
 
 
 ### Address Management
@@ -406,10 +408,40 @@ Clicking on the 'Previous Orders' button displays all the previous orders by inc
 ### Admin Portal
 <img src="Assets/Screen Shots/Admin Portal - Logon Full.png" alt="Previous Orders">
 
+This is where an Admin can make changes to the [Stock numbers](#Stock-Control), amend the [Disocunt Codes](#Discount-Codes) and reset the [Previous Orders](#Previous-Orders) and [Address Book](#Address-Management).
+
+* The login is controlled in the backend by a C# API call.  
+<img src="Assets/Screen Shots/Admin Portal - Logon.png" alt="Admin Portal - Logon">
+
+* If the Admin enters incorrect details they will see the below pop up.
+<img src="Assets/Screen Shots/Admin Portal - Failed Logon.png" alt="Admin Portal - Logon">
+
+* If they add valid details the Admin Management section will be shown
+<img src="Assets/Screen Shots/Amin Portal - Options Buttons.png" alt="Admin Portal - Options Buttons">
+
+#### Stock Control
+<img src="Assets/Screen Shots/Admin Portal - Stock Control - Types.png" alt="Admin Portal - Logon">
 
 
+* Here the Admin can choose the 'Type' of the product they want to update.  Upon clicking a 'Type' the relevant items will be shown and the 'Type' button will be highlighted.
+<img src="Assets/Screen Shots/Admin Portal - Stock Control - Update Stock Levels.png" alt="Admin Portal - Stock Control">
 
+* Any updates made here will be reflected back on the shopping Page so all cards 'Stock' numbers will match those of the cards here.
 
+#### Discount Codes
+<img src="Assets/Screen Shots/Amin Portal - Discount Codes - Amend Add and Delete.png" alt="Admin Portal - Discount Codes">
+
+* Here the Admin can amend current codes and then click the 'Update' button.
+* Delete a code by clicking the 'Delete' button.
+* Add a new code, clicking the 'Add discount code' button will add a new line to the bottom of the codes section
+<img src="Assets/Screen Shots/Admin Portal - Discount code - add new.png" alt="Admin Portal - Discount code - add new">
+
+#### Memory Destruct
+<img src="Assets/Screen Shots/Admin Portal - Memory Destruct.png" alt="Admin Portal - Discount code - add new">
+
+This button was implemented in the early days of the project when Local Storage was added.  Local storage has a limit and sometime the Previous orders can become full.
+
+* clicking the 'Memory Destruct' button will clear the Previous Orders and reset the Address book back to the ones stored in the server code.  It will also give an alert to confirm it has been successful
 
 ## Maunal User Testing
 
@@ -424,6 +456,8 @@ Until automated testing has been incorporated into the code, the testing was car
 3. Add automated testing using a library such as Jest.js.
 
 4. On the Recipe page if there are no results returned, add a message informing of this.
+
+5. Convert the Local Storage code to use Databases
 
 ## Known outstanding bugs
 

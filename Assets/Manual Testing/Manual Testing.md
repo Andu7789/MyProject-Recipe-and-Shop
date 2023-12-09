@@ -1,4 +1,4 @@
-## User Registration
+# Test Cases
 
 **Test Case 1**: Verify successful login with valid credentials
 
