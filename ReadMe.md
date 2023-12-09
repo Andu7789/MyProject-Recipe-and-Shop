@@ -27,16 +27,16 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
         * [Apply discount code](#Apply-discount-code)
     * [Shopping Cart](#Shopping-Cart)
     * [Email](#Email)
-    * [User Account Management](#User-Account-Management)
-        * [Stock Management Page](#Stock-Management-Page)
-        * [Address Choice](#Address-Choice)
+    * [Address Choice](#Address-Choice)
+    * [New Address Lookup](#New-Address-Lookup)
+    * [User Account Management](#User-Account-Management)       
         * [Address Management](#Address-Management)
-        * [New Address Lookup](#New-Address-Lookup)
         * [Previous Orders](#Previous-Orders)
     * [Admin Portal](#Admin-Portal)
         * [Stock Control](#Stock-Control)
         * [Discount Codes](#Discount-Codes)
         * [Memory Destruction](#Memory-Destruction)
+* [Maunal User Testing](#Maunal-User-Testing) 
 * [Future Feature Enhancements](#Future-Feature-Enhancements)
 * [Known outstanding bugs](#Known-outstanding-bugs)
 * [Contributors](#Contributors)
@@ -364,26 +364,66 @@ Displays number of items in the cart, if items is equal to 1 then it displays th
     
     When the user clicks the **Close** button, the recipe page is displayed
 
-### User Account Management
 
-* #### Address Choice
-* #### Address Management
-* #### New Address Lookup
-* #### Previous Orders
+
+### Address Choice
+
+When a user has clicked on the 'Change' button next to the address on the Checkout page, the Address Choice pop up is displayed
+
+ <img src="Assets/Screen Shots/Address - Choose New.png" alt="Address Choose new">
+
+* A user can either choose one of the address shown and the click the 'Use this address' button to take them back to the [Checkout Page](#Checkout-Page)
+* Cancel and take them back to the [Checkout Page](#Checkout-Page) and the address will not have changed
+* Click on the [Add new address](#New-Address-Lookup) button
+
+### New Address Lookup
+ <img src="Assets/Screen Shots/Address - Add new address.png" alt="Add new address">
+
+When a user starts to type in the 'Address First Line' the program will provide a list of addresses and when a user selects one it will complete the reaming address details.
+
+If the user wants to use that address, they click on 'Add Address' button and the address will be added to the list on the [Address Choice](#Address-Choice) popup.
+
+## User Account Management
+
+When a user clicks the 'Account' button on the Navigation bar they will get the Popup where they can manage their [addresses](#Address-Management) and view their [Previous Orders](#revious-Orders).
+
+
+### Address Management
+<img src="Assets/Screen Shots/Account - Your addresses.png" alt="Your addresses">
+
+Here a users **Default** address is shown at the top and has a grey background.  A user can:-
+
+* Set an address as **Default** by clikcing the button under the relevant address card
+* Remove an address - this will delete it from the Address book, **Unless** it is the **Default** one.  If the user tries this they will be shown an alert
+<img src="Assets/Screen Shots/Account - Alert for default removal.png" alt="Alert for Default">
+
+* Add a new address using the [Add Addresses](#new-address-lookup) button
+
+### Previous Orders
+<img src="Assets/Screen Shots/Account - Previous Orders.png" alt="Your addresses">
+Clicking on the 'Previous Orders' button displays all the previous orders by incremented order number
 
 ### Admin Portal
- <img src="Assets/Screen Shots/Admin Portal - Logon Full.png" alt="Admin Portal">
+<img src="Assets/Screen Shots/Admin Portal - Logon Full.png" alt="Previous Orders">
 
 
 
 
 
+
+## Maunal User Testing
+
+Until automated testing has been incorporated into the code, the testing was carried out manaully.  An example of the testing carried out can be found [here](Assets/Manual%20Testing/Manual%20Testing.md).
 
 ## Future Feature Enhancements
 
 1. I would like to enchance the capabilities of the chatbot so that it could interact with the site and be able to provide links to products - this will require hosting the site.
 
 2. It would also be interesting to look into how to create analysis of the customers orders and utilise libraries like [chartjs.org](#https://www.chartjs.org/) to produce interactive analytics.
+
+3. Add automated testing using a library such as Jest.js.
+
+4. On the Recipe page if there are no results returned, add a message informing of this.
 
 ## Known outstanding bugs
 
