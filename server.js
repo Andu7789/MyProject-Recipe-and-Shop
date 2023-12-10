@@ -153,115 +153,115 @@ const databaseStock = new Datastore("databaseStock.db");
 databaseStock.loadDatabase();
 db1 = databaseStock;
 
-const imagePath = "Img/Food/Beef Burger.png"; // Replace this with the actual path to your image file
+const imagePath = "Assets/Img/Food/Beef Burger.png"; 
 const imageBuffer = fs.readFileSync(imagePath);
 const base64Image = imageBuffer.toString("base64");
 
-const imagePath1 = "Img/Food/Beef Fillet.png"; // Replace this with the actual path to your image file
+const imagePath1 = "Assets/Img/Food/Beef Fillet.png"; 
 const imageBuffer1 = fs.readFileSync(imagePath1);
 const base64Image1 = imageBuffer1.toString("base64");
 
-const imagePath2 = "Img/Food/Beef Mince.png"; // Replace this with the actual path to your image file
+const imagePath2 = "Assets/Img/Food/Beef Mince.png"; 
 const imageBuffer2 = fs.readFileSync(imagePath2);
 const base64Image2 = imageBuffer2.toString("base64");
 
-const imagePath3 = "Img/Food/Chicken Breast.png"; // Replace this with the actual path to your image file
+const imagePath3 = "Assets/Img/Food/Chicken Breast.png"; 
 const imageBuffer3 = fs.readFileSync(imagePath3);
 const base64Image3 = imageBuffer3.toString("base64");
 
-const imagePath4 = "Img/Food/Peeled Prawns.png"; // Replace this with the actual path to your image file
+const imagePath4 = "Assets/Img/Food/Peeled Prawns.png"; 
 const imageBuffer4 = fs.readFileSync(imagePath4);
 const base64Image4= imageBuffer4.toString("base64");
 
-const imagePath5 = "Img/Food/Salmon.png"; // Replace this with the actual path to your image file
+const imagePath5 = "Assets/Img/Food/Salmon.png"; 
 const imageBuffer5 = fs.readFileSync(imagePath5);
 const base64Image5= imageBuffer5.toString("base64");
 
-const imagePath6 = "Img/Food/Sausages.png"; // Replace this with the actual path to your image file
+const imagePath6 = "Assets/Img/Food/Sausages.png"; 
 const imageBuffer6 = fs.readFileSync(imagePath6);
 const base64Image6= imageBuffer6.toString("base64");
 
-const imagePath7 = "Img/Food/Whole Chicken.png"; // Replace this with the actual path to your image file
+const imagePath7 = "Assets/Img/Food/Whole Chicken.png"; 
 const imageBuffer7 = fs.readFileSync(imagePath7);
 const base64Image7= imageBuffer7.toString("base64");
 
-const imagePath8 = "Img/Food/Bananas.png"; // Replace this with the actual path to your image file
+const imagePath8 = "Assets/Img/Food/Bananas.png"; 
 const imageBuffer8 = fs.readFileSync(imagePath8);
 const base64Image8= imageBuffer8.toString("base64");
 
-const imagePath9 = "Img/Food/Lemons.png"; // Replace this with the actual path to your image file
+const imagePath9 = "Assets/Img/Food/Lemons.png"; 
 const imageBuffer9 = fs.readFileSync(imagePath9);
 const base64Image9 = imageBuffer9.toString("base64");
 
-const imagePath10 = "Img/Food/Limes.png"; // Replace this with the actual path to your image file
+const imagePath10 = "Assets/Img/Food/Limes.png"; 
 const imageBuffer10 = fs.readFileSync(imagePath10);
 const base64Image10 = imageBuffer10.toString("base64");
 
-const imagePath11 = "Img/Food/Oranges.png"; // Replace this with the actual path to your image file
+const imagePath11 = "Assets/Img/Food/Oranges.png"; 
 const imageBuffer11 = fs.readFileSync(imagePath11);
 const base64Image11 = imageBuffer11.toString("base64");
 
-const imagePath12 = "Img/Food/Pineapple.png"; // Replace this with the actual path to your image file
+const imagePath12 = "Assets/Img/Food/Pineapple.png"; 
 const imageBuffer12 = fs.readFileSync(imagePath12);
 const base64Image12 = imageBuffer12.toString("base64");
 
-const imagePath13 = "Img/Food/Red Apples.png"; // Replace this with the actual path to your image file
+const imagePath13 = "Assets/Img/Food/Red Apples.png"; 
 const imageBuffer13 = fs.readFileSync(imagePath13);
 const base64Image13 = imageBuffer13.toString("base64");
 
-const imagePath14 = "Img/Food/Green Apples.png"; // Replace this with the actual path to your image file
+const imagePath14 = "Assets/Img/Food/Green Apples.png"; 
 const imageBuffer14 = fs.readFileSync(imagePath14);
 const base64Image14 = imageBuffer14.toString("base64");
 
-const imagePath15 = "Img/Food/Stawberries.png"; // Replace this with the actual path to your image file
+const imagePath15 = "Assets/Img/Food/Stawberries.png"; 
 const imageBuffer15 = fs.readFileSync(imagePath15);
 const base64Image15 = imageBuffer15.toString("base64");
 
-const imagePath16 = "Img/Food/Leeks.png"; // Replace this with the actual path to your image file
+const imagePath16 = "Assets/Img/Food/Leeks.png"; 
 const imageBuffer16 = fs.readFileSync(imagePath16);
 const base64Image16 = imageBuffer16.toString("base64");
 
-const imagePath17 = "Img/Food/Carrots.png"; // Replace this with the actual path to your image file
+const imagePath17 = "Assets/Img/Food/Carrots.png"; 
 const imageBuffer17 = fs.readFileSync(imagePath17);
 const base64Image17 = imageBuffer17.toString("base64");
 
-const imagePath18 = "Img/Food/Cauliflower.png"; // Replace this with the actual path to your image file
+const imagePath18 = "Assets/Img/Food/Cauliflower.png"; 
 const imageBuffer18 = fs.readFileSync(imagePath18);
 const base64Image18 = imageBuffer18.toString("base64");
 
-const imagePath19 = "Img/Food/Sea Bream.png"; // Replace this with the actual path to your image file
+const imagePath19 = "Assets/Img/Food/Sea Bream.png"; 
 const imageBuffer19 = fs.readFileSync(imagePath19);
 const base64Image19 = imageBuffer19.toString("base64");
 
-const imagePath20 = "Img/Food/Cod Fillets.png"; // Replace this with the actual path to your image file
-const imageBuffer20= fs.readFileSync(imagePath20);
+const imagePath20 = "Assets/Img/Food/Cod Fillets.png"; 
+const imageBuffer20 = fs.readFileSync(imagePath20);
 const base64Image20 = imageBuffer20.toString("base64");
 
-const imagePath21 = "Img/Food/Whole Cod.png"; // Replace this with the actual path to your image file
+const imagePath21 = "Assets/Img/Food/Whole Cod.png"; 
 const imageBuffer21= fs.readFileSync(imagePath21);
 const base64Image21 = imageBuffer21.toString("base64");
 
-const imagePath22 = "Img/Food/Smoked Haddock.png"; // Replace this with the actual path to your image file
+const imagePath22 = "Assets/Img/Food/Smoked Haddock.png"; 
 const imageBuffer22= fs.readFileSync(imagePath22);
 const base64Image22 = imageBuffer22.toString("base64");
 
-const imagePath23 = "Img/Food/Cabbage.png"; // Replace this with the actual path to your image file
+const imagePath23 = "Assets/Img/Food/Cabbage.png"; 
 const imageBuffer23= fs.readFileSync(imagePath23);
 const base64Image23 = imageBuffer23.toString("base64");
 
-const imagePath24 = "Img/Food/New Potatoes.png"; // Replace this with the actual path to your image file
+const imagePath24 = "Assets/Img/Food/New Potatoes.png"; 
 const imageBuffer24= fs.readFileSync(imagePath24);
 const base64Image24 = imageBuffer24.toString("base64");
 
-const imagePath25 = "Img/Food/Beefsteak tomato.png"; // Replace this with the actual path to your image file
+const imagePath25 = "Assets/Img/Food/Beefsteak tomato.png"; 
 const imageBuffer25= fs.readFileSync(imagePath25);
 const base64Image25 = imageBuffer25.toString("base64");
 
-const imagePath26 = "Img/Food/Red Cabbage.png"; // Replace this with the actual path to your image file
+const imagePath26 = "Assets/Img/Food/Red Cabbage.png"; 
 const imageBuffer26= fs.readFileSync(imagePath26);
 const base64Image26 = imageBuffer26.toString("base64");
 
-const imagePath27 = "Img/Food/Red Onion.png"; // Replace this with the actual path to your image file
+const imagePath27 = "Assets/Img/Food/Red Onion.png"; // 
 const imageBuffer27= fs.readFileSync(imagePath27);
 const base64Image27 = imageBuffer27.toString("base64");
 

@@ -2,7 +2,7 @@
 
 ## Recipe finder and shop
 
-This site was created to showcase my learnings from a 12 week course (an Introduction to learning HTML, Javascripts and c#) and formed part of my final presentation.
+This site was created to showcase my learnings from a 12 week course (an Introduction to learning HTML, JavaScript and c#) and formed part of my final presentation.
 
   <img src="Assets/Screen Shots/Recipe Finder.png" alt="Recipe Finder">
 
@@ -12,7 +12,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
 
 * [Introduction](#My-First-Project)
 * [Libraries, Technologies and Techniques](#Libraries,-Technologies-and-Techniques)
-* [Design (UXD)](#design-uxd)
+* [Design (UXD)](#design-uxd)Carousel
     * [Scope](#scope)
     * [Structure](#structure)
 * [Features](#Features)
@@ -20,7 +20,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
     * [Navigation Bar](#Navigation-Bar)
     * [Recipe Page](#Recipe-Page)
         * [Product View Page](#DProduct-view-Page)
-        * [Recipe Carousele](#Recipe-Carousel)
+        * [Recipe Carousel](#Recipe-Carousel)
     * [Shopping Page](#Shopping-Page)
     * [Checkout Page](#Checkout-Page)
         * [Address section](#Address-section)
@@ -38,7 +38,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
         * [Stock Control](#Stock-Control)
         * [Discount Codes](#Discount-Codes)
         * [Memory Destruction](#Memory-Destruct)
-* [Maunal User Testing](#Maunal-User-Testing) 
+* [Manual User Testing](#Maunal-User-Testing) 
 * [Future Feature Enhancements](#Future-Feature-Enhancements)
 * [Known outstanding bugs](#Known-outstanding-bugs)
 * [Contributors](#Contributors)
@@ -46,7 +46,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
 ## Libraries, Technologies and Techniques
 
 * HTML - for the Web Pages
-* Javascript for the majority of the data manipulation and the backend API calls
+* JavaScript for the majority of the data manipulation and the backend API calls
 * C# for the logon details storage on the Admin Portal
 * Local Storage - used to store Addresses (before I had taught myself how to use Databases)
 
@@ -81,8 +81,8 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
 * Search bar - with Search and reset buttons - utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
 * Filter buttons
     * On the Recipe page these are used for selecting different types of meals and by country
-    * On the Shopping pade these are used for selecting the type of food item by category
-        * Also the option to fiter by price -
+    * On the Shopping page these are used for selecting the type of food item by category
+        * Also the option to filter by price -
             * High to Low 
             * Low to High
 * Item cards
@@ -127,7 +127,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
         * Price of items
     * Default address - with a button to select a different address 
     * Delivery slot - with a button to select a time slot and on selection the chosen details are populated under the button
-    * Discount code - with an input box and button.  Depending on the code entered or the number of codes enetered, different information is displayed under the input box
+    * Discount code - with an input box and button.  Depending on the code entered or the number of codes entered, different information is displayed under the input box
     * Complete order button
 
 * Change Address Popup
@@ -153,7 +153,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
 
 * Stock Control Page
 
-    * Nav bar with logo, Username and Password enrty fileds and confirmation button
+    * Nav bar with logo, Username and Password entry fields and confirmation button
 
         * Once logged in:-
 
@@ -168,7 +168,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
             * Discount Code Section
 
                 * Card for each discount code with:
-                    * Input box containg code name
+                    * Input box containing code name
                     * Input box to amend code value
                     * Update and cancel buttons
             
@@ -183,7 +183,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
  On clicking the 'Sign in' button the Google logon popup is displayed giving the option to use an email to login or to use their Google account login.
   <img src="Assets/Screen Shots/Logon Google.png" alt="Google Logon">
 
-  On a succesful login, the user is directed to the [Recipe Page](#Recipe-Page)
+  On a successful login, the user is directed to the [Recipe Page](#Recipe-Page)
 
 
 ### Navigation Bar
@@ -212,7 +212,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
         * Recipe Title - clickable and takes the user to URL
         * Meal Type
         * Dish Type
-        * Cusine Type
+        * Cuisine Type
         * Number the recipe serves
 
   * Shopping Cart
@@ -226,13 +226,13 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
  * Search Input Bar with Search and reset buttons - 
     * User can use 'fuzzy search' to find items
     * utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
-    * If any products match the serach phrase they will be displayed
+    * If any products match the search phrase they will be displayed
     <img src="Assets/Screen Shots/Product Search.png" alt="Product Search">
-    * Also the option to fiter by price -
+    * Also the option to filter by price -
         * High to Low 
         * Low to High
     <img src="Assets/Screen Shots/Filter by Price.png" alt="Filter by Price">
-    * If no matches a message will be displayed
+    * If no matches, a message will be displayed
      <img src="Assets/Screen Shots/Shop - no items match search.png" alt="Shop - no items match search">
     
 
@@ -268,10 +268,10 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
 ### Product View Page
 <img src="Assets/Screen Shots/Product View.png" alt="Product View">
 
-All the information from the item which was clicked is displayed.  This includes pulling through the the number already in the cart and populating the quantity input box.  Again, if you amend the quantity it will be reflected in the 'In Cart' section and be highlighted.
+All the information from the item which was clicked is displayed.  This includes pulling through the number already in the cart and populating the quantity input box.  Again, if you amend the quantity it will be reflected in the 'In Cart' section and be highlighted.
 
 * Recipe Carousel
-    * The 3 filters from the Recipe Page are used here again, once selected, a user clicks serach and a carousel will be dispalyed which scrolls automatically on a 2 second delay
+    * The 3 filters from the Recipe Page are used here again, once selected, a user clicks search and a carousel will be displayed which scrolls automatically on a 2 second delay
     * If the user hovers over an image the carousel will stop
     * If the user clicks on an image it will open that recipe in a new page
 
@@ -395,7 +395,7 @@ When a user clicks the 'Account' button on the Navigation bar they will get the 
 
 Here a users **Default** address is shown at the top and has a grey background.  A user can:-
 
-* Set an address as **Default** by clikcing the button under the relevant address card
+* Set an address as **Default** by clicking the button under the relevant address card
 * Remove an address - this will delete it from the Address book, **Unless** it is the **Default** one.  If the user tries this they will be shown an alert
 <img src="Assets/Screen Shots/Account - Alert for default removal.png" alt="Alert for Default">
 
@@ -408,7 +408,7 @@ Clicking on the 'Previous Orders' button displays all the previous orders by inc
 ### Admin Portal
 <img src="Assets/Screen Shots/Admin Portal - Logon Full.png" alt="Previous Orders">
 
-This is where an Admin can make changes to the [Stock numbers](#Stock-Control), amend the [Disocunt Codes](#Discount-Codes) and reset the [Previous Orders](#Previous-Orders) and [Address Book](#Address-Management).
+This is where an Admin can make changes to the [Stock numbers](#Stock-Control), amend the [Discount Codes](#Discount-Codes) and reset the [Previous Orders](#Previous-Orders) and [Address Book](#Address-Management).
 
 * The login is controlled in the backend by a C# API call.  
 <img src="Assets/Screen Shots/Admin Portal - Logon.png" alt="Admin Portal - Logon">
@@ -443,13 +443,13 @@ This button was implemented in the early days of the project when Local Storage 
 
 * clicking the 'Memory Destruct' button will clear the Previous Orders and reset the Address book back to the ones stored in the server code.  It will also give an alert to confirm it has been successful
 
-## Maunal User Testing
+## Manual User Testing
 
-Until automated testing has been incorporated into the code, the testing was carried out manaully.  An example of the testing carried out can be found [here](Assets/Manual%20Testing/Manual%20Testing.md).
+Until automated testing has been incorporated into the code, the testing was carried out manually.  An example of the testing carried out can be found [here](Assets/Manual%20Testing/Manual%20Testing.md).
 
 ## Future Feature Enhancements
 
-1. I would like to enchance the capabilities of the chatbot so that it could interact with the site and be able to provide links to products - this will require hosting the site.
+1. I would like to enhance the capabilities of the chatbot so that it could interact with the site and be able to provide links to products - this will require hosting the site.
 
 2. It would also be interesting to look into how to create analysis of the customers orders and utilise libraries like [chartjs.org](#https://www.chartjs.org/) to produce interactive analytics.
 
