@@ -11,7 +11,6 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
 
 
 * [Introduction](#My-First-Project)
-* [Libraries, Technologies and Techniques](#Libraries,-Technologies-and-Techniques)
 * [Libraries and Techniques](#Libraries-and-Techniques)
 * [Design (UXD)](#Design)
     * [Scope](#Scope)
@@ -47,7 +46,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
 * [Known outstanding bugs](#Known-outstanding-bugs)
 * [Contributors](#Contributors)
 
-## Libraries, Technologies and Techniques
+## Libraries and Techniques
 
 * HTML - for the Web Pages
 * JavaScript for the majority of the data manipulation and the backend API calls
