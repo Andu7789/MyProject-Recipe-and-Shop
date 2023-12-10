@@ -10,16 +10,13 @@ let stockControlButtonID = document.getElementById("stockControlButton");
 let failedLogonID = document.getElementById("failedLogon");
 let MemoryDestructID = document.getElementById("MemoryDestruct");
 
-let loginSuccessful = false;
 let userNameInputID = document.getElementById("userNameInput")
 let passwordInputID = document.getElementById("passwordInput")
 let accountButtonID = document.getElementById("accountButton")
 let accountButtonLogoffID = document.getElementById("accountButtonLogoff")
 
-
-//var userNameValueID = document.getElementById("userNameInput").value;
-
 let lastIDDiscountCode = 0;
+let loginSuccessful = false;
 
 discountCodesButtonID.addEventListener("click", () => {
   document.getElementById("adminContainer2").classList.remove("hidden");
@@ -28,9 +25,6 @@ discountCodesButtonID.addEventListener("click", () => {
   document.getElementById("adminContainer5").classList.add("hidden");
   discountCodesButtonID.classList.add("active");
   stockControlButtonID.classList.remove("active");
-
-
-
   checkDiscountCodeALLAPI();
 });
 
@@ -41,8 +35,6 @@ stockControlButtonID.addEventListener("click", () => {
   stockControlButtonID.classList.add("active");
   discountCodesButtonID.classList.remove("active");
 });
-
-
 
 //clear out all items in LocalStorage
 MemoryDestructID.addEventListener("click", () => {
@@ -105,8 +97,6 @@ const buildDiscountCodes = (codes) => {
 };
 //add the buttons at the bottom after creating the discount codes
 const addDiscountCodeButtons = () => {
-  //document.getElementById("adminContainer2").classList.remove('hidden')
-  //document.getElementById("adminContainer3").classList.remove('hidden')
   const discountCodesButtonElement = document.createElement("div");
   discountCodesButtonElement.innerHTML = `</div>
                                       <div <button class="btn my-3 btn-default btn btnYellow rounded " onclick=hideDiscountButtons() >Close Discount Codes</button></div>
@@ -209,6 +199,7 @@ const hideStockButtons = () => {
   discountCodesButtonID.classList.remove("active");
 };
 
+//Get discount codes to build the cards
 const checkDiscountCodeALLAPI = () => {
   fetch("/api/POSTAllDiscountCodeAPI", {
     method: "POST",
@@ -225,11 +216,11 @@ const checkDiscountCodeALLAPI = () => {
     });
 };
 
+// Send ID of the discount code (to be deleted) to the server
 const deleteDiscountCodeAPI = (ID) => {
   const requestData = {
     ID: ID,
   };
-  console.log("2164", ID);
   fetch("/api/POSTdeleteDiscountCodeAPI", {
     method: "POST",
     headers: {
@@ -246,6 +237,7 @@ const deleteDiscountCodeAPI = (ID) => {
     });
 };
 
+// Update discount code DB on the server with the new updated data
 const updateDiscountCodeAPI = (ID, updatedCode, updatedPercentage) => {
   const requestData = {
     ID: ID,
@@ -269,6 +261,7 @@ const updateDiscountCodeAPI = (ID, updatedCode, updatedPercentage) => {
     });
 };
 
+// Add new discount code to the DB on the server
 const addDiscountCodeAPI = (ID, code, discPercent) => {
   const requestData = {
     ID: ID,
@@ -292,6 +285,7 @@ const addDiscountCodeAPI = (ID, code, discPercent) => {
     });
 };
 
+// Get data from the DB to build the cards - this is used when a 'type' is clicked
 const generateStockListAPI = (type) => {
   searchType = type;
   const requestData = {
@@ -316,6 +310,7 @@ const generateStockListAPI = (type) => {
     });
 };
 
+// Get data from the DB to build the cards - this is used when a 'type' is 'ALL'
 const generateAllStockListAPI = () => {
   fetch("/api/generateAllStockListAPI")
     .then((response) => response.json())
@@ -329,6 +324,7 @@ const generateAllStockListAPI = () => {
     });
 };
 
+// Update Stock amount DB on the server with the new updated data
 const updateStockAmountAPI = (ID, stockQty) => {
   const requestData = {
     ID: ID,
@@ -351,22 +347,17 @@ const updateStockAmountAPI = (ID, stockQty) => {
     });
 };
 
-function getLogonDetails() {
-  // Get the value from the "Username" input field
+// Had to put this inside a fucntion as calling the API directly was causing issues and not working (due to it needing to be async (I think))
+const getLogonDetails = ()  => {
   event.preventDefault();
-
   getLogonDetailsAPI();
-  console.log("test",{loginSuccessful});
- 
-
-  // Add your logic here, for example, sending the username to the server or performing validation.
 }
 
 const getLogonDetailsAPI = () => {
   fetch("http://localhost:5051/Logon")
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+
       let userNameValue = document.getElementById("userNameInput").value;
       let passwordValue = document.getElementById("passwordInput").value;
 
@@ -380,7 +371,6 @@ const getLogonDetailsAPI = () => {
 
       if (foundEntry) {
         mainContainerID.classList.remove("hidden");
-        loginSuccessful = true;
         console.log({loginSuccessful});
         userNameInputID.classList.add("hidden")
         passwordInputID.classList.add("hidden")
@@ -388,7 +378,6 @@ const getLogonDetailsAPI = () => {
         accountButtonLogoffID.classList.remove("hidden")
         failedLogon.classList.add("hidden")
       } else {
-        console.log({loginSuccessful});
         failedLogonID.classList.remove("hidden");
         console.log("here");
         userNameInput.value = ""; 

@@ -159,6 +159,48 @@ let ThreeID = document.getElementById("three");
 let apikey = "40441ec58e3ea7ae607a45ed2385fcdb";
 let appid = "166089c0";
 
+
+// code for Google log on
+const publishableKey = "pk_test_Y2FwYWJsZS1raXRlLTgyLmNsZXJrLmFjY291bnRzLmRldiQ"; // <- Add Publishable Key here
+
+const startClerk = async () => {
+  const Clerk = window.Clerk;
+
+  try {
+    // Load Clerk environment and session if available
+    await Clerk.load();
+
+    const userButton = document.getElementById("user-button");
+    const authLinks = document.getElementById("auth-links");
+
+    Clerk.addListener(({ user }) => {
+      // Display links conditionally based on user state
+      authLinks.style.display = user ? "none" : "block";
+    });
+
+    if (Clerk.user) {
+      // Mount user button component
+      Clerk.mountUserButton(userButton);
+      userButton.style.marginRight = "25px";
+    }
+  } catch (err) {
+    console.error("Error starting Clerk: ", err);
+  }
+};
+let temp1ID = document.getElementById("temp1");
+(() => {
+  const script = document.createElement("script");
+  script.setAttribute("data-clerk-publishable-key", publishableKey);
+  script.async = true;
+  script.src = `https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js`;
+  script.crossOrigin = "anonymous";
+  script.addEventListener("load", startClerk);
+  script.addEventListener("error", () => {
+    document.getElementById("no-frontend-api-warning").hidden = false;
+  });
+  temp1ID.appendChild(script);
+})();
+
 class cart {
   constructor() {
     this.cartItems = [];
@@ -167,7 +209,6 @@ class cart {
     this.cartTotalPrice = 0;
   }
 }
-
 
 class order {
   constructor() {
@@ -221,26 +262,27 @@ dropdownDishType2ID.innerHTML = "Dish Type";
 //populate the button text with the chosen dropdown in the recipe section
 const selectItem = (event, value, buttonID) => {
   event.preventDefault();
-  var button = document.getElementById(buttonID);
+  let button = document.getElementById(buttonID);
   button.innerHTML = value;
-  console.log(value);
-  if (value === "Price - High to Low" || value === "Price - Low to High") {
-    value === "Price - Low to High" ? (filterChoice = 1) : (filterChoice = -1);
 
-    console.log({ searchType }, { titleForProductSearch });
+  if (value === "Price - High to Low" || value === "Price - Low to High") {
+    value === "Price - Low to High" ? (filterChoice = 1) : (filterChoice = -1); //used for the value in the DB search on the server
+
+    //API calls to return the product cards depending on what cards are currently shown
     if (!searchType && !titleForProductSearch) {
 
-      filterShoppingCardsAllAPI(filterChoice);
+      filterShoppingCardsAllAPI(filterChoice); //used if all cards are currently shown
     } else if (!titleForProductSearch) {
 
-      filterShoppingCardsAPI(filterChoice);
+      filterShoppingCardsAPI(filterChoice); //used if the cards shown are a type, like fruit
     } else {
 
-      filterShoppingCardsSearchAPI(filterChoice);
+      filterShoppingCardsSearchAPI(filterChoice);  //used if the cards shown are the result of a search
     }
   }
 };
 
+// Screen settings for Recipe Page
 recipesMenuID.addEventListener("click", function () {
   recipesMenuID.classList.add("active");
   videosMenuID.classList.remove("active");
@@ -256,6 +298,7 @@ recipesMenuID.addEventListener("click", function () {
   cartContainerID.classList.remove("hidden");
 });
 
+// Screen settings for Video Page
 videosMenuID.addEventListener("click", function () {
   recipesMenuID.classList.remove("active");
   videosMenuID.classList.add("active");
@@ -292,6 +335,7 @@ btnbac2ID.addEventListener("click", function () {
   video2ID.classList.add("hidden");
 });
 
+// Settings for the when the Reset button is clicked on the recipe page - sets the dropdpown values to the headings names 
 resetButtonID.addEventListener("click", function () {
   dropdownCuisineID.innerHTML = "Cusine Type";
   dropdownMealTypeID.innerHTML = "Meal Type";
@@ -303,34 +347,40 @@ resetButtonShoppingID.addEventListener("click", function () {
   seacrhBarShoppingID.value = "";
 });
 
+//Close button on the Product View Page - there are 2
 closeButton1ID.addEventListener("click", function () {
   closeButtonViewSettings();
 });
 
+//Close button on the Product View Page - there are 2
 closeButtonID.addEventListener("click", function () {
   closeButtonViewSettings();
 });
 
+
 const closeButtonViewSettings = () => {
   displayShopSettings();
 
+   //API calls to return the product cards depending on what cards are currently shown
   if (!searchType && !titleForProductSearch) {
-    generateShoppingUIFirstBuild();
+    generateShoppingUIFirstBuild(); //used if all cards were showing prior to entering this page
   } else if (!titleForProductSearch) {
-    generateShoppingUI(searchType);
+    generateShoppingUI(searchType);  //used if the cards shown are the result of a search prior to entering this page
   } else {
-    searchShopItems;
+    searchShopItems; //used if the cards shown are a type, like fruit, prior to entering this page
   }
 
   productViewContainerID.classList.add("hidden");
   closeButton1ID.classList.remove("hidden");
 };
 
+// Settings for displaying the shop page
 shopID.addEventListener("click", function () {
   displayShopSettings();
   generateShoppingUIFirstBuild();
 });
 
+// Setting for displaying the checkout page
 const createCheckoutDisplaySettings = () => {
   checkoutContainerID.classList.remove("hidden");
   cartContainerID.classList.add("hidden");
@@ -342,6 +392,7 @@ const createCheckoutDisplaySettings = () => {
   recipesMenuID.classList.remove("active");
 };
 
+// Setting for displaying the Product View page
 const createProductViewDisplaySettings = () => {
   if (productViewContainerID.classList.contains("hidden")) {
     productViewContainerID.classList.remove("hidden");
@@ -355,6 +406,7 @@ const createProductViewDisplaySettings = () => {
   closeButton1ID.classList.remove("hidden");
 };
 
+// Settings for displaying the shop page
 const displayShopSettings = () => {
   shopID.classList.add("active");
   recipesMenuID.classList.remove("active");
@@ -371,6 +423,7 @@ const displayShopSettings = () => {
   cartContainerID.classList.remove("hidden");
 };
 
+// Settings for displaying the Account Popup
 accountButtontID.addEventListener("click", function () {
   videoscontainerID.classList.add("hidden");
   shoppingcontainerID.classList.add("hidden");
@@ -378,23 +431,12 @@ accountButtontID.addEventListener("click", function () {
   accountContainer.classList.remove("hidden");
   accountContainer2ID.classList.add("hidden");
   accountContainer3ID.classList.add("hidden");
-
   productViewContainerID.classList.add("hidden");
   cartContainerID.classList.add("hidden");
   checkoutContainer.classList.add("hidden");
   shopID.classList.remove("active");
   recipesMenuID.classList.remove("active");
   videosMenuID.classList.remove("active");
-});
-
-//used for the alert box after signing up to the newsletter - uses the classes of .alert-dismissible .close
-document.addEventListener("DOMContentLoaded", function () {
-  const closeButtons = document.querySelectorAll(".alert-dismissible .close");
-  closeButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      this.parentElement.style.display = "none";
-    });
-  });
 });
 
 //function to create default values for the recipe search if a user doesn't select anything
@@ -2216,43 +2258,4 @@ const filterShoppingCardsSearchAPI = (filtervalue) => {
       console.error("Error:", error);
     });
 };
-// code for Google log on
-const publishableKey = "pk_test_Y2FwYWJsZS1raXRlLTgyLmNsZXJrLmFjY291bnRzLmRldiQ"; // <- Add Publishable Key here
 
-const startClerk = async () => {
-  const Clerk = window.Clerk;
-
-  try {
-    // Load Clerk environment and session if available
-    await Clerk.load();
-
-    const userButton = document.getElementById("user-button");
-    const authLinks = document.getElementById("auth-links");
-
-    Clerk.addListener(({ user }) => {
-      // Display links conditionally based on user state
-      authLinks.style.display = user ? "none" : "block";
-    });
-
-    if (Clerk.user) {
-      // Mount user button component
-      Clerk.mountUserButton(userButton);
-      userButton.style.marginRight = "25px";
-    }
-  } catch (err) {
-    console.error("Error starting Clerk: ", err);
-  }
-};
-let temp1ID = document.getElementById("temp1");
-(() => {
-  const script = document.createElement("script");
-  script.setAttribute("data-clerk-publishable-key", publishableKey);
-  script.async = true;
-  script.src = `https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js`;
-  script.crossOrigin = "anonymous";
-  script.addEventListener("load", startClerk);
-  script.addEventListener("error", () => {
-    document.getElementById("no-frontend-api-warning").hidden = false;
-  });
-  temp1ID.appendChild(script);
-})();
