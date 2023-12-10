@@ -452,7 +452,8 @@ This button was implemented in the early days of the project when Local Storage 
 ## Video Page
 <img src="Assets/Screen Shots/Video Page.png" alt="Video Page">
 
-Here a user can select either of the videos by clicking on the 'Watch Now. buttons.  This will bring up the selected video, which can be played on within the website of the user can wtach on YouTube
+Here a user can select either of the videos by clicking on the 'Watch Now. buttons.  This will bring up the selected video, which can be played on within the website of the user can watch on YouTube
+
 <img src="Assets/Screen Shots/Video Player.png" alt="Video Player">
 
 ## Chatbot
