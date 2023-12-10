@@ -12,7 +12,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
 
 * [Introduction](#My-First-Project)
 * [Libraries, Technologies and Techniques](#Libraries,-Technologies-and-Techniques)
-* [Design (UXD)](#design-uxd)Carousel
+* [Design (UXD)](#design-uxd)
     * [Scope](#scope)
     * [Structure](#structure)
 * [Features](#Features)
@@ -50,7 +50,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
 * C# for the logon details storage on the Admin Portal
 * Local Storage - used to store Addresses (before I had taught myself how to use Databases)
 
-* [BootStrap](https://getbootstrap.com/) - to assist with the visuals I learnt  as I found this gave me greater control over the style and layout of the pages.
+* [BootStrap](https://getbootstrap.com/) - to assist with the visuals.  I found this gave me greater control over the style and layout of the pages.
 * [EDAMAM](https://api.edamam.com/) - provided the API data for the recipe lookup
 * [Express js](https://expressjs.com/) - for running the Web Server
 * [NEeDB](https://dbdb.io/db/nedb) - for running my Databases
@@ -88,7 +88,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
 * Item cards
     * Display the requested recipes/items
 
-* Login Page
+Login Page
 
     * Background image
     * Enlarged Logo
@@ -97,7 +97,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
             * Email logon or
             * Use Google Account
 
-* Video Page
+Video Page
 
     * Background image
     * Navigation Bar
@@ -110,7 +110,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
     * 2 Images, each with a 'Watch Now' button
         * On click of either button, the corresponding video is displayed which is linked to [YouTube](https://www.youtube.com/)
 
-* Checkout Page
+Checkout Page
 
     Background image
     * Navigation Bar
@@ -130,49 +130,49 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
     * Discount code - with an input box and button.  Depending on the code entered or the number of codes entered, different information is displayed under the input box
     * Complete order button
 
-* Change Address Popup
+Change Address Popup
 
     * Displays current addresses saved in the users address book
     * Provides the option to choose one of the saved ones, cancel or find a new address
 
-* Find New Address Popup
+Find New Address Popup
 
     * Field which will auto complete as the user starts to enter their address
     * Buttons to select the chosen address or cancel
 
-* User Account Popup
+User Account Popup
 
     * Button to view previous orders
     * Button to access address book
 
-* Address Book
+Address Book
 
     * Cards for each saved address
         * Each address has a button to make it default or to remove it
     * Buttons to close the section or add a new address
 
-* Stock Control Page
+Stock Control Page
 
-    * Nav bar with logo, Username and Password entry fields and confirmation button
+* Nav bar with logo, Username and Password entry fields and confirmation button
 
-        * Once logged in:-
+    * Once logged in:-
 
-            * Stock Control Section
+        * Stock Control Section
 
-                * Filter buttons to choose product type
-                * Card for each product with:
-                    * Product name
-                    * Input box to amend quantity
-                    * Update button
+            * Filter buttons to choose product type
+            * Card for each product with:
+                * Product name
+                * Input box to amend quantity
+                * Update button
 
-            * Discount Code Section
+        * Discount Code Section
 
-                * Card for each discount code with:
-                    * Input box containing code name
-                    * Input box to amend code value
-                    * Update and cancel buttons
-            
-            * Memory Destruct Button
+            * Card for each discount code with:
+                * Input box containing code name
+                * Input box to amend code value
+                * Update and cancel buttons
+        
+        * Memory Destruct Button
  
 
 ## Features
