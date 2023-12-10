@@ -15,6 +15,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
 * [Design (UXD)](#design-uxd)
     * [Scope](#scope)
     * [Structure](#structure)
+    * [Designs](Assets/Designs/)
 * [Features](#Features)
     * [Login Page](#Login-Page)
     * [Navigation Bar](#Navigation-Bar)
@@ -37,7 +38,9 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
     * [Admin Portal](#Admin-Portal)
         * [Stock Control](#Stock-Control)
         * [Discount Codes](#Discount-Codes)
-        * [Memory Destruction](#Memory-Destruct)
+        * [Memory Destruct](#Memory-Destruct)
+    * [Video Page](#Video-Page)
+    * [Chatbot - "Helping Handy"](#Chatbot)
 * [Manual User Testing](#Maunal-User-Testing) 
 * [Future Feature Enhancements](#Future-Feature-Enhancements)
 * [Known outstanding bugs](#Known-outstanding-bugs)
@@ -78,7 +81,7 @@ For both the Recipe Finder page and the shopping Page I wanted to make sure they
     * Links to the users Google Account, User Account sections and a link to the Checkout (cart icon)
 * Shopping cart
     * When items have been selected they are shown here and can be deleted [see below for more information](#Shopping-Cart)
-* Search bar - with Search and reset buttons - utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
+* Search bar - with Search and reset buttons - Utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
 * Filter buttons
     * On the Recipe page these are used for selecting different types of meals and by country
     * On the Shopping page these are used for selecting the type of food item by category
@@ -106,20 +109,20 @@ Video Page
     * Links to the users Google Account, User Account sections and a link to the Checkout (cart icon)
 * Shopping cart
     * When items have been selected they are shown here and can be deleted [see below for more information](#Shopping-Cart)
-* Search bar - with Search and reset buttons - utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
+* Search bar - with Search and reset buttons - Utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
 * 2 Images, each with a 'Watch Now' button
     * On click of either button, the corresponding video is displayed which is linked to [YouTube](https://www.youtube.com/)
 
 Checkout Page
 
-Background image
+* Background image
 * Navigation Bar
     * Website Logo
     * With links to the Recipe, Shop and Video Pages
     * Links to the users Google Account, User Account sections and a link to the Checkout (cart icon)
 * Shopping cart
     * When items have been selected they are shown here and can be deleted [see below for more information](#Shopping-Cart)
-* Search bar - with Search and reset buttons - utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
+* Search bar - with Search and reset buttons - Utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
 * Cards displaying each of the items from the shopping cart:-
     * Product image
     * Product name
@@ -200,7 +203,7 @@ Stock Control Page
 
   * Search Input Bar with Search and reset buttons - 
     * User can enter a main ingredient which in conjunction with the filters will return 20 recipes
-    * utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
+    * Utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
   * Filters
     * Cuisine Type - Choose a country
     * Meal Type - Breakfast, lunch, dinner etc
@@ -225,13 +228,15 @@ Stock Control Page
   
  * Search Input Bar with Search and reset buttons - 
     * User can use 'fuzzy search' to find items
-    * utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
+    * Utilises 'focus' on search bar so a user can press the 'enter' key once they have typed and this will carry out the same functionality as clicking the 'search' button
     * If any products match the search phrase they will be displayed
     <img src="Assets/Screen Shots/Product Search.png" alt="Product Search">
+
     * Also the option to filter by price -
         * High to Low 
         * Low to High
     <img src="Assets/Screen Shots/Filter by Price.png" alt="Filter by Price">
+
     * If no matches, a message will be displayed
      <img src="Assets/Screen Shots/Shop - no items match search.png" alt="Shop - no items match search">
     
@@ -397,7 +402,7 @@ Here a users **Default** address is shown at the top and has a grey background. 
 
 * Set an address as **Default** by clicking the button under the relevant address card
 * Remove an address - this will delete it from the Address book, **Unless** it is the **Default** one.  If the user tries this they will be shown an alert
-<img src="Assets/Screen Shots/Account - Alert for default removal.png" alt="Alert for Default">
+    <img src="Assets/Screen Shots/Account - Alert for default removal.png" alt="Alert for Default">
 
 * Add a new address using the [Add Addresses](#new-address-lookup) button
 
@@ -442,6 +447,18 @@ This is where an Admin can make changes to the [Stock numbers](#Stock-Control), 
 This button was implemented in the early days of the project when Local Storage was added.  Local storage has a limit and sometime the Previous orders can become full.
 
 * clicking the 'Memory Destruct' button will clear the Previous Orders and reset the Address book back to the ones stored in the server code.  It will also give an alert to confirm it has been successful
+
+## Video Page
+<img src="Assets/Screen Shots/Video Page.png" alt="Video Page">
+
+Here a user can select either of the videos by clicking on the 'Watch Now. buttons.  This will bring up the selected video, which can be played on within the website of the user can wtach on YouTube
+<img src="Assets/Screen Shots/Video Player.png" alt="Video Player">
+
+## Chatbot
+<img src="Assets/Screen Shots/Chatbot.png" alt="Chatbot">
+
+The Chatbot (Helping Handy) is fed from information I have provided it about the site, such as product lists and information about deliveries.  It is able to answer questions about product availability and prices.
+
 
 ## Manual User Testing
 
