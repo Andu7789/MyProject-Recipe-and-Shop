@@ -16,6 +16,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
     * [Scope](#Scope)
     * [Structure](#structure)
     * [Designs](Assets/Designs/)
+    * [Example Project Plan for adding address lookup functionality](Assets/Example%20Project%20Plan/Adding%20address%20lookup%20to%20my%20shopping%20website%20-%20Test%20plan%20added.pptx)
 * [Features](#Features)
     * [Login Page](#Login-Page)
     * [Navigation Bar](#Navigation-Bar)

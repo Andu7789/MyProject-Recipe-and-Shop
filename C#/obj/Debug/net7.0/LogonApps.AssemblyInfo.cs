@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LogonApps")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85ba6f79cc1dd0e1941073a670f337ea39dd5970")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("LogonApps")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LogonApps")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
