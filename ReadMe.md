@@ -179,7 +179,9 @@ Stock Control Page
         * Memory Destruct Button
 
 ### Example Project Plan for adding address lookup functionality
-As part of the course we were given the task of creating a project plan for a new piece of fucntionality we could add to our project.  The teask involved putting together requirements, test plans, designs, stakeholder maps etc.  My submission can be found [here](Assets/Example%20Project%20Plan/Adding%20address%20lookup%20to%20my%20shopping%20website%20-%20Test%20plan%20added.pptx)
+As part of the course we were given the task of creating a project plan for a new piece of functionality we could add to our project.  The task involved putting together requirements, test plans, designs, stakeholder maps etc.  My submission can be found [here](Assets/Example%20Project%20Plan/Adding%20address%20lookup%20to%20my%20shopping%20website%20-%20Test%20plan%20added.pptx).
+
+This functionality was then added to the final project [New Address Lookup](#New-Address-Lookup)
 
  
 
