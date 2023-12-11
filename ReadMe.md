@@ -16,7 +16,7 @@ This site was created to showcase my learnings from a 12 week course (an Introdu
     * [Scope](#Scope)
     * [Structure](#structure)
     * [Designs](Assets/Designs/)
-    * [Example Project Plan for adding address lookup functionality](Assets/Example%20Project%20Plan/Adding%20address%20lookup%20to%20my%20shopping%20website%20-%20Test%20plan%20added.pptx)
+    * [Example Project Plan for adding address lookup functionality](#Example-Project-Plan-for-adding-address-lookup-functionality)
 * [Features](#Features)
     * [Login Page](#Login-Page)
     * [Navigation Bar](#Navigation-Bar)
@@ -177,6 +177,10 @@ Stock Control Page
                 * Update and cancel buttons
         
         * Memory Destruct Button
+
+### Example Project Plan for adding address lookup functionality
+As part of the course we were given the task of creating a project plan for a new piece of fucntionality we could add to our project.  The teask involved putting together requirements, test plans, designs, stakeholder maps etc.  My submission can be found [here](Assets/Example%20Project%20Plan/Adding%20address%20lookup%20to%20my%20shopping%20website%20-%20Test%20plan%20added.pptx)
+
  
 
 ## Features
