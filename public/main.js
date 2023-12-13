@@ -1424,7 +1424,7 @@ const chooseDeliverySlot = () => {
                   slot.status === "booked"
                 );
 
-                // Update the text content of the cell
+                // Update the text content of the cellchooseDeliverySlot
                 if (slot.status === "booked" || slot.status === "unavailable") {
                   currentCell.innerHTML = slot.status;
                 } else {
@@ -1622,39 +1622,47 @@ const addOrder = (orderArray, order) => {
 };
 //update the order array with the latest order when youy click the checkout button
 const createOrder = () => {
-  sendEmailVariablesAPI();
-  callEmailFunctionAPI();
-  //set cart counter to zero
-  cartItemCount.innerHTML = 0;
-  UpdateStockControlAPI();
-  updateOrderQtyToZeroAPI();
-  alertboxID.classList.toggle("hidden")
-  cartClass.cartItems = [];
-  cartContainerID.classList.add("hidden");
 
-  checkoutContainerID.classList.add("hidden");
-  let counter = orderClass.orderNumber - 1;
-  let storageArray = [];
-  orderClass.customerOrder = cartClass.cartItems;
-  //if there are no orders stored then store the current order
-  if (localStorage.getItem("strObj") == null) {
-    const strObj = JSON.stringify(ordersArray);
-    localStorage.setItem("strObj", strObj);
-  } else {
-    //if orders already exist - pull the current order list from LocalStorage
-    const strObjFromStorage = localStorage.getItem("strObj");
-    let objFromStorage = JSON.parse(strObjFromStorage);
-
-    objFromStorage = objFromStorage.concat(ordersArray); //add the current order to the end of the orders array
-
-    const strObj = JSON.stringify(objFromStorage);
-    localStorage.setItem("strObj", strObj); //put the array back into LocalStorage
+  if (!deliverySlotTime){
+    alert("You need to select a delivery slot before checking out")
+    return;
+  }
+  else{
+    sendEmailVariablesAPI();
+    callEmailFunctionAPI();
+    //set cart counter to zero
+    cartItemCount.innerHTML = 0;
+    UpdateStockControlAPI();
+    updateOrderQtyToZeroAPI();
+    alertboxID.classList.toggle("hidden")
+    cartClass.cartItems = [];
+    cartContainerID.classList.add("hidden");
+  
+    checkoutContainerID.classList.add("hidden");
+    let counter = orderClass.orderNumber - 1;
+    let storageArray = [];
+    orderClass.customerOrder = cartClass.cartItems;
+    //if there are no orders stored then store the current order
+    if (localStorage.getItem("strObj") == null) {
+      const strObj = JSON.stringify(ordersArray);
+      localStorage.setItem("strObj", strObj);
+    } else {
+      //if orders already exist - pull the current order list from LocalStorage
+      const strObjFromStorage = localStorage.getItem("strObj");
+      let objFromStorage = JSON.parse(strObjFromStorage);
+  
+      objFromStorage = objFromStorage.concat(ordersArray); //add the current order to the end of the orders array
+  
+      const strObj = JSON.stringify(objFromStorage);
+      localStorage.setItem("strObj", strObj); //put the array back into LocalStorage
+    }
+  
+    orderClass.orderNumber = orderClass.orderNumber + 1;
+  
+    const strObjOrdeNum = JSON.stringify(orderClass.orderNumber);
+    localStorage.setItem("strObjOrderNum", strObjOrdeNum); //put the order number into LocalStorage
   }
 
-  orderClass.orderNumber = orderClass.orderNumber + 1;
-
-  const strObjOrdeNum = JSON.stringify(orderClass.orderNumber);
-  localStorage.setItem("strObjOrderNum", strObjOrdeNum); //put the order number into LocalStorage
 };
 
 messageCloseButtonD.addEventListener("click", () => {

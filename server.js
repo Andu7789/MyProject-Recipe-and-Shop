@@ -84,6 +84,7 @@ let htmlContent = `
   });
 
   data.forEach((item, index) => {
+    
     attachments.push({
       filename: `image_${item.title.replace(/\s/g, '_')}.png`, // Adjust filename as needed
       content: item.image,
@@ -142,6 +143,7 @@ htmlContent += `
 };
 
 transporter.sendMail(mailOptions, (error, info) => {
+
     if (error) {
         return console.log(error);
     }
@@ -161,7 +163,7 @@ const imagePath1 = "Assets/Img/Food/Beef Fillet.png";
 const imageBuffer1 = fs.readFileSync(imagePath1);
 const base64Image1 = imageBuffer1.toString("base64");
 
-const imagePath2 = "Assets/Img/Food/Beef Mince.png"; 
+const imagePath2 = "Assets/Img/Food/Beef mince.png"; 
 const imageBuffer2 = fs.readFileSync(imagePath2);
 const base64Image2 = imageBuffer2.toString("base64");
 
@@ -181,7 +183,7 @@ const imagePath6 = "Assets/Img/Food/Sausages.png";
 const imageBuffer6 = fs.readFileSync(imagePath6);
 const base64Image6= imageBuffer6.toString("base64");
 
-const imagePath7 = "Assets/Img/Food/Whole Chicken.png"; 
+const imagePath7 = "Assets/Img/Food/Whole chicken.png"; 
 const imageBuffer7 = fs.readFileSync(imagePath7);
 const base64Image7= imageBuffer7.toString("base64");
 
@@ -197,7 +199,7 @@ const imagePath10 = "Assets/Img/Food/Limes.png";
 const imageBuffer10 = fs.readFileSync(imagePath10);
 const base64Image10 = imageBuffer10.toString("base64");
 
-const imagePath11 = "Assets/Img/Food/Oranges.png"; 
+const imagePath11 = "Assets/Img/Food/oranges.png"; 
 const imageBuffer11 = fs.readFileSync(imagePath11);
 const base64Image11 = imageBuffer11.toString("base64");
 
@@ -644,7 +646,7 @@ app.post('/api/POSTSendCustomerEmail', (request, response) => {
   const data = request.body
   //console.log(data);
   sendEmail(data)
-  console.log(data);
+  console.log("Andy");
   response.json({
       status: "success",
   })
